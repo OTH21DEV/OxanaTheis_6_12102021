@@ -1,0 +1,29 @@
+@use "../abstracts/variables" as *;
+
+article > img{
+    width: 20vh;
+    height: 20vh;
+  border-radius: 20vh;
+  object-fit: cover;
+}
+
+article{
+    width:30%;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding:40px 0;
+}
+h2{
+  color:$tertiary-color;
+  font-weight: 400;
+  font-size: 1em;
+}
+h3{
+  color: $primary-color;
+  font-weight: 400;
+  font-size: 0.8em;
+}
+p{
+  font-size: 0.8em;
+}

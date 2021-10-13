@@ -1,0 +1,24 @@
+{
+  "name": "p6_fish_eye",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./css/style.css",
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OTH21DEV/OxanaTheis_6_12102021.git"
+  },
+  "browserslist": "last 4 versions",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "2.3.1"
+  },
+  "bugs": {
+    "url": "https://github.com/OTH21DEV/OxanaTheis_6_12102021/issues"
+  },
+  "homepage": "https://github.com/OTH21DEV/OxanaTheis_6_12102021#readme"
+}
