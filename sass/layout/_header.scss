@@ -1,45 +1,56 @@
 @use "../abstracts/variables" as *;
 
-
-header > img{
-    width:130px;
-    align-self: center;
-}
-
-header{
-
-    display:flex;
-    
-    justify-content: space-between;
-   align-items: center;
-   padding:0 40px;
-flex-wrap: wrap;
-}
-
-.test{
-
+.header {
   display: flex;
+  flex-direction: row;
+
   justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.header__img {
+  width: 130px;
+  align-self: center;
+}
+.header__nav:nth-child(2) {
+  order: 3;
+  padding: 20px;
+}
+
+.header__heading:nth-child(3) {
+  order: 2;
+}
+
+.header__nav > ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
  
-
-
 }
 
+li {
+  margin-bottom: 10px;
+}
+a {
+  font-size: 0.8em;
+  padding: 3px;
+  color: $primary-color;
+  font-weight: 500;
+  margin-right: 5px;
+  border-radius: 11px;
+  border: 0.5px solid $border-color;
 
-.test > li{
-
- font-size: 0.8em;
- padding: 3px;
- color: $primary-color;
- font-weight: 500;
-margin-right: 5px;
-border-radius: 11px;
-border: 0.5px solid #C4C4C4;
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
 }
 
-h1{
-    color: $primary-color;
-    font-weight: 400;
-    
- font-size: 1.8em;
+h1 {
+  color: $primary-color;
+  font-weight: 400;
+
+  font-size: 1em;
 }
