@@ -1,4 +1,5 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixin" as *;
 
 .header {
   display: flex;
@@ -8,26 +9,42 @@
   align-items: center;
   padding: 0 20px;
   flex-wrap: wrap;
+
+  
 }
 
-.header__img {
+.header__img:nth-child(1) {
   width: 130px;
   align-self: center;
+  order:1;
 }
 .header__nav:nth-child(2) {
   order: 3;
   padding: 20px;
+  @include tablette{
+    width:100%;
+  }
+ 
+  
+    @include desktop{
+      order: 2;
+      width:inherit;
+    } 
 }
 
 .header__heading:nth-child(3) {
   order: 2;
-}
+  @include desktop{
+  order:3;
+
+}}
 
 .header__nav > ul {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
- 
+
+
 }
 
 li {

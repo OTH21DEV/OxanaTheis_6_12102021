@@ -60,18 +60,35 @@ p {
   flex-wrap: wrap;
 }
 
-.header__img {
+.header__img:nth-child(1) {
   width: 130px;
   align-self: center;
+  order: 1;
 }
 
 .header__nav:nth-child(2) {
   order: 3;
   padding: 20px;
 }
+@media all and (min-width: 600px) {
+  .header__nav:nth-child(2) {
+    width: 100%;
+  }
+}
+@media all and (min-width: 900px) {
+  .header__nav:nth-child(2) {
+    order: 2;
+    width: inherit;
+  }
+}
 
 .header__heading:nth-child(3) {
   order: 2;
+}
+@media all and (min-width: 900px) {
+  .header__heading:nth-child(3) {
+    order: 3;
+  }
 }
 
 .header__nav > ul {
