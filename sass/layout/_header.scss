@@ -3,54 +3,71 @@
 
 .header {
   display: flex;
-  flex-direction: row;
+  //flex-direction: column;
 
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   flex-wrap: wrap;
-
-  
+}
+.header__hidden-link:nth-child(1) {
+  order: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 12%;
+ // visibility: hidden;
 }
 
-.header__img:nth-child(1) {
-  width: 130px;
-  align-self: center;
-  order:1;
+.header__hidden-link > p {
+  width: 40%;
+  color: black;
+  font-weight: bold;
+  background-color: $secondary-color;
+  text-align: center;
+  //margin-bottom: 20px;
+  padding: 5px 0;
 }
-.header__nav:nth-child(2) {
-  order: 3;
-  padding: 20px;
-  @include tablette{
-    width:100%;
-  }
+.header__logo-link:nth-child(2) {
  
-  
-    @include desktop{
-      order: 2;
-      width:inherit;
-    } 
+  order: 2;
+ 
+& >img{
+  width: 120px;
+}
 }
 
-.header__heading:nth-child(3) {
-  order: 2;
-  @include desktop{
-  order:3;
+.header__nav:nth-child(3) {
+  order: 4;
+  padding: 20px;
 
-}}
+  @include tablette {
+    width: 100%;
+  }
 
+  @include desktop {
+    order: 2;
+    width: inherit;
+  }
+}
+
+.header__heading:nth-child(4) {
+  order: 3;
+
+  @include desktop {
+    order: 3;
+  }
+}
 .header__nav > ul {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-
-
 }
 
 li {
   margin-bottom: 10px;
 }
-a {
+.header__link {
   font-size: 0.8em;
   padding: 3px;
   color: $primary-color;
@@ -58,6 +75,7 @@ a {
   margin-right: 5px;
   border-radius: 11px;
   border: 0.5px solid $border-color;
+  width: 100%;
 
   &:hover {
     background-color: $primary-color;
@@ -71,3 +89,10 @@ h1 {
 
   font-size: 1em;
 }
+/*
+.header__link {
+  //visibility: hidden;
+
+  // position: relative;
+}
+*/
