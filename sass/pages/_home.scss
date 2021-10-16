@@ -8,24 +8,29 @@
   align-items: center;
   @include tablette {
     display: flex;
-   width:45%;
+    width: 45%;
   }
 
   @include desktop {
     display: flex;
-   width:33%;
+    width: 33%;
   }
+
+
+  
 }
 
-
-.photographer-profile__photo > img {
+.photographer-profile__photo {
   width: 30vh;
   height: 30vh;
   border-radius: 20vh;
   object-fit: cover;
+
+
+
 }
 
-.photographer-profile__photo > h2 {
+.photographer-profile__img > h2 {
   color: $tertiary-color;
   font-weight: 400;
   font-size: 1.5em;
@@ -40,6 +45,7 @@
 .photographer-profile__title > p {
   font-size: 0.8em;
   text-align: center;
+  color: black;
 }
 a {
   text-decoration: none;
@@ -52,7 +58,7 @@ a {
 section {
   @include tablette {
     display: flex;
-   justify-content: space-between;
-   flex-wrap: wrap;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }

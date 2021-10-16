@@ -16,14 +16,14 @@
   }
 }
 
-.photographer-profile__photo > img {
+.photographer-profile__photo {
   width: 30vh;
   height: 30vh;
   border-radius: 20vh;
   object-fit: cover;
 }
 
-.photographer-profile__photo > h2 {
+.photographer-profile__img > h2 {
   color: #D3573C;
   font-weight: 400;
   font-size: 1.5em;
@@ -40,6 +40,7 @@
 .photographer-profile__title > p {
   font-size: 0.8em;
   text-align: center;
+  color: black;
 }
 
 a {
@@ -56,6 +57,10 @@ a {
     justify-content: space-between;
     flex-wrap: wrap;
   }
+}
+
+.header__logo-link > img {
+  width: 120px;
 }
 
 body {
