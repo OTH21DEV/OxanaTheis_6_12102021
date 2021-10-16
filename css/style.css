@@ -1,34 +1,61 @@
-article > img {
+.photographer-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media all and (min-width: 582px) {
+  .photographer-profile {
+    display: flex;
+    width: 45%;
+  }
+}
+@media all and (min-width: 880px) {
+  .photographer-profile {
+    display: flex;
+    width: 33%;
+  }
+}
+
+.photographer-profile__photo > img {
   width: 30vh;
   height: 30vh;
   border-radius: 20vh;
   object-fit: cover;
 }
 
-article {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h2 {
+.photographer-profile__photo > h2 {
   color: #D3573C;
   font-weight: 400;
   font-size: 1.5em;
+  text-align: center;
 }
 
-h3 {
+.photographer-profile__title > h3 {
   color: #901C1C;
   font-weight: 400;
   font-size: 0.8em;
+  text-align: center;
 }
 
-p {
+.photographer-profile__title > p {
   font-size: 0.8em;
+  text-align: center;
 }
 
 a {
   text-decoration: none;
+}
+
+.photographer-profile__nav > ul {
+  display: flex;
+}
+
+@media all and (min-width: 582px) {
+  section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 body {
@@ -87,12 +114,12 @@ p {
   order: 4;
   padding: 20px;
 }
-@media all and (min-width: 600px) {
+@media all and (min-width: 582px) {
   .header__nav:nth-child(3) {
     width: 100%;
   }
 }
-@media all and (min-width: 900px) {
+@media all and (min-width: 880px) {
   .header__nav:nth-child(3) {
     order: 2;
     width: inherit;
@@ -102,7 +129,7 @@ p {
 .header__heading:nth-child(4) {
   order: 3;
 }
-@media all and (min-width: 900px) {
+@media all and (min-width: 880px) {
   .header__heading:nth-child(4) {
     order: 3;
   }
@@ -118,7 +145,7 @@ li {
   margin-bottom: 10px;
 }
 
-.header__link {
+.category__link {
   font-size: 0.8em;
   padding: 3px;
   color: #901C1C;
@@ -128,7 +155,7 @@ li {
   border: 0.5px solid #c4c4c4;
   width: 100%;
 }
-.header__link:hover {
+.category__link:hover {
   background-color: #901C1C;
   color: white;
 }
@@ -138,13 +165,5 @@ h1 {
   font-weight: 400;
   font-size: 1em;
 }
-
-/*
-.header__link {
-  //visibility: hidden;
-
-  // position: relative;
-}
-*/
 
 /*# sourceMappingURL=style.css.map */

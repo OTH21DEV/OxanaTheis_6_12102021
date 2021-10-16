@@ -1,32 +1,58 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixin" as *;
 
-article > img {
+.photographer-profile {
+  // width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include tablette {
+    display: flex;
+   width:45%;
+  }
+
+  @include desktop {
+    display: flex;
+   width:33%;
+  }
+}
+
+
+.photographer-profile__photo > img {
   width: 30vh;
   height: 30vh;
   border-radius: 20vh;
   object-fit: cover;
 }
 
-article {
- // width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
- // padding: 40px 0;
-}
-h2 {
+.photographer-profile__photo > h2 {
   color: $tertiary-color;
   font-weight: 400;
   font-size: 1.5em;
+  text-align: center;
 }
-h3 {
+.photographer-profile__title > h3 {
   color: $primary-color;
   font-weight: 400;
   font-size: 0.8em;
+  text-align: center;
 }
-p {
+.photographer-profile__title > p {
   font-size: 0.8em;
+  text-align: center;
 }
 a {
   text-decoration: none;
+}
+
+.photographer-profile__nav > ul {
+  display: flex;
+}
+
+section {
+  @include tablette {
+    display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+  }
 }
