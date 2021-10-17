@@ -15,12 +15,21 @@
     width: 33%;
   }
 }
+.photographer-profile.photographer-profile--page {
+  flex-direction: column;
+  align-items: flex-start;
+}
 
 .photographer-profile__photo {
   width: 30vh;
   height: 30vh;
   border-radius: 20vh;
   object-fit: cover;
+}
+.photographer-profile__photo.photographer-profile__photo--small {
+  width: 13vh;
+  height: 13vh;
+  margin-top: -14px;
 }
 
 .photographer-profile__img > h2 {
@@ -37,10 +46,18 @@
   text-align: center;
 }
 
+.photographer-profile__title--page > h3 {
+  text-align: left;
+}
+
 .photographer-profile__title > p {
   font-size: 0.8em;
   text-align: center;
   color: black;
+}
+
+.photographer-profile__title--page > p {
+  text-align: left;
 }
 
 a {
@@ -61,6 +78,12 @@ a {
 
 .header__logo-link > img {
   width: 120px;
+}
+
+.test {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
 }
 
 body {
