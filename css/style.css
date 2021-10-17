@@ -30,13 +30,17 @@
   width: 13vh;
   height: 13vh;
   margin-top: -14px;
+  margin-left: -10px;
 }
 
-.photographer-profile__img > h2 {
+.photographer-profile__name {
   color: #D3573C;
   font-weight: 400;
   font-size: 1.5em;
   text-align: center;
+}
+.photographer-profile__name.photographer-profile__name--page {
+  font-size: 1.8em;
 }
 
 .photographer-profile__title > h3 {
@@ -47,7 +51,12 @@
 }
 
 .photographer-profile__title--page > h3 {
+  font-size: 1.2em;
+}
+
+.photographer-profile__title--page > h3 {
   text-align: left;
+  font-size: 0.9em;
 }
 
 .photographer-profile__title > p {
@@ -58,6 +67,7 @@
 
 .photographer-profile__title--page > p {
   text-align: left;
+  font-size: 0.9em;
 }
 
 a {
@@ -182,6 +192,7 @@ li {
   border-radius: 11px;
   border: 0.5px solid #c4c4c4;
   width: 100%;
+  font-weight: bold;
 }
 .category__link:hover {
   background-color: #901C1C;

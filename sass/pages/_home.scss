@@ -35,14 +35,19 @@
     width: 13vh;
     height: 13vh;
    margin-top: -14px;
+   margin-left: -10px;
   }
 }
 
-.photographer-profile__img > h2 {
+.photographer-profile__name {
   color: $tertiary-color;
   font-weight: 400;
   font-size: 1.5em;
   text-align: center;
+
+  &.photographer-profile__name--page{
+    font-size: 1.8em;
+  }
 }
 .photographer-profile__title > h3 {
   color: $primary-color;
@@ -50,10 +55,14 @@
   font-size: 0.8em;
   text-align: center;
 }
+.photographer-profile__title--page > h3{
 
+  font-size: 1.2em;
+}
 
   .photographer-profile__title--page > h3{
     text-align: left;
+    font-size: 0.9em;
   }
 
 .photographer-profile__title > p {
@@ -64,6 +73,7 @@
 
 .photographer-profile__title--page > p{
   text-align: left;
+  font-size: 0.9em;
 }
 a {
   text-decoration: none;
