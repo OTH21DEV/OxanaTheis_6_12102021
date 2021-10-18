@@ -96,6 +96,78 @@ a {
   justify-content: space-between;
 }
 
+@media all and (min-width: 880px) {
+  article {
+    width: 30%;
+  }
+}
+
+.galery-photo {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+@media all and (min-width: 880px) {
+  .galery-photo {
+    flex-direction: row;
+  }
+}
+
+.galery-photo__img > img {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.galery-photo-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 3px;
+}
+
+.galery-photo-like {
+  display: flex;
+}
+
+.galery-photo-title p, .galery-photo-like p {
+  color: #901C1C;
+  font-size: 0.8em;
+}
+
+.fa-heart {
+  font-size: 0.8em;
+  padding-left: 3px;
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+@media all and (min-width: 880px) {
+  .contact {
+    position: relative;
+    top: -50em;
+    left: -5em;
+  }
+}
+
+.contact__btn {
+  background-color: #901C1C;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  width: 25vh;
+  height: 5vh;
+}
+@media all and (min-width: 880px) {
+  .contact__btn {
+    width: 12vh;
+  }
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   width: auto;

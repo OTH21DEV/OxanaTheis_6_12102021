@@ -1,9 +1,78 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixin" as *;
+
 .header__logo-link > img {
   width: 120px;
 }
 
-.test{
+.test {
   display: flex;
   padding: 20px;
   justify-content: space-between;
+}
+
+article{
+  @include desktop{
+    width: 30%;
+  }
+}
+
+.galery-photo {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+
+
+  @include desktop{
+    flex-direction: row;
+  }
+}
+.galery-photo__img > img {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.galery-photo-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 3px;
+}
+.galery-photo-like {
+  display: flex;
+ 
+}
+
+.galery-photo-title  p, .galery-photo-like  p{
+  color: $primary-color;
+  font-size: 0.8em;
+}
+ .fa-heart {
+  font-size: 0.8em;
+  padding-left: 3px;
+}
+.contact{
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+
+  @include desktop{
+    position: relative;
+   
+    top: -50em;
+    left: -5em;
+  }
+}
+.contact__btn{
+  background-color: $primary-color;
+  color: white;
+  border-radius: 5px;
+  border:none;
+width:25vh;
+height:5vh;
+
+@include desktop{
+  width:12vh;
+}
 }
