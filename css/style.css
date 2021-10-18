@@ -168,6 +168,23 @@ a {
   }
 }
 
+.menu {
+  visibility: hidden;
+}
+@media all and (min-width: 880px) {
+  .menu {
+    visibility: visible;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+label {
+  padding-right: 10px;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   width: auto;

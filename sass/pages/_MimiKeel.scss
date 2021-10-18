@@ -76,3 +76,18 @@ height:5vh;
   width:12vh;
 }
 }
+
+.menu{
+  visibility: hidden;
+
+  @include desktop{
+    visibility: visible;
+    display: flex;
+    justify-content: flex-start;
+    padding-left:20px;
+    padding-bottom: 20px;
+  }
+}
+label{
+  padding-right: 10px;
+}
