@@ -131,7 +131,8 @@ a {
   display: flex;
 }
 
-.galery-photo-title p, .galery-photo-like p {
+.galery-photo-title p,
+.galery-photo-like p {
   color: #901C1C;
   font-size: 0.8em;
 }
@@ -149,7 +150,7 @@ a {
 @media all and (min-width: 880px) {
   .contact {
     position: relative;
-    top: -50em;
+    top: -55em;
     left: -5em;
   }
 }
@@ -167,7 +168,23 @@ a {
     width: 12vh;
   }
 }
+.contact__btn.contact__btn--listbox {
+  padding: 0 10px;
+}
 
+/*
+.contact__btn.contact__btn--listbox::after {
+  content: "";
+  border-bottom: black 3px solid;
+
+  display: block;
+  width: 40px;
+  padding-top: 5px;
+
+
+}
+
+*/
 .menu {
   visibility: hidden;
 }
@@ -183,6 +200,10 @@ a {
 
 label {
   padding-right: 10px;
+}
+
+.screenreader-text {
+  visibility: hidden;
 }
 
 body {

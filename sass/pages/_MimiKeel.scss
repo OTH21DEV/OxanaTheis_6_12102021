@@ -11,8 +11,8 @@
   justify-content: space-between;
 }
 
-article{
-  @include desktop{
+article {
+  @include desktop {
     width: 30%;
   }
 }
@@ -22,8 +22,7 @@ article{
   flex-direction: column;
   padding: 0 20px;
 
-
-  @include desktop{
+  @include desktop {
     flex-direction: row;
   }
 }
@@ -41,53 +40,72 @@ article{
 }
 .galery-photo-like {
   display: flex;
- 
 }
 
-.galery-photo-title  p, .galery-photo-like  p{
+.galery-photo-title p,
+.galery-photo-like p {
   color: $primary-color;
   font-size: 0.8em;
 }
- .fa-heart {
+.fa-heart {
   font-size: 0.8em;
   padding-left: 3px;
 }
-.contact{
+.contact {
   display: flex;
   justify-content: center;
   margin: 10px 0;
 
-  @include desktop{
+  @include desktop {
     position: relative;
-   
-    top: -50em;
+
+    top: -55em;
     left: -5em;
   }
 }
-.contact__btn{
+.contact__btn {
   background-color: $primary-color;
   color: white;
   border-radius: 5px;
-  border:none;
-width:25vh;
-height:5vh;
+  border: none;
+  width: 25vh;
+  height: 5vh;
 
-@include desktop{
-  width:12vh;
+  @include desktop {
+    width: 12vh;
+  }
+
+  &.contact__btn--listbox {
+    padding: 0 10px;
+  }
 }
+/*
+.contact__btn.contact__btn--listbox::after {
+  content: "";
+  border-bottom: black 3px solid;
+
+  display: block;
+  width: 40px;
+  padding-top: 5px;
+
+
 }
 
-.menu{
+*/
+.menu {
   visibility: hidden;
 
-  @include desktop{
+  @include desktop {
     visibility: visible;
     display: flex;
     justify-content: flex-start;
-    padding-left:20px;
+    padding-left: 20px;
     padding-bottom: 20px;
   }
 }
-label{
+label {
   padding-right: 10px;
+}
+.screenreader-text{
+  visibility: hidden;
 }
