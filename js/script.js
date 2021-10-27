@@ -13,7 +13,7 @@ fetch(linkToJson)
     const mediaData = value.media; // données de media
 
     for (let photographe of photographersData) {
-      const { name, city, country, tags, tagline, price, portrait, element } =
+      const { name, city, country, tags, tagline, price, portrait } =
         photographe;
 
       createPhtotographer(
@@ -29,7 +29,8 @@ fetch(linkToJson)
 
       //...................................
 
-      //pour chaque tag je cree un li
+      //creation li pour chaque tag
+
       photographe.tags.forEach((tag) => {
         let newLi = document.createElement("li");
         newLi.setAttribute("class", "category__link");
@@ -37,9 +38,9 @@ fetch(linkToJson)
         newLi.appendChild(tagName);
 
         document.querySelector(".photographer-profile__ul").appendChild(newLi);
-      });
+      })
 
-      console.log(tag);//si je l'enleve les tag se mettent tous ensemble 
+      console.log(tags); //si je l'enleve les tag se mettent tous ensemble
     }
   })
 
@@ -58,6 +59,9 @@ function createPhtotographer(
   portrait
 ) {
   const article = document.querySelector(".photographer-profile");
+  //  let newUl = document.createElement("ul");
+  //newUl.setAttribute('class', 'photographer-profile__ul');
+  // article.appendChild(newUl);
 
   article.innerHTML +=
     '<a class="photographer-profile__img" href="MimiKeel.html">' +
@@ -86,4 +90,3 @@ function createPhtotographer(
     "</ul>" +
     "</nav>";
 }
-
