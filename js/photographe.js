@@ -18,31 +18,43 @@ fetch(linkToJson)
 
       //on recupere le lien 
       let queryString = window.location.search;
-      console.log(queryString );
+      //console.log(queryString );
        //on parce le chemin 
       let urlParams = new URLSearchParams(queryString);
-     console.log(urlParams);
+     //console.log(urlParams);
 
-     //on recupere ici 'id ' donné à <a> dans le script.js (function createPhotographe) pour chaque photographe
+     //on recupere ici 'id ' donné à <a> dans le script.js (href="./MimiKeel.html?id=${data.id}") (function createPhotographe) pour chaque photographe
      const idTag = urlParams.get('id');
-     console.log(idTag);
+     //console.log(idTag);
 
 
      //..............................
 
     for (let photographe of photographersData) {
 
-        console.log(photographe.id);
+       // console.log(photographe.id);
         //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url 
         if (photographe.id == idTag){
      createPhtotographer(photographe);
 
 
  
+  
+      
+      
+       
+
+
+
+
+
+
+
+
 
 
      
-  
+  //.................................
     }}
   })
   
