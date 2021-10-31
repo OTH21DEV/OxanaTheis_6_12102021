@@ -14,48 +14,20 @@ fetch(linkToJson)
 
     for (let photographe of photographersData) {
       createPhtotographer(photographe);
-
-     
-
-      // Filtre de tags depuis la page d'accuel -menu de navigation
-
-      //On pointe des tags de la navigation
-      let navLink = document.querySelectorAll(".category__link");
-      //On rajoute eventlistener "click" pour chaque tag
-      navLink.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          //on cree une variable qui recupere le nom de tag (en la mettant en minuscule et enlevant #)
-          let linkName = e.target.text.toLowerCase().replace("#", "");
-
-          //On pointe profile de photographe sur le DOM ( en rajoutant au prealable dans la class de cet element un id (chiffre) )
-
-          const profile = document.querySelector(
-            ".photographer-profile-" + photographe.id
-          );
-          //console.log(element);
-
-          //On cree une condition pour verifier si le tag clické est present parmi les tags de chaque photographe
-
-          if (photographe.tags.includes(linkName)) {
-            console.log(profile);
-         
-            profile.style.display = "block";
-          } else {
-            profile.style.display = "none";
-          }
-        });
-      });
-
-      //.................................................
-
-
+      filterTags(photographe);
+ 
     }
   })
 
   .catch(function (err) {
     console.log(err);
   });
+
+
+  
 //...............................................................
+
+
 function createPhtotographer(data) {
 
   //On pointe le DOM - section 
@@ -92,8 +64,9 @@ function createPhtotographer(data) {
   </article>`;
 }
 
-/*
-function filterTags(e) {
+ // Filtre de tags depuis la page d'accuel -menu de navigation
+
+function filterTags(data) {
   let navLink = document.querySelectorAll(".category__link");
   //On rajoute eventlistener click pour chaque tag
   navLink.forEach((link) => {
@@ -104,13 +77,13 @@ function filterTags(e) {
       //On pointe l'element de photographe sur le DOM ( en rajoutant au prealable dans la class de cet element un id (chiffre) )
 
       const profileEl = document.querySelector(
-        ".photographer-profile-" + photographe.id
+        ".photographer-profile-" + data.id
       );
       //console.log(element);
 
       //On cree une condition pour verifier si le tag clické est present parmi les tags de chaque photographe
 
-      if (photographe.tags.includes(element)) {
+      if (data.tags.includes(element)) {
         console.log(profileEl);
         // profileEl.style.display="block";
         profileEl.style.display = "block";
@@ -119,4 +92,3 @@ function filterTags(e) {
       }
     });
   })}
-*/
