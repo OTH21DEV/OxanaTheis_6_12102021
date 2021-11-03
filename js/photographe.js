@@ -34,17 +34,14 @@ fetch(linkToJson)
         createPhtotographer(photographe);
 
         //.................................
-        
-        for (let media of mediaData){
+
+        for (let media of mediaData) {
           // console.log(media)
-        if(media.photographerId ==idTag){
-            
+          if (media.photographerId == idTag) {
             // console.log(media.photographerId)
             createMedia(media);
-         }
-          
+          }
         }
-      
       }
     }
   })
@@ -103,10 +100,9 @@ function createPhtotographer(data) {
 //......................................................................
 
 function createMedia(media) {
-  
-    const mediaContainer = document.querySelector(".galery-photo");
+  const mediaContainer = document.querySelector(".galery-photo");
 
-    mediaContainer.innerHTML += `<article class = "media-${media.id}">
+  mediaContainer.innerHTML += `<article>
     
   <a href="#">
     <p class="galery-photo__img">
@@ -127,6 +123,4 @@ function createMedia(media) {
     </div>
   </div>
 </article>`;
-  }
-
- 
+}

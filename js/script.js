@@ -87,6 +87,7 @@ function filterTags(data) {
         console.log(profileEl);
         // profileEl.style.display="block";
         profileEl.style.display = "block";
+        
       } else {
         profileEl.style.display = "none";
       }
