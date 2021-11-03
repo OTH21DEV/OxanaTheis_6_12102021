@@ -39,7 +39,7 @@ fetch(linkToJson)
           // console.log(media)
           if (media.photographerId == idTag) {
             // console.log(media.photographerId)
-            createMedia(media);
+            createMedia(media, photographe);
           }
         }
       }
@@ -99,16 +99,13 @@ function createPhtotographer(data) {
 }
 //......................................................................
 
-function createMedia(media) {
+function createMedia(media, photographe) {
+  //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
 
-  mediaContainer.innerHTML += `<article>
-    
-  <a href="#">
-    <p class="galery-photo__img">
-      <img src="photo_video/Mimi/${media.image}" />
-    </p>
-  </a>
+  mediaContainer.innerHTML +=
+    choiseMedia(media, photographe) +
+    `<article>'
   <div class="galery-photo-title">
     <a href="#"> <p>${media.title}</p></a>
     <div class="galery-photo-like">
@@ -123,4 +120,25 @@ function createMedia(media) {
     </div>
   </div>
 </article>`;
+}
+//......................................................................................
+
+function choiseMedia(media, photographe) {
+  if (media.image) {
+    return `
+    <a href="#">
+    <p class="galery-photo__img">
+      <img src="photo_video/${photographe.path}/${media.image}" />
+    </p>
+  </a>
+    
+    `;
+  } else if (media.video) {
+    return `
+    <a href="#">
+    <p class="galery-photo__img">
+      <video controls src="photo_video/${photographe.path}/${media.video}" />
+    </p>
+  </a>`;
+  }
 }

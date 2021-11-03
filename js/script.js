@@ -38,8 +38,9 @@ function createPhtotographer(data) {
   for (let tag of data.tags) {
     tagHtml += `  <li><a class="category__link" href="#">#${tag}</a></li>`;
   }
-// On reconstruit le contenu depuis index.html avec de variable
-  sectionMain.innerHTML += `  <article class="photographer-profile-${data.id}">
+// On reconstruit le contenu depuis index.html avec de variable, on rajoute id au lien <a> 
+  sectionMain.innerHTML += `  <article class="photographer-profile" id = "photographer-${data.id}">
+  
   <a class="photographer-profile__img" href="./MimiKeel.html?id=${data.id}" "="" aria-label="Mimi Keel">
       <img class ="photographer-profile__photo"
         src="photo_video/Photographers ID Photos/${data.portrait}"
@@ -77,7 +78,7 @@ function filterTags(data) {
       //On pointe l'element de photographe sur le DOM ( en rajoutant au prealable dans la class de cet element un id (chiffre) )
 
       const profileEl = document.querySelector(
-        ".photographer-profile-" + data.id
+        "#photographer-"+data.id
       );
       //console.log(element);
 
