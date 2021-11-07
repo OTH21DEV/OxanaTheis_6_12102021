@@ -191,7 +191,7 @@ images.forEach((image) =>{
     modal.style.visibility = "visible";
     const pic = modal.querySelector(".lightbox__container img")
     console.log(pic)
-    pic.src = this.href;
+    pic.src = image.src;
 
 })
 })
