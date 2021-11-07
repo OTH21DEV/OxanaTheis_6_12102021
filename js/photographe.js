@@ -32,7 +32,8 @@ fetch(linkToJson)
       //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
       if (photographe.id == idTag) {
         createPhtotographer(photographe);
-
+     
+       
         //.................................
 
         for (let media of mediaData) {
@@ -40,10 +41,19 @@ fetch(linkToJson)
           if (media.photographerId == idTag) {
             // console.log(media.photographerId)
             createMedia(media, photographe);
+         // createLightbox()
+           
           }
+
+         
+          
         }
+        createLightbox();// array cible img/video de photographe 
       }
     }
+
+
+    
   })
 
   .catch(function (err) {
@@ -104,22 +114,22 @@ function createMedia(media, photographe) {
   const mediaContainer = document.querySelector(".galery-photo");
 
   mediaContainer.innerHTML +=
-    choiseMedia(media, photographe) +
-    `<article>'
-  <div class="galery-photo-title">
-    <a href="#"> <p>${media.title}</p></a>
-    <div class="galery-photo-like">
-      <a href="#"> <p>${media.likes}</p></a>
-      <a href="#">
-        <p><i class="fas fa-heart" ></i>
+    
+    '<article>' + choiseMedia(media, photographe) +
+  '<div class="galery-photo-title">'+
+    '<a href="#">'+ '<p>'+ media.title+'</p>'+'</a>'+
+   '<div class="galery-photo-like">'+
+      '<a href="#">'+ '<p>'+ media.likes + '</p>'+ '</a>'+
+      '<a href="#">'+
+        '<p><i class="fas fa-heart" ></i>'+
           
-          </p
-      >
+          '</p>'+
 
-    </a>
-    </div>
-  </div>
-</article>`;
+    '</a>'+
+    '</div>'+
+  '</div>'+
+'</article>';
+
 }
 //......................................................................................
 
@@ -141,4 +151,57 @@ function choiseMedia(media, photographe) {
     </p>
   </a>`;
   }
+  return
 }
+//.......................................................................
+/*
+function createLightbox(){
+
+
+  const lightbox = document.createElement('div');
+  lightbox.classList.add('lightbox');
+  lightbox.innerHTML = 
+
+  `<span class="lightbox__close"><i class="far fa-window-close"></i>Fermer</span>
+  <span class="lightbox__next"><i class="fas fa-chevron-right"></i>Suivant</span>
+  <span class="lightbox__prev"><i class="fas fa-chevron-right"></i>Précédent</span>
+  <div class="lightbox__container"></div>`
+  
+
+
+
+
+  //..............................................................................
+
+}
+
+*/
+function createLightbox(media, photographe){
+const modal = document.querySelector(".modal");
+const lightboxContainer = document.querySelector('.lightbox__container');
+//const pour cibler img et video de photographe 
+const images = document.querySelectorAll(".galery-photo__img img, .galery-photo__img video");
+
+
+
+//console.log(images[0])
+
+images.forEach((image) =>{
+  image.addEventListener('click', (e)=> {
+    modal.style.visibility = "visible";
+    const pic = modal.querySelector(".lightbox__container img")
+    console.log(pic)
+    pic.src = this.href;
+
+})
+})
+
+
+
+
+
+}
+/*let imgActive = 0;
+for (let i = 1; i < images.length; i+=1){
+  images[i].classList.add('hidden');
+}*/

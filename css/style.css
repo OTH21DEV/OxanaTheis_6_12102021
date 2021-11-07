@@ -113,7 +113,8 @@ a {
   }
 }
 
-.galery-photo__img > img, video {
+.galery-photo__img > img,
+video {
   width: 100%;
   height: 30vh;
   object-fit: cover;
@@ -206,6 +207,75 @@ label {
   visibility: hidden;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  overflow: auto;
+  animation: lightbox 0.5s;
+  visibility: hidden;
+}
+
+.fa-chevron-right,
+.fa-chevron-left {
+  position: fixed;
+  z-index: 11;
+  width: 46px;
+  height: 46px;
+  top: 50%;
+  right: 0;
+  color: white;
+}
+
+.lightbox__prev i {
+  right: auto;
+  left: 15px;
+}
+
+.lightbox__close i {
+  width: 15px;
+  height: 15px;
+  z-index: 12;
+}
+
+.lightbox span i {
+  opacity: 0.5;
+  cursor: pointer;
+  text-indent: -3000px;
+  transition: opacity 0.3s;
+}
+
+.lightbox span :hover {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.lightbox__container img {
+  max-width: 100%;
+  height: auto;
+  animation: lightbox 0.5s;
+}
+
+.lightbox__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0 50px;
+}
+
+@keyframes lightbox {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 body {
   font-family: "DM Sans", sans-serif;
   width: auto;
