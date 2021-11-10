@@ -181,17 +181,36 @@ const modal = document.querySelector(".modal");
 const lightboxContainer = document.querySelector('.lightbox__container');
 //const pour cibler img et video de photographe 
 const images = document.querySelectorAll(".galery-photo__img img, .galery-photo__img video");
+const next = document.querySelector(".lightbox__next .fa-chevron-right");
+console.log(next)
+  
 
 
 
-//console.log(images[0])
+
+
+
 
 images.forEach((image) =>{
   image.addEventListener('click', (e)=> {
     modal.style.visibility = "visible";
-    const pic = modal.querySelector(".lightbox__container img")
-    console.log(pic)
+    let pic = modal.querySelector(".lightbox__container img")
     pic.src = image.src;
+    
+    next.addEventListener("click",(e)=> {
+
+
+     
+      
+ //   images[image].style.visibility ="hidden";
+  // image +=1;
+   // images[image.src].style.visibility ="visible";
+    
+ 
+
+       console.log(images);
+
+})
 
 })
 })
@@ -201,7 +220,7 @@ images.forEach((image) =>{
 
 
 }
-/*let imgActive = 0;
+/*
 for (let i = 1; i < images.length; i+=1){
   images[i].classList.add('hidden');
 }*/

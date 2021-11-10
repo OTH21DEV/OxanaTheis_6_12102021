@@ -136,25 +136,37 @@ label {
   right: 0;
   //margin-top: -14px;
   color:white;
+ 
+  opacity: 0.5;
+  cursor: pointer;
+  
 }
+
 .lightbox__prev i {
   right: auto;
   left: 15px;
 }
 
-.lightbox__close i {
-  width: 15px;
-  height: 15px;
+.fa-window-close {
+  width: 46px;
+  height: 46px;
   z-index: 12;
+  color:white;
+  right: 0;
+  position: fixed;
+  top: 1%;
+  opacity: 0.5;
+  cursor: pointer;
 }
+/*
 .lightbox span i {
   opacity: 0.5;
   cursor: pointer;
   text-indent: -3000px;
   transition: opacity 0.3s;
 }
-
-.lightbox span :hover {
+*/
+.fa-chevron-right:hover, .fa-chevron-left:hover, .fa-window-close:hover {
   opacity: 1;
   transition: opacity 0.3s;
 }
@@ -180,4 +192,8 @@ label {
   to {
     opacity: 1;
   }
+}
+
+.hidden{
+  visibility: hidden;
 }
