@@ -123,7 +123,7 @@ label {
   overflow: auto;
   animation: lightbox 0.5s;
   visibility: hidden;
-  //visibility: visible;
+ 
 }
 
 .fa-chevron-right,
@@ -142,12 +142,12 @@ label {
   
 }
 
-.lightbox__prev i {
+.fa-chevron-left {
   right: auto;
   left: 15px;
 }
 
-.fa-window-close {
+.fa-times{
   width: 46px;
   height: 46px;
   z-index: 12;
@@ -166,7 +166,7 @@ label {
   transition: opacity 0.3s;
 }
 */
-.fa-chevron-right:hover, .fa-chevron-left:hover, .fa-window-close:hover {
+.fa-chevron-right:hover, .fa-chevron-left:hover, .fa-times:hover {
   opacity: 1;
   transition: opacity 0.3s;
 }
@@ -194,6 +194,3 @@ label {
   }
 }
 
-.hidden{
-  visibility: hidden;
-}

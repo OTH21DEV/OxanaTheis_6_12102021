@@ -154,73 +154,72 @@ function choiseMedia(media, photographe) {
   return
 }
 //.......................................................................
-/*
-function createLightbox(){
 
-
-  const lightbox = document.createElement('div');
-  lightbox.classList.add('lightbox');
-  lightbox.innerHTML = 
-
-  `<span class="lightbox__close"><i class="far fa-window-close"></i>Fermer</span>
-  <span class="lightbox__next"><i class="fas fa-chevron-right"></i>Suivant</span>
-  <span class="lightbox__prev"><i class="fas fa-chevron-right"></i>Précédent</span>
-  <div class="lightbox__container"></div>`
-  
-
-
-
-
-  //..............................................................................
-
-}
-
-*/
 function createLightbox(media, photographe){
 const modal = document.querySelector(".modal");
-const lightboxContainer = document.querySelector('.lightbox__container');
+
 //const pour cibler img et video de photographe 
-const images = document.querySelectorAll(".galery-photo__img img, .galery-photo__img video");
+const medias = document.querySelectorAll(".galery-photo__img img, .galery-photo__img video");
 const next = document.querySelector(".lightbox__next .fa-chevron-right");
-console.log(next)
+const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
+const close = document.querySelector(".lightbox__close .fa-times");
+
+
+let lightboxMedia = modal.querySelector(".lightbox__container img")
   
 
 
 
-
-
-
-
-images.forEach((image) =>{
-  image.addEventListener('click', (e)=> {
+medias.forEach((media, i) =>{
+  //console.log(i)
+  media.addEventListener('click', (e)=> {
+    //sessionStorage.setItem - stock une paire clé/valeur ici "index", i(number)
+    sessionStorage.setItem("index", i);
     modal.style.visibility = "visible";
-    let pic = modal.querySelector(".lightbox__container img")
-    pic.src = image.src;
+    lightboxMedia.src = media.src;
     
-    next.addEventListener("click",(e)=> {
-
-
-     
-      
- //   images[image].style.visibility ="hidden";
-  // image +=1;
-   // images[image.src].style.visibility ="visible";
     
- 
-
-       console.log(images);
-
+  })
 })
-
-})
-})
-
-
-
+next.addEventListener("click",(e)=> {
+// sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
+// on parseInt pour convertir une chaine de caractères en nombre entier 
+let newIndex = parseInt(sessionStorage.getItem("index"))+1;
 
 
+
+//si on essaye afficher le media suivant suite au dernier media , on cree
+//une condition pour afficher le premier media 
+
+if(newIndex >= medias.length){
+newIndex = 0;
 }
-/*
-for (let i = 1; i < images.length; i+=1){
-  images[i].classList.add('hidden');
-}*/
+sessionStorage.setItem("index", newIndex);
+lightboxMedia.src = medias[newIndex].src;
+
+})
+
+
+prev.addEventListener("click",(e)=>{
+
+  let newIndex = parseInt(sessionStorage.getItem("index"))-1;
+//si on n'a pas de media 
+if(newIndex < 0){
+
+// on recepure la longeur totale de tableau medias donc dernier media du tableau 
+newIndex = medias.length;
+}
+sessionStorage.setItem("index", newIndex);
+lightboxMedia.src = medias[newIndex].src;
+
+
+})
+
+close.addEventListener("click",(e)=>{
+
+ modal.style.visibility = "hidden";
+})
+
+ 
+}
+
