@@ -21,7 +21,7 @@
 
   <body>
     <header class="header">
-      <a class="header__logo-link" href="#">
+      <a class="header__logo-link" href="/index.html">
         <img src="maquettes/logo/logo.png" alt="logo_FishEye"
       /></a>
     </header>
@@ -75,9 +75,9 @@
         <form method="post" action="traitement.php">
           <label for="listbox">Trier par</label>
           <select class="contact__btn contact__btn--listbox" name="listbox" id="listbox">
-            <option class= "zz" value="popularité">Popularité</option>
-            <option value="date">Date</option>
-            <option value="titre">Titre</option>
+            <option class= "listbox__popular" value="popularité">Popularité</option>
+            <option class= "listbox__date" value="date">Date</option>
+            <option class= "listbox__title" value="titre">Titre</option>
           </select>
           
 
@@ -213,8 +213,35 @@
 
 
 <div class="contact">
-      <button class="contact__btn">Contactez-moi</button>
+      <button class="contact__btn" id = "contact">Contactez-moi</button>
 </div>
+<div class="total-wrapper">
+  <!--
+<div class = "total">
+<p class="total__likes">297091<i class="fas fa-heart"></i></p>
+<p class="total__price">300€ / jour</p>
+</div>-->
+</div>
+<article class="form-modal">
+  <p>
+  <form method="post" action="traitement.php">
+    <span><i class="fas fa-times"></i></i>Fermer</span>
+    <label for="prenom">Prénom</label>
+    <input type="text" name= "prenom" id = "prenom"/>
+    <label for="nom">Nom</label>
+    <input type="text" name= "nom" id = "nom"/>
+    <label for="email">Email</label>
+    <input type="email" name= "email" id = "email"/>
+    <label for="message">Votre message</label>
+    <textarea name = "message" id = "message"></textarea>
+    <button type="button" class="form__btn contact__btn">Envoyer</button>
+
+    </p>
+  </form>
+    
+  
+</article>
+
 
       <script src="./js/photographe.js"></script>
     </main>

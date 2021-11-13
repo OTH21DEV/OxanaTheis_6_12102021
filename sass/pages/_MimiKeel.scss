@@ -7,7 +7,7 @@
 
 .test {
   display: flex;
-  padding: 20px;
+  //padding: 20px;
   justify-content: space-between;
 }
 
@@ -20,7 +20,7 @@ article {
 .galery-photo {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  //padding: 0 20px;
 
   @include desktop {
     flex-direction: row;
@@ -60,7 +60,7 @@ video {
   @include desktop {
     position: relative;
 
-    top: -55em;
+    top: -75em;
     left: -5em;
   }
 }
@@ -112,7 +112,6 @@ label {
 }
 
 .modal {
-
   position: fixed;
   top: 0;
   left: 0;
@@ -123,23 +122,21 @@ label {
   overflow: auto;
   animation: lightbox 0.5s;
   visibility: hidden;
- 
 }
 
 .fa-chevron-right,
 .fa-chevron-left {
   position: fixed;
   z-index: 11;
-  width:46px;
+  width: 46px;
   height: 46px;
   top: 50%;
   right: 0;
   //margin-top: -14px;
-  color:white;
- 
+  color: white;
+
   opacity: 0.5;
   cursor: pointer;
-  
 }
 
 .fa-chevron-left {
@@ -147,11 +144,11 @@ label {
   left: 15px;
 }
 
-.fa-times{
+.fa-times {
   width: 46px;
   height: 46px;
   z-index: 12;
-  color:white;
+  color: white;
   right: 0;
   position: fixed;
   top: 1%;
@@ -166,7 +163,9 @@ label {
   transition: opacity 0.3s;
 }
 */
-.fa-chevron-right:hover, .fa-chevron-left:hover, .fa-times:hover {
+.fa-chevron-right:hover,
+.fa-chevron-left:hover,
+.fa-times:hover {
   opacity: 1;
   transition: opacity 0.3s;
 }
@@ -174,7 +173,7 @@ label {
 .lightbox__container img {
   max-width: 100%;
   height: auto;
-  animation: lightbox 0.5s;
+  //animation: lightbox 0.5s;
 }
 
 .lightbox__container {
@@ -193,4 +192,56 @@ label {
     opacity: 1;
   }
 }
+.total {
+  width: 25vh;
+  height: 5vh;
+  background-color: $secondary-color;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  flex-direction: flex-end;
+}
+.total-wrapper {
+  display: flex;
+  justify-content: end;
+  margin: 0 -10px;
+}
+.total__price,
+.total__likes {
+  font-size: 0.8em;
+  font-weight: bold;
+}
 
+.form-modal {
+  background-color: $secondary-color;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  overflow: auto;
+  animation: lightbox 0.5s;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  //  margin: 0 50px;
+}
+form {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: $secondary-color;
+  width: 80%;
+  min-height: 60%;
+  margin: 50px 10px;
+  //width:50vh;
+  // height: auto;
+}
