@@ -60,7 +60,7 @@ video {
   @include desktop {
     position: relative;
 
-    top: -75em;
+    top: -84em;
     left: -5em;
   }
 }
@@ -71,6 +71,7 @@ video {
   border: none;
   width: 25vh;
   height: 5vh;
+  cursor: pointer;
 
   @include desktop {
     width: 12vh;
@@ -93,6 +94,17 @@ video {
 }
 
 */
+.form__btn.contact__btn {
+  margin: 20px 50px;
+  cursor: pointer;
+  @include tablette{
+    margin: 0;
+  }
+  @include desktop{
+    margin: 0;
+  }
+  
+}
 .menu {
   visibility: hidden;
 
@@ -151,18 +163,21 @@ label {
   color: white;
   right: 0;
   position: fixed;
-  top: 1%;
+  top: 5%;
   opacity: 0.5;
   cursor: pointer;
 }
-/*
-.lightbox span i {
-  opacity: 0.5;
-  cursor: pointer;
-  text-indent: -3000px;
-  transition: opacity 0.3s;
+.fa-times.form-modal__close {
+  opacity: 1;
+  width: inherit;
+  height: inherit;
+  z-index: inherit;
+
+  right: inherit;
+  position: inherit;
+  top: inherit;
 }
-*/
+
 .fa-chevron-right:hover,
 .fa-chevron-left:hover,
 .fa-times:hover {
@@ -214,6 +229,19 @@ label {
   font-weight: bold;
 }
 
+.form-modal-btn {
+  display: flex;
+  justify-content: center;
+  @include tablette{
+   
+    justify-content: start;
+  }
+  @include desktop{
+    
+    justify-content: start;
+  }
+}
+
 .form-modal {
   background-color: $secondary-color;
 
@@ -228,20 +256,59 @@ label {
   animation: lightbox 0.5s;
   visibility: hidden;
   display: flex;
+
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   //  margin: 0 50px;
 }
-form {
-  padding: 30px;
+.form {
+  padding: 10px 15px 30px 15px;
   display: flex;
+  //align-items: center;
   flex-direction: column;
   justify-content: space-around;
   background-color: $secondary-color;
   width: 80%;
   min-height: 60%;
-  margin: 50px 10px;
-  //width:50vh;
-  // height: auto;
+  border-radius: 5px;
+  & > h3{
+    margin-bottom: 10px;
+  }
+@include tablette{
+  width: 60%;
+}
+@include desktop{
+  width: 50%;
+}
+}
+
+.form-modal__title {
+  display: flex;
+  justify-content: space-between;
+
+ 
+}
+#prenom,
+#nom,
+#email,
+#message {
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+#message {
+  height: 100px;
+}
+.error {
+  font-size: 0.9rem;
+ //c font-weight: bold;
+  padding-top: 5px;
+  color: white;
+  visibility: visible;
+}
+.prenom-formData, .nom-formData, .email-formData{
+  display: flex;
+  flex-direction: column;
 }

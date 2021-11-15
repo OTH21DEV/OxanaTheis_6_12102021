@@ -149,7 +149,7 @@ video {
 @media all and (min-width: 880px) {
   .contact {
     position: relative;
-    top: -75em;
+    top: -84em;
     left: -5em;
   }
 }
@@ -161,6 +161,7 @@ video {
   border: none;
   width: 25vh;
   height: 5vh;
+  cursor: pointer;
 }
 @media all and (min-width: 880px) {
   .contact__btn {
@@ -184,6 +185,21 @@ video {
 }
 
 */
+.form__btn.contact__btn {
+  margin: 20px 50px;
+  cursor: pointer;
+}
+@media all and (min-width: 582px) {
+  .form__btn.contact__btn {
+    margin: 0;
+  }
+}
+@media all and (min-width: 880px) {
+  .form__btn.contact__btn {
+    margin: 0;
+  }
+}
+
 .menu {
   visibility: hidden;
 }
@@ -243,19 +259,21 @@ label {
   color: white;
   right: 0;
   position: fixed;
-  top: 1%;
+  top: 5%;
   opacity: 0.5;
   cursor: pointer;
 }
 
-/*
-.lightbox span i {
-  opacity: 0.5;
-  cursor: pointer;
-  text-indent: -3000px;
-  transition: opacity 0.3s;
+.fa-times.form-modal__close {
+  opacity: 1;
+  width: inherit;
+  height: inherit;
+  z-index: inherit;
+  right: inherit;
+  position: inherit;
+  top: inherit;
 }
-*/
+
 .fa-chevron-right:hover,
 .fa-chevron-left:hover,
 .fa-times:hover {
@@ -308,6 +326,21 @@ label {
   font-weight: bold;
 }
 
+.form-modal-btn {
+  display: flex;
+  justify-content: center;
+}
+@media all and (min-width: 582px) {
+  .form-modal-btn {
+    justify-content: start;
+  }
+}
+@media all and (min-width: 880px) {
+  .form-modal-btn {
+    justify-content: start;
+  }
+}
+
 .form-modal {
   background-color: #DB8876;
   position: fixed;
@@ -326,15 +359,59 @@ label {
   min-height: 100vh;
 }
 
-form {
-  padding: 30px;
+.form {
+  padding: 10px 15px 30px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   background-color: #DB8876;
   width: 80%;
   min-height: 60%;
-  margin: 50px 10px;
+  border-radius: 5px;
+}
+.form > h3 {
+  margin-bottom: 10px;
+}
+@media all and (min-width: 582px) {
+  .form {
+    width: 60%;
+  }
+}
+@media all and (min-width: 880px) {
+  .form {
+    width: 50%;
+  }
+}
+
+.form-modal__title {
+  display: flex;
+  justify-content: space-between;
+}
+
+#prenom,
+#nom,
+#email,
+#message {
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+#message {
+  height: 100px;
+}
+
+.error {
+  font-size: 0.9rem;
+  padding-top: 5px;
+  color: white;
+  visibility: visible;
+}
+
+.prenom-formData, .nom-formData, .email-formData {
+  display: flex;
+  flex-direction: column;
 }
 
 body {
