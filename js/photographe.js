@@ -34,27 +34,25 @@ fetch(linkToJson)
       //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
       if (photographe.id == idTag) {
         createPhtotographer(photographe);
-        createForm (photographe)
+        createForm(photographe);
         createTotalLikes(photographe);
         //.................................
 
         for (let media of mediaData) {
           if (media.photographerId == idTag) {
-           // console.log(media.photographerId)
-           // createMedia(media, photographe);
+            // console.log(media.photographerId)
+            // createMedia(media, photographe);
 
-            
-           createMedia(media, photographe)
-       
-           
-            
-          filterPopular(media, photographe);
-          //clickLikes(media)
-          
-          //   console.log(tableau_medias)
+            createMedia(media, photographe);
+
+
+            filterPopular(media, photographe);
+            //clickLikes(media)
+
+            //   console.log(tableau_medias)
+          }
         }
-      }
-      createLightbox(); // array cible img/video de photographe
+        createLightbox(); // array cible img/video de photographe
       }
     }
   })
@@ -140,56 +138,21 @@ function createMedia(media, photographe) {
     "</div>" +
     "</article> ";
 
-  //...................................
-  //Rajout de likes pour chaque media
-  // function clickLikes(media) {
-  //<i class="fas fa-heart" id = ${media.id} onclick = ${clickLikes(media)}></i>
-  /*
-    const hearts = document.querySelectorAll(".heart i");
-    // la nouvelle variable nbLikes ne recupere pas la valeur de media.likes correctement
-    //recupere derniere valaeur de media
-
-    hearts.forEach((heart) => {
-      heart.addEventListener("click", (e) => {
   
-        //console.log(heart.id);
-      
-
-        if (heart.id = media.id) {
-          media.likes += 1;
-          document.querySelectorAll(".nb-likes").innerHTML = media.likes;
-          console.log(media.likes)
-       
-      }
-      
-    })
-    });
-  
- // }
-//}
-//....................
-}
-//......................................................................................
-*/
-clickLikes(media)
+  clickLikes(media);
 }
 
 function clickLikes(media) {
   const hearts = document.querySelectorAll(".heart i");
   // la nouvelle variable nbLikes ne recupere pas la valeur de media.likes correctement
-  //recupere derniere valaeur de media
+  //recupere derniere vaaeur de media
 
   hearts.forEach((heart) => {
     heart.addEventListener("click", (e) => {
-     
+      media.likes += 1;
+      document.querySelector(".nb-likes").innerHTML = media.likes;
 
-      if (heart.id = media.id) {
-        let newLike = media.likes;
-        
-       // media.likes += 1;
-      //  document.querySelector(".nb-likes").innerHTML = media.likes;
-        console.log(heart.id);
-      }
+      console.log(media.likes);
     });
   });
 }
@@ -280,18 +243,12 @@ function createLightbox() {
 //..........................................................................
 
 function filterPopular(media) {
-  
   //let medias = [media];
   const mediaContainer = document.querySelector(".galery-photo");
-  
+
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
 
-
-
-
-
-  
   //on ecoute le changement des options
   filterSelect.addEventListener("change", (e) => {
     //  mediaContainer.innerHTML = "";
@@ -299,56 +256,38 @@ function filterPopular(media) {
     //on cree une variable pour recuperer la valeur de l'option choisie
     let choise = filterSelect.value;
     let newChoise = "";
-    console.log(choise)
-    
+    console.log(choise);
+
     if (choise == "popularité") {
-    //  medias.sort((a, b) => (a.likes < b.likes ? 1 : -1));
-      console.log('hello');
+      media.sort((a, b) => (a.likes < b.likes ? 1 : -1));
+      console.log("hello");
+
       
-      /*
-      if (choise == 'popularite') {
-        medias.sort((a, b) => (a.likes < b.likes ? 1 : -1));
-      } else if (choise == 'date') {
-        console.log(medias);
-        medias.sort((a, b) => (a.date > b.date ? 1 : -1));
-        console.log(medias);
-      } else if (choise == 'titre') {
-        media.sort((a, b) => (a.title > b.title ? 1 : -1));
-      }
-      */
-      
-  
-} else {
-  console.log("bye");
+    } else {
+      console.log("bye");
+    }
+  });
 }
-});
-
-}
-
-
-
-
 
 function createTotalLikes(data) {
   const totalLikesContainer = document.querySelector(".total-wrapper");
-  
+
   totalLikesContainer.innerHTML +=
-  '<div class = "total">' +
-  '<p class="total__likes">' +
-  "297091" +
-  '<i class="fas fa-heart">' +
-  "</i>" +
-  "</p>" +
-  '<p class="total__price">' +
-  data.price +
-  "€ / jour" +
-  "</p>" +
-  "</div>" +
-  "</div>";
+    '<div class = "total">' +
+    '<p class="total__likes">' +
+    "297091" +
+    '<i class="fas fa-heart">' +
+    "</i>" +
+    "</p>" +
+    '<p class="total__price">' +
+    data.price +
+    "€ / jour" +
+    "</p>" +
+    "</div>" +
+    "</div>";
 }
 
-function createForm (data){
-  
+function createForm(data) {
   const formModal = document.querySelector(".form-modal");
   const contactBtn = document.querySelector("#contact");
   formModal.innerHTML = ` <p >
@@ -384,139 +323,126 @@ function createForm (data){
   `;
   const inputs = document.querySelectorAll(
     'input[type ="text"], input[type="email"]'
-    );
-    
-    const prenom = document.getElementById("prenom");
+  );
 
-    const nom = document.getElementById("nom");
-    const email = document.getElementById("email");
-    const close = document.getElementById("close");
-    contactBtn.addEventListener("click", (e) => {
-      formModal.style.visibility = "visible";
-    });
+  const prenom = document.getElementById("prenom");
 
-    close.addEventListener("click", (e) => {
-      formModal.style.visibility = "hidden";
-      
-      
-    })
-    const btnModal = document.getElementById("btn-modal");
-    console.log(btnModal);
-    const errorDisplay = (tag, message, valid) => {
-      // message de chaque champs (se trouve dans le span )
-      
-      const spanMsg = document.querySelector("." + tag + "-formData > span");
-      
-      // pointe le nom de champs
-      const global = document.querySelector("." + tag + "-formData");
-      
-      if (!valid) {
-        global.classList.add("error");
-        spanMsg.textContent = message;
-      } else {
-        global.classList.remove("error");
-        spanMsg.textContent = message;
-      }
-    };
-    
-    const nameChecker = (type, value, element) => {
-      if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-        errorDisplay(
-          type,
-          "Le " + type + " doit contenir entre 3 et 20 caracteres"
-          );
-          
-          element.style.border = "3px solid maroon";
-        } else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
-          errorDisplay(
-            type,
-            "Le " + type + "  ne doit pas contenir de caracteres speciaux"
-            );
-            
-            element.style.border = "3px solid maroon";
-          } else {
-            errorDisplay(type, "", true);
-            errorDisplay.textContent = "";
-            element.style.border = "3px solid green";
-          }
-        };
-        
-        const emailChecker = (value, element) => {
-          if (
-            !value.match(
-              /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-              )
-              ) {
-                errorDisplay("email", "Adresse mail non valide");
-                element.style.border = "3px solid maroon";
-              } else {
-                errorDisplay("email", "", true);
-                element.style.border = "3px solid green";
-              }
-            };
-            
-            inputs.forEach((input) => {
-              input.addEventListener("input", (e) => {
-    
-                
-                switch (
-                  e.target.id //test la valeur de champs
-                  ) {
-                    case "prenom": //si tu es dans le prenom
-                    
-                    nameChecker("prenom", e.target.value, prenom); //on  analise cette fonction : (nameChecker (avec les arguments comme ceux ci pour les parametres :type, value, element))
-        break;
-        
+  const nom = document.getElementById("nom");
+  const email = document.getElementById("email");
+  const close = document.getElementById("close");
+  contactBtn.addEventListener("click", (e) => {
+    formModal.style.visibility = "visible";
+  });
+
+  close.addEventListener("click", (e) => {
+    formModal.style.visibility = "hidden";
+  });
+  const btnModal = document.getElementById("btn-modal");
+  console.log(btnModal);
+  const errorDisplay = (tag, message, valid) => {
+    // message de chaque champs (se trouve dans le span )
+
+    const spanMsg = document.querySelector("." + tag + "-formData > span");
+
+    // pointe le nom de champs
+    const global = document.querySelector("." + tag + "-formData");
+
+    if (!valid) {
+      global.classList.add("error");
+      spanMsg.textContent = message;
+    } else {
+      global.classList.remove("error");
+      spanMsg.textContent = message;
+    }
+  };
+
+  const nameChecker = (type, value, element) => {
+    if (value.length > 0 && (value.length < 3 || value.length > 20)) {
+      errorDisplay(
+        type,
+        "Le " + type + " doit contenir entre 3 et 20 caracteres"
+      );
+
+      element.style.border = "3px solid maroon";
+    } else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
+      errorDisplay(
+        type,
+        "Le " + type + "  ne doit pas contenir de caracteres speciaux"
+      );
+
+      element.style.border = "3px solid maroon";
+    } else {
+      errorDisplay(type, "", true);
+      errorDisplay.textContent = "";
+      element.style.border = "3px solid green";
+    }
+  };
+
+  const emailChecker = (value, element) => {
+    if (
+      !value.match(
+        /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+      )
+    ) {
+      errorDisplay("email", "Adresse mail non valide");
+      element.style.border = "3px solid maroon";
+    } else {
+      errorDisplay("email", "", true);
+      element.style.border = "3px solid green";
+    }
+  };
+
+  inputs.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      switch (
+        e.target.id //test la valeur de champs
+      ) {
+        case "prenom": //si tu es dans le prenom
+          nameChecker("prenom", e.target.value, prenom); //on  analise cette fonction : (nameChecker (avec les arguments comme ceux ci pour les parametres :type, value, element))
+          break;
+
         case "nom":
           nameChecker("nom", e.target.value, nom); // nom ici -  le nom de la variable
           break;
-          
-          case "email":
-            emailChecker(e.target.value, email);
-            break;
-            
-            default:
-              null;
-            }
-          });
-        });
-        
-        btnModal.addEventListener("click", (e) => {
-          let isValid = true;
-          console.log(e)
-          if (prenom.validity.valueMissing ) {
-            e.preventDefault();
-            isValid = false;
-            errorDisplay("prenom", "Veuillez remplir ce champs");
-            
-          }
-          if (nom.validity.valueMissing ) {
-            e.preventDefault();
-            isValid = false;
-            errorDisplay("nom", "Veuillez remplir ce champs");
-            
-          }
-          
-          if (email.validity.valueMissing ) {
-            e.preventDefault();
-            
-            isValid = false;
-            errorDisplay("email", "Veuillez remplir ce champs");
-            
-          }
-          
-          if (isValid == true) {
-            const userData = {
-              prenom: prenom.value,
-              nom: nom.value,
-              email: email.value,
-            };
-            console.log(userData);
-          }
-          
-          
-        });
-        
-        
+
+        case "email":
+          emailChecker(e.target.value, email);
+          break;
+
+        default:
+          null;
+      }
+    });
+  });
+
+  btnModal.addEventListener("click", (e) => {
+    let isValid = true;
+    console.log(e);
+    if (prenom.validity.valueMissing) {
+      e.preventDefault();
+      isValid = false;
+      errorDisplay("prenom", "Veuillez remplir ce champs");
+    }
+    if (nom.validity.valueMissing) {
+      e.preventDefault();
+      isValid = false;
+      errorDisplay("nom", "Veuillez remplir ce champs");
+    }
+
+    if (email.validity.valueMissing) {
+      e.preventDefault();
+
+      isValid = false;
+      errorDisplay("email", "Veuillez remplir ce champs");
+    }
+
+    if (isValid == true) {
+      const userData = {
+        prenom: prenom.value,
+        nom: nom.value,
+        email: email.value,
       };
-      
+      console.log(userData);
+    }
+  });
+}
