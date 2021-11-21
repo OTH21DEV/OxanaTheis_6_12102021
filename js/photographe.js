@@ -26,7 +26,13 @@ fetch(linkToJson)
     //on recupere ici 'id ' donné à <a> dans le script.js (href="./MimiKeel.html?id=${data.id}") (function createPhotographe) pour chaque photographe
     const idTag = urlParams.get("id");
     //console.log(idTag);
-
+    /*
+    let photographeMedias = [];
+    photographeMedias = mediaData.filter((media) => {
+      console.log(photographeMedias)
+      return idTag == media.photographerId;
+    });
+    */
     //..............................
 
     for (let photographe of photographersData) {
@@ -35,24 +41,18 @@ fetch(linkToJson)
       if (photographe.id == idTag) {
         createPhtotographer(photographe);
         createForm(photographe);
-        createTotalLikes(photographe);
+        createTotalLikesContainer(photographe);
         //.................................
 
         for (let media of mediaData) {
           if (media.photographerId == idTag) {
-            // console.log(media.photographerId)
-            // createMedia(media, photographe);
-
             createMedia(media, photographe);
 
-
             filterPopular(media, photographe);
-            //clickLikes(media)
-
-            //   console.log(tableau_medias)
           }
         }
         createLightbox(); // array cible img/video de photographe
+        likesCounter();
       }
     }
   })
@@ -125,35 +125,75 @@ function createMedia(media, photographe) {
     </a>
     <div class="galery-photo-like">
     <a href="#">
-    <p class = "nb-likes" id = ${media.id}>
-    ${media.likes} 
+    <p class = "nb-likes" id = "${media.id}" >
+   ${media.likes}
     </p>
     </a>
     <a href="#">
     <p class = "heart">` +
-    `<i class="fas fa-heart" ></i>` +
+    `<i class="fas fa-heart" data-id = "${media.id}" data-like = "${media.likes}"></i>` +
     "</p>" +
     " </a>" +
     "</div>" +
     "</div>" +
     "</article> ";
 
-  
-  clickLikes(media);
+  clickLikes();
 }
 
-function clickLikes(media) {
+function clickLikes() {
   const hearts = document.querySelectorAll(".heart i");
-  // la nouvelle variable nbLikes ne recupere pas la valeur de media.likes correctement
-  //recupere derniere vaaeur de media
 
   hearts.forEach((heart) => {
     heart.addEventListener("click", (e) => {
-      media.likes += 1;
-      document.querySelector(".nb-likes").innerHTML = media.likes;
+      //on associe Id de media à chaque heart via data-id = "${media.id}" dans la function createMedia
+      //on recupere cet Id
+      let heartId = heart.dataset.id;
+      //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
+      //on recupere la valeur
+      let addLike = heart.dataset.like;
+      // on cree une variable et on incremente pour obtenir la nouvelle valeur
+      let likes = parseInt(addLike) + 1;
+      //on reedite l'element de dom avec l'id et la nouvelle valeur puis on apelle cette function dans la function createMedia
+      document.getElementById(`${heartId}`).innerHTML = likes;
 
-      console.log(media.likes);
+      likesCounter();
     });
+  });
+}
+
+function createTotalLikesContainer(data) {
+  const totalLikesContainer = document.querySelector(".total-wrapper");
+
+  totalLikesContainer.innerHTML +=
+    '<div class = "total">' +
+    '<p class="total__likes">' +
+    '<i class="fas fa-heart">' +
+    "</i>" +
+    "</p>" +
+    '<p class="total__price">' +
+    data.price +
+    "€ / jour" +
+    "</p>" +
+    "</div>" +
+    "</div>";
+}
+
+function likesCounter() {
+  //on recupere tous les elements
+  let mediaLikes = document.querySelectorAll(".nb-likes");
+  let totalLikes = document.querySelector(".total__likes");
+  //on met le compteur à 0
+  let counter = 0;
+  mediaLikes.forEach((amount) => {
+    //pour chaque element on recupere la valeur via .textContent (+ pour convertir en nombre )
+    //amount = Number(amount.textContent);
+    amount = +amount.textContent;
+    //on incremente
+    counter += amount;
+    //on reedite l'element de dom avec la nouvelle valeur puis on apelle cette fonction dans le fetch mais aussi dans la function clickLikes()
+    totalLikes.innerHTML =
+      counter + '<i class="fas fa-heart">' + "</i>" + "</p>";
   });
 }
 
@@ -261,30 +301,10 @@ function filterPopular(media) {
     if (choise == "popularité") {
       media.sort((a, b) => (a.likes < b.likes ? 1 : -1));
       console.log("hello");
-
-      
     } else {
       console.log("bye");
     }
   });
-}
-
-function createTotalLikes(data) {
-  const totalLikesContainer = document.querySelector(".total-wrapper");
-
-  totalLikesContainer.innerHTML +=
-    '<div class = "total">' +
-    '<p class="total__likes">' +
-    "297091" +
-    '<i class="fas fa-heart">' +
-    "</i>" +
-    "</p>" +
-    '<p class="total__price">' +
-    data.price +
-    "€ / jour" +
-    "</p>" +
-    "</div>" +
-    "</div>";
 }
 
 function createForm(data) {
