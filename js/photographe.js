@@ -1,7 +1,7 @@
 // recupere les datas depuis.json
 
 const linkToJson = "./FishEyeData.json";
-let tableau_medias = [];
+
 
 fetch(linkToJson)
   .then(function (response) {
@@ -25,14 +25,7 @@ fetch(linkToJson)
 
     //on recupere ici 'id ' donné à <a> dans le script.js (href="./MimiKeel.html?id=${data.id}") (function createPhotographe) pour chaque photographe
     const idTag = urlParams.get("id");
-    //console.log(idTag);
-    /*
-    let photographeMedias = [];
-    photographeMedias = mediaData.filter((media) => {
-      console.log(photographeMedias)
-      return idTag == media.photographerId;
-    });
-    */
+
     //..............................
 
     for (let photographe of photographersData) {
@@ -46,11 +39,20 @@ fetch(linkToJson)
 
         for (let media of mediaData) {
           if (media.photographerId == idTag) {
-            createMedia(media, photographe);
+            //console.log(media)
+            //filterPopular(media);
 
-            filterPopular(media, photographe);
+            createMedia(media, photographe);
+            filterPopular(media, photographe, mediaData);
           }
         }
+        //..................................................
+/*
+        photographeMedias = mediaData.filter((media) => {
+          return photographe.id == media.photographerId;
+        });
+        console.log(photographeMedias);.....*/
+
         createLightbox(); // array cible img/video de photographe
         likesCounter();
       }
@@ -139,6 +141,8 @@ function createMedia(media, photographe) {
     "</article> ";
 
   clickLikes();
+
+  // filterPopular(media)
 }
 
 function clickLikes() {
@@ -282,28 +286,75 @@ function createLightbox() {
 
 //..........................................................................
 
-function filterPopular(media) {
-  //let medias = [media];
+function filterPopular(media, photographe, mediaData) {
+ 
   const mediaContainer = document.querySelector(".galery-photo");
 
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
+  //on cree un array vide de medias de photographe 
+  let photographeMedias = [];
+  //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
+  photographeMedias = mediaData.filter((media) => {
+    return photographe.id == media.photographerId;
+  });
+ //console.log(photographeMedias);
+  
 
   //on ecoute le changement des options
   filterSelect.addEventListener("change", (e) => {
-    //  mediaContainer.innerHTML = "";
-    //console.log(e);
     //on cree une variable pour recuperer la valeur de l'option choisie
-    let choise = filterSelect.value;
-    let newChoise = "";
-    console.log(choise);
+    let choice = filterSelect.value;
 
-    if (choise == "popularité") {
-      media.sort((a, b) => (a.likes < b.likes ? 1 : -1));
-      console.log("hello");
-    } else {
-      console.log("bye");
+    if (choice == "popularité") {
+      function compare(a, b) {
+        let comparison = 0;
+        // (a-b) > 0 "a" a un indice superieur à b
+        if (a.likes > b.likes) {
+          comparison = 1; // ou juste return 1
+
+          // (a-b) < 0 "a" a un indice inferieur à b
+        } else if (a.likes < b.likes) {
+          comparison = -1; // ou juste return -1
+        
+        }
+        // (a-b) === 0 les positions ne changent pas
+        return comparison; // ou juste return 0
+      }
+    } else if (choice == "date") {
+      function compare(a, b) {
+        let comparison = 0;
+        if (a.date > b.date) {
+          comparison = 1; // ou juste return 1
+        } else if (a.date < b.date) {
+          comparison = -1; // ou juste return -1
+          
+        }
+
+        return comparison; // ou juste return 0
+      }
+    } else if (choice == "titre") {
+      function compare(a, b) {
+        let comparison = 0;
+        if (a.title > b.title) {
+          comparison = 1; // ou juste return 1
+        } else if (a.title < b.title) {
+          comparison = -1; // ou juste return -1
+          console.log(comparison);
+        }
+
+        return comparison; // ou juste return 0
+      }
     }
+    //on reinitialise à 0 le contenu de l'element qui contient media 
+    mediaContainer.innerHTML = "";
+    //on apelle la fonction compare() sur l'array de media
+    photographeMedias.sort(compare);
+    //on recree chaque media du tableau filtré plus haut 
+    photographeMedias.forEach((media) => {
+      createMedia(media, photographe);
+     
+    });
   });
 }
 
