@@ -87,7 +87,8 @@ function filterTags(data) {
       if (data.tags.includes(element)) {
         console.log(profileEl);
         // profileEl.style.display="block";
-        profileEl.style.display = "block";
+        //document.querySelector("#cont_phtographer").innerHTML = profileEl ;
+       profileEl.style.display = "block";
         
       } else {
         profileEl.style.display = "none";

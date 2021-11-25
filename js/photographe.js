@@ -1,3 +1,9 @@
+
+//Import de Factory pattern Media depuis le fichier Media.js
+
+import{Media} from "/js/Media.js";
+
+
 // recupere les datas depuis.json
 
 const linkToJson = "./FishEyeData.json";
@@ -43,7 +49,7 @@ fetch(linkToJson)
             //filterPopular(media);
 
             createMedia(media, photographe);
-            filterPopular(media, photographe, mediaData);
+            filterDropdown(media, photographe, mediaData);
           }
         }
         //..................................................
@@ -115,10 +121,14 @@ function createPhtotographer(data) {
 function createMedia(media, photographe) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
+  //on cree une variable factoryMedia pour recuperer class Media depuis Media.js 
+let factoryMedia = new Media(media, photographe)
 
   mediaContainer.innerHTML +=
     "<article>" +
-    choiseMedia(media, photographe) +
+    //choiseMedia(media, photographe)
+   // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor 
+   factoryMedia.display() +
     `<div class="galery-photo-title">
     <a href="#">
   <p> 
@@ -202,7 +212,7 @@ function likesCounter() {
 }
 
 //...................................................................................................
-
+/*
 function choiseMedia(media, photographe) {
   if (media.image) {
     return `
@@ -221,8 +231,9 @@ function choiseMedia(media, photographe) {
     </p>
   </a>`;
   }
-  return;
+  
 }
+*/
 //.......................................................................
 
 function createLightbox() {
@@ -286,7 +297,7 @@ function createLightbox() {
 
 //..........................................................................
 
-function filterPopular(media, photographe, mediaData) {
+function filterDropdown(media, photographe, mediaData) {
  
   const mediaContainer = document.querySelector(".galery-photo");
 
