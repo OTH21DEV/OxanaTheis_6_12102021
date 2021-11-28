@@ -78,6 +78,22 @@ a {
   display: flex;
 }
 
+.photographer-profile__li {
+  font-size: 0.8em;
+  padding: 3px;
+  color: #901C1C;
+  font-weight: 500;
+  margin-right: 5px;
+  border-radius: 11px;
+  border: 0.5px solid #c4c4c4;
+  width: 100%;
+  font-weight: bold;
+}
+.photographer-profile__li:hover {
+  background-color: #901C1C;
+  color: white;
+}
+
 @media all and (min-width: 582px) {
   section {
     display: flex;

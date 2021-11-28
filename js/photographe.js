@@ -1,22 +1,42 @@
-
 //Import de Factory pattern Media depuis le fichier Media.js
 
-import{Media} from "/js/Media.js";
+import { Media } from "/js/Media.js";
+
+//Variables pour la navigation au clavier ......................................................
+let showLeft;
+let showRight;
+let cancel;
+//..............................................................................................
+
+
 
 
 // recupere les datas depuis.json
-
 const linkToJson = "./FishEyeData.json";
-
 
 fetch(linkToJson)
   .then(function (response) {
     if (response.ok) {
       return response.json();
+
+
+      
     }
   })
 
   .then(function (value) {
+   
+
+/*
+  
+    var m = JSON.parse(fs.readFileSync('FishEyeData.json').toString());
+    m.forEach(function(p){
+      p.alt = 'photo' + p.name;
+    
+    })
+    fs.writeFile('FishEyeData.json', JSON.stringify(m));
+
+*/
     // donnes de chaque photographe
     const photographersData = value.photographers;
     // données de media
@@ -53,13 +73,10 @@ fetch(linkToJson)
           }
         }
         //..................................................
-/*
-        photographeMedias = mediaData.filter((media) => {
-          return photographe.id == media.photographerId;
-        });
-        console.log(photographeMedias);.....*/
 
         createLightbox(); // array cible img/video de photographe
+        navigateKeyboard()
+  
         likesCounter();
       }
     }
@@ -68,7 +85,26 @@ fetch(linkToJson)
   .catch(function (err) {
     console.log(err);
   });
+//........................................................................;
+/*
+var obj = {
+  table : []
+}
+obj.table.push({alt : "test" })
+var json =JSON.stringify(obj);
+var fs = require ('fs');
+fs.writeFile("./FishEyeData.json", json, 'utf8', callback);
 
+fs.readFile("./FishEyeData.json", 'utf8', function readFileCallback(err, data){
+  if (err){
+      console.log(err);
+  } else {
+  obj = JSON.parse(data); //now it an object
+  obj.table.Push({id: 2, square:3}); //add some data
+  json = JSON.stringify(obj); //convert it back to json
+  fs.writeFile("./FishEyeData.json", json, 'utf8', callback); // write it back 
+}});
+*/
 //..................................................................................
 
 function createPhtotographer(data) {
@@ -76,7 +112,7 @@ function createPhtotographer(data) {
 
   let tagHtml = "";
   for (let tag of data.tags) {
-    tagHtml += `  <li><a class="category__link" href="#">#${tag}</a></li>`;
+    tagHtml += `  <li><a id ="category__link category__link--photographer" href="#">#${tag}</a></li>`;
   }
 
   container.innerHTML += ` <article class="photographer-profile photographer-profile--page">
@@ -121,14 +157,14 @@ function createPhtotographer(data) {
 function createMedia(media, photographe) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
-  //on cree une variable factoryMedia pour recuperer class Media depuis Media.js 
-let factoryMedia = new Media(media, photographe)
+  //on cree une variable factoryMedia pour recuperer class Media depuis Media.js
+  let factoryMedia = new Media(media, photographe);
 
   mediaContainer.innerHTML +=
     "<article>" +
     //choiseMedia(media, photographe)
-   // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor 
-   factoryMedia.display() +
+    // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor
+    factoryMedia.display() +
     `<div class="galery-photo-title">
     <a href="#">
   <p> 
@@ -259,58 +295,91 @@ function createLightbox() {
     });
   });
   next.addEventListener("click", (e) => {
-    // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
-    // on parseInt pour convertir une chaine de caractères en nombre entier
-    let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
+    //on associe la variable showRight à la fonction pour la logique de l'affichage next media afin de la recuperer dans la fonction navigateKeyboard()
+    showRight = function () {
+      // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
+      // on parseInt pour convertir une chaine de caractères en nombre entier
+      let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
 
-    //si on essaye afficher le media suivant suite au dernier media , on cree
-    //une condition pour afficher le premier media
+      //si on essaye afficher le media suivant suite au dernier media , on cree
+      //une condition pour afficher le premier media
 
-    if (newIndex >= medias.length) {
-      newIndex = 0;
+      if (newIndex >= medias.length) {
+        newIndex = 0;
+      }
+
+      //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
+      sessionStorage.setItem("index", newIndex);
+
+      //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
+      lightboxMedia.src = medias[newIndex].src;
     }
-
-    //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-    sessionStorage.setItem("index", newIndex);
-
-    //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-    lightboxMedia.src = medias[newIndex].src;
+    //on apelle cette fonction pour executer au click
+    showRight();
   });
-
+  
   prev.addEventListener("click", (e) => {
-    let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
-    //si on n'a pas de media
-    if (newIndex < 0) {
-      // on recepure la longeur totale de tableau medias donc dernier media du tableau
-      newIndex = medias.length;
-    }
-    //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-    sessionStorage.setItem("index", newIndex);
-    //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-    lightboxMedia.src = medias[newIndex].src;
+    //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
+    showLeft = function () {
+      let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
+      //si on n'a pas de media
+      if (newIndex < 0) {
+        // on recepure la longeur totale de tableau medias donc dernier media du tableau
+        newIndex = medias.length;
+      }
+      //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
+      sessionStorage.setItem("index", newIndex);
+      //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
+      lightboxMedia.src = medias[newIndex].src;
+    };
+    //on apelle cette fonction pour executer au click
+    
+    showLeft()
   });
-
+  
   close.addEventListener("click", (e) => {
-    modal.style.visibility = "hidden";
+      cancel = function () {
+      //on associe à la fonction la fermeture de lightbox pour la recuperer dans la fonction navigateKeyboard()
+      modal.style.visibility = "hidden";
+    };
+    //on apelle cette fonction pour executer au click
+    cancel();
+  });
+  
+ 
+  
+  
+}
+//...........................................................................................................
+function navigateKeyboard() {
+  window.addEventListener("keydown", function (e) {
+    if (e.key == "ArrowRight") {
+      showRight();
+    }
+    if (e.key == "ArrowLeft") {
+      showLeft();
+    }
+
+    if (e.key == "Escape") {
+      cancel();
+    }
   });
 }
 
 //..........................................................................
 
 function filterDropdown(media, photographe, mediaData) {
- 
   const mediaContainer = document.querySelector(".galery-photo");
 
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
-  //on cree un array vide de medias de photographe 
+  //on cree un array vide de medias de photographe
   let photographeMedias = [];
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
   });
- //console.log(photographeMedias);
-  
+  //console.log(photographeMedias);
 
   //on ecoute le changement des options
   filterSelect.addEventListener("change", (e) => {
@@ -327,7 +396,6 @@ function filterDropdown(media, photographe, mediaData) {
           // (a-b) < 0 "a" a un indice inferieur à b
         } else if (a.likes < b.likes) {
           comparison = -1; // ou juste return -1
-        
         }
         // (a-b) === 0 les positions ne changent pas
         return comparison; // ou juste return 0
@@ -339,7 +407,6 @@ function filterDropdown(media, photographe, mediaData) {
           comparison = 1; // ou juste return 1
         } else if (a.date < b.date) {
           comparison = -1; // ou juste return -1
-          
         }
 
         return comparison; // ou juste return 0
@@ -357,14 +424,13 @@ function filterDropdown(media, photographe, mediaData) {
         return comparison; // ou juste return 0
       }
     }
-    //on reinitialise à 0 le contenu de l'element qui contient media 
+    //on reinitialise à 0 le contenu de l'element qui contient media
     mediaContainer.innerHTML = "";
     //on apelle la fonction compare() sur l'array de media
     photographeMedias.sort(compare);
-    //on recree chaque media du tableau filtré plus haut 
+    //on recree chaque media du tableau filtré plus haut
     photographeMedias.forEach((media) => {
       createMedia(media, photographe);
-     
     });
   });
 }
