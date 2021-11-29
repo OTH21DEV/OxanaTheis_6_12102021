@@ -1,15 +1,13 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
 import { Media } from "/js/Media.js";
+//import{filterPhotographeTags} from "/js/script.js"
 
 //Variables pour la navigation au clavier ......................................................
 let showLeft;
 let showRight;
 let cancel;
 //..............................................................................................
-
-
-
 
 // recupere les datas depuis.json
 const linkToJson = "./FishEyeData.json";
@@ -18,16 +16,11 @@ fetch(linkToJson)
   .then(function (response) {
     if (response.ok) {
       return response.json();
-
-
-      
     }
   })
 
   .then(function (value) {
-   
-
-/*
+    /*
   
     var m = JSON.parse(fs.readFileSync('FishEyeData.json').toString());
     m.forEach(function(p){
@@ -69,17 +62,18 @@ fetch(linkToJson)
             //filterPopular(media);
 
             createMedia(media, photographe);
-            filterDropdown(media, photographe, mediaData);
           }
         }
         //..................................................
+        filterDropdown(photographe, mediaData);
 
         createLightbox(); // array cible img/video de photographe
-        navigateKeyboard()
-  
+        navigateKeyboard();
+
         likesCounter();
       }
     }
+    //filterPhotographeTags(photographersData);
   })
 
   .catch(function (err) {
@@ -112,7 +106,7 @@ function createPhtotographer(data) {
 
   let tagHtml = "";
   for (let tag of data.tags) {
-    tagHtml += `  <li><a id ="category__link category__link--photographer" href="#">#${tag}</a></li>`;
+    tagHtml += `  <li><a class = "photographer-profile__li" href="index.html">#${tag}</a></li>`;
   }
 
   container.innerHTML += ` <article class="photographer-profile photographer-profile--page">
@@ -187,8 +181,6 @@ function createMedia(media, photographe) {
     "</article> ";
 
   clickLikes();
-
-  // filterPopular(media)
 }
 
 function clickLikes() {
@@ -313,11 +305,11 @@ function createLightbox() {
 
       //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
       lightboxMedia.src = medias[newIndex].src;
-    }
+    };
     //on apelle cette fonction pour executer au click
     showRight();
   });
-  
+
   prev.addEventListener("click", (e) => {
     //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
     showLeft = function () {
@@ -333,22 +325,18 @@ function createLightbox() {
       lightboxMedia.src = medias[newIndex].src;
     };
     //on apelle cette fonction pour executer au click
-    
-    showLeft()
+
+    showLeft();
   });
-  
+
   close.addEventListener("click", (e) => {
-      cancel = function () {
+    cancel = function () {
       //on associe à la fonction la fermeture de lightbox pour la recuperer dans la fonction navigateKeyboard()
       modal.style.visibility = "hidden";
     };
     //on apelle cette fonction pour executer au click
     cancel();
   });
-  
- 
-  
-  
 }
 //...........................................................................................................
 function navigateKeyboard() {
@@ -368,25 +356,84 @@ function navigateKeyboard() {
 
 //..........................................................................
 
-function filterDropdown(media, photographe, mediaData) {
+function filterDropdown(photographe, mediaData) {
   const mediaContainer = document.querySelector(".galery-photo");
 
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
-  //on cree un array vide de medias de photographe
-  let photographeMedias = [];
-  //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-  photographeMedias = mediaData.filter((media) => {
-    return photographe.id == media.photographerId;
-  });
-  //console.log(photographeMedias);
 
   //on ecoute le changement des options
   filterSelect.addEventListener("change", (e) => {
+    //on cree un array vide de medias de photographe
+    let photographeMedias = [];
+    //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
+    photographeMedias = mediaData.filter((media) => {
+      return photographe.id == media.photographerId;
+    });
+
+    console.log(photographeMedias);
     //on cree une variable pour recuperer la valeur de l'option choisie
     let choice = filterSelect.value;
 
+    //(a-b) > 0 "a" a un indice superieur à b
+    //(a-b) < 0 "a" a un indice inferieur à b
+    //(a-b) === 0 les positions ne changent pas
+
     if (choice == "popularité") {
+      function compare(a, b) {
+        if (a.likes > b.likes) return -1;
+        if (b.likes > a.likes) return 1;
+
+        return 0;
+      }
+      //on reinitialise à 0 le contenu de l'element qui contient media
+      mediaContainer.innerHTML = "";
+
+      //on apelle la fonction compare() sur l'array de media
+      photographeMedias.sort(compare);
+      //on recree chaque media du tableau filtré plus haut
+      photographeMedias.forEach((media) => {
+        createMedia(media, photographe);
+      });
+    } else if (choice == "date") {
+      function compare(a, b) {
+        if (a.date > b.date) {
+          return 1;
+        }
+        if (b.date > a.date) {
+          return -1;
+        }
+        return 0;
+      }
+      mediaContainer.innerHTML = "";
+      photographeMedias.sort(compare);
+
+      photographeMedias.forEach((media) => {
+        createMedia(media, photographe);
+      });
+    } else if (choice == "titre") {
+      function compare(a, b) {
+        if (a.title > b.title) {
+          return 1;
+        }
+        if (b.title > a.title) {
+          return -1;
+        }
+
+        return 0;
+      }
+      mediaContainer.innerHTML = "";
+      photographeMedias.sort(compare);
+
+      photographeMedias.forEach((media) => {
+        createMedia(media, photographe);
+      });
+    }
+  });
+}
+//....................................
+
+/*
       function compare(a, b) {
         let comparison = 0;
         // (a-b) > 0 "a" a un indice superieur à b
@@ -409,7 +456,7 @@ function filterDropdown(media, photographe, mediaData) {
           comparison = -1; // ou juste return -1
         }
 
-        return comparison; // ou juste return 0
+        return comparison;
       }
     } else if (choice == "titre") {
       function compare(a, b) {
@@ -418,23 +465,25 @@ function filterDropdown(media, photographe, mediaData) {
           comparison = 1; // ou juste return 1
         } else if (a.title < b.title) {
           comparison = -1; // ou juste return -1
-          console.log(comparison);
         }
 
-        return comparison; // ou juste return 0
-      }
-    }
-    //on reinitialise à 0 le contenu de l'element qui contient media
+        return comparison;
+      }*/
+
+//on reinitialise à 0 le contenu de l'element qui contient media
+/*
     mediaContainer.innerHTML = "";
+
     //on apelle la fonction compare() sur l'array de media
     photographeMedias.sort(compare);
+
     //on recree chaque media du tableau filtré plus haut
     photographeMedias.forEach((media) => {
       createMedia(media, photographe);
     });
-  });
-}
+  });*/
 
+//..........................................................................................................
 function createForm(data) {
   const formModal = document.querySelector(".form-modal");
   const contactBtn = document.querySelector("#contact");

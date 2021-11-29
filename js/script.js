@@ -119,3 +119,4 @@ function filterPhotographeTags(data) {
     });
   });
 }
+//export{filterPhotographeTags}
