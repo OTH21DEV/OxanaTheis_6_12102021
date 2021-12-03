@@ -1,10 +1,9 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
 import { Media } from "/js/Media.js";
-//import{filterPhotographeTags} from "/js/script.js"
 
 //Variables pour la navigation au clavier ......................................................
-let showLeft;
+//let showLeft;
 let showRight;
 let cancel;
 //..............................................................................................
@@ -51,7 +50,7 @@ fetch(linkToJson)
       // console.log(photographe.id);
       //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
       if (photographe.id == idTag) {
-        createPhtotographer(photographe);
+        createPhtotographer(photographe, photographersData);
         createForm(photographe);
         createTotalLikesContainer(photographe);
         //.................................
@@ -67,13 +66,14 @@ fetch(linkToJson)
         //..................................................
         filterDropdown(photographe, mediaData);
 
-        createLightbox(); // array cible img/video de photographe
-        navigateKeyboard();
+        // navigateKeyboard();
 
         likesCounter();
       }
     }
-    //filterPhotographeTags(photographersData);
+    createLightbox(); // array cible img/video de photographe
+    navigateKeyboard();
+    filterTagsOnPhotographePage(photographersData);
   })
 
   .catch(function (err) {
@@ -81,7 +81,7 @@ fetch(linkToJson)
   });
 //........................................................................;
 /*
-var obj = {
+let obj = {
   table : []
 }
 obj.table.push({alt : "test" })
@@ -94,7 +94,7 @@ fs.readFile("./FishEyeData.json", 'utf8', function readFileCallback(err, data){
       console.log(err);
   } else {
   obj = JSON.parse(data); //now it an object
-  obj.table.Push({id: 2, square:3}); //add some data
+  obj.table.Push({alt: test}); //add some data
   json = JSON.stringify(obj); //convert it back to json
   fs.writeFile("./FishEyeData.json", json, 'utf8', callback); // write it back 
 }});
@@ -106,10 +106,10 @@ function createPhtotographer(data) {
 
   let tagHtml = "";
   for (let tag of data.tags) {
-    tagHtml += `  <li><a class = "photographer-profile__li" href="index.html">#${tag}</a></li>`;
+    tagHtml += `  <li><a class = "photographer-profile__li"  >#${tag}</a></li>`;
   }
 
-  container.innerHTML += ` <article class="photographer-profile photographer-profile--page">
+  container.innerHTML += ` <article id = "tt" class="photographer-profile photographer-profile--page">
     <a href="#">
       <h2
         class="
@@ -147,7 +147,21 @@ function createPhtotographer(data) {
   </a>`;
 }
 //......................................................................
+function filterTagsOnPhotographePage(data) {
+  let photographeLinks = document.querySelectorAll(".photographer-profile__li");
 
+  photographeLinks.forEach((photographeLink) => {
+    photographeLink.addEventListener("click", (e) => {
+      let clickedTag = e.target.text.toLowerCase().replace("#", "");
+      sessionStorage.setItem("tag", clickedTag);
+
+      photographeLink.href = "index.html";
+      // on complete la logique de filtrage par une fonction "filterPhotographeTagsFromPhotographe page" sur script.js 
+    });
+  });
+}
+
+//.....................................................................
 function createMedia(media, photographe) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
@@ -287,69 +301,87 @@ function createLightbox() {
     });
   });
   next.addEventListener("click", (e) => {
-    //on associe la variable showRight à la fonction pour la logique de l'affichage next media afin de la recuperer dans la fonction navigateKeyboard()
-    showRight = function () {
-      // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
-      // on parseInt pour convertir une chaine de caractères en nombre entier
-      let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
-
-      //si on essaye afficher le media suivant suite au dernier media , on cree
-      //une condition pour afficher le premier media
-
-      if (newIndex >= medias.length) {
-        newIndex = 0;
-      }
-
-      //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-      sessionStorage.setItem("index", newIndex);
-
-      //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-      lightboxMedia.src = medias[newIndex].src;
-    };
     //on apelle cette fonction pour executer au click
-    showRight();
+    showRightInLightbox();
   });
 
   prev.addEventListener("click", (e) => {
-    //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
-    showLeft = function () {
-      let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
-      //si on n'a pas de media
-      if (newIndex < 0) {
-        // on recepure la longeur totale de tableau medias donc dernier media du tableau
-        newIndex = medias.length;
-      }
-      //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-      sessionStorage.setItem("index", newIndex);
-      //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-      lightboxMedia.src = medias[newIndex].src;
-    };
     //on apelle cette fonction pour executer au click
 
-    showLeft();
+    showLeftInLightbox();
   });
 
   close.addEventListener("click", (e) => {
-    cancel = function () {
-      //on associe à la fonction la fermeture de lightbox pour la recuperer dans la fonction navigateKeyboard()
-      modal.style.visibility = "hidden";
-    };
-    //on apelle cette fonction pour executer au click
-    cancel();
+    //on associe à la fonction la fermeture de lightbox pour la recuperer dans la fonction navigateKeyboard()
+
+    cancelInLightBox();
   });
+}
+//......................................................................................................
+function cancelInLightBox() {
+  const modal = document.querySelector(".modal");
+  modal.style.visibility = "hidden";
+}
+//.......................................................................................................
+
+function showRightInLightbox() {
+  const medias = document.querySelectorAll(
+    ".galery-photo__img img, .galery-photo__img video"
+  );
+  const modal = document.querySelector(".modal");
+  let lightboxMedia = modal.querySelector(".lightbox__container img");
+  //on associe la variable showRight à la fonction pour la logique de l'affichage next media afin de la recuperer dans la fonction navigateKeyboard()
+
+  // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
+  // on parseInt pour convertir une chaine de caractères en nombre entier
+  let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
+
+  //si on essaye afficher le media suivant suite au dernier media , on cree
+  //une condition pour afficher le premier media
+
+  if (newIndex >= medias.length) {
+    newIndex = 0;
+  }
+
+  //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
+  sessionStorage.setItem("index", newIndex);
+
+  //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
+  lightboxMedia.src = medias[newIndex].src;
+}
+//.........................................................................................................
+function showLeftInLightbox() {
+  const medias = document.querySelectorAll(
+    ".galery-photo__img img, .galery-photo__img video"
+  );
+  const modal = document.querySelector(".modal");
+  let lightboxMedia = modal.querySelector(".lightbox__container img");
+  //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
+  let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
+  //si on n'a pas de media
+  if (newIndex < 0) {
+    // on recepure la longeur totale de tableau medias donc dernier media du tableau
+    newIndex = medias.length;
+  }
+  //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
+  sessionStorage.setItem("index", newIndex);
+  //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
+  lightboxMedia.src = medias[newIndex].src;
+  //console.log(lightboxMedia.src)
+  console.log(medias[newIndex].src);
 }
 //...........................................................................................................
 function navigateKeyboard() {
   window.addEventListener("keydown", function (e) {
     if (e.key == "ArrowRight") {
-      showRight();
+      showRightInLightbox();
     }
     if (e.key == "ArrowLeft") {
-      showLeft();
+      showLeftInLightbox();
     }
 
     if (e.key == "Escape") {
-      cancel();
+      cancelInLightBox();
     }
   });
 }
@@ -429,6 +461,8 @@ function filterDropdown(photographe, mediaData) {
         createMedia(media, photographe);
       });
     }
+    //on recree lightbox pour l'affichage apres le filtre
+    createLightbox();
   });
 }
 //....................................

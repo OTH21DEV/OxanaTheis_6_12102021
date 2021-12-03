@@ -17,6 +17,7 @@ fetch(linkToJson)
       filterTags(photographe);
     }
     filterPhotographeTags(photographersData);
+    filterTagsFromPhotographePage(photographersData);
   })
 
   .catch(function (err) {
@@ -95,7 +96,7 @@ function filterTags(data) {
 
 function filterPhotographeTags(data) {
   let photographeLinks = document.querySelectorAll(".photographer-profile__li");
-
+  //console.log(photographeLinks)
   photographeLinks.forEach((photographeLink) => {
     photographeLink.addEventListener("click", (e) => {
       let newElement = e.target.text.toLowerCase().replace("#", "");
@@ -119,4 +120,21 @@ function filterPhotographeTags(data) {
     });
   });
 }
-//export{filterPhotographeTags}
+function filterTagsFromPhotographePage(data) {
+  //on applique la methode .filter au parametre data ( photographersData) pour acceder au contenu de chaque photographe -photographeProfile
+
+  data.filter((photographeProfile) => {
+    //on recupere element de dom <article> en attribuant nouveau id -photographeProfile.id
+    let newprofileEl = document.getElementById(
+      "photographer-" + photographeProfile.id
+    );
+    //on verifie si les tags de photographe comprennent les Tags enregistrés dans sessionStorage dans la fonction filterTagsOnPhotographePage sur la page de photographe.js
+    if (photographeProfile.tags.includes(sessionStorage.tag)) {
+      newprofileEl.style.display = "flex";
+      document.querySelector("#cont_phtographer").style.justifyContent =
+        "center";
+    } else {
+      newprofileEl.style.display = "none";
+    }
+  });
+}
