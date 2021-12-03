@@ -156,7 +156,7 @@ function filterTagsOnPhotographePage(data) {
       sessionStorage.setItem("tag", clickedTag);
 
       photographeLink.href = "index.html";
-      // on complete la logique de filtrage par une fonction "filterPhotographeTagsFromPhotographe page" sur script.js 
+      // on complete la logique de filtrage par une fonction "filterPhotographeTagsFromPhotographe page" sur script.js
     });
   });
 }
@@ -569,7 +569,7 @@ function createForm(data) {
     formModal.style.visibility = "hidden";
   });
   const btnModal = document.getElementById("btn-modal");
-  console.log(btnModal);
+  //............................................................................................
   const errorDisplay = (tag, message, valid) => {
     // message de chaque champs (se trouve dans le span )
 
@@ -586,7 +586,7 @@ function createForm(data) {
       spanMsg.textContent = message;
     }
   };
-
+  //.................................................................................................
   const nameChecker = (type, value, element) => {
     if (value.length > 0 && (value.length < 3 || value.length > 20)) {
       errorDisplay(
@@ -608,7 +608,7 @@ function createForm(data) {
       element.style.border = "3px solid green";
     }
   };
-
+  //....................................................................................................
   const emailChecker = (value, element) => {
     if (
       !value.match(
@@ -629,6 +629,7 @@ function createForm(data) {
         e.target.id //test la valeur de champs
       ) {
         case "prenom": //si tu es dans le prenom
+          //  console.log(e);
           nameChecker("prenom", e.target.value, prenom); //on  analise cette fonction : (nameChecker (avec les arguments comme ceux ci pour les parametres :type, value, element))
           break;
 
@@ -647,27 +648,18 @@ function createForm(data) {
   });
 
   btnModal.addEventListener("click", (e) => {
-    let isValid = true;
-    console.log(e);
-    if (prenom.validity.valueMissing) {
-      e.preventDefault();
-      isValid = false;
+    if (prenom.value == "") {
       errorDisplay("prenom", "Veuillez remplir ce champs");
     }
-    if (nom.validity.valueMissing) {
-      e.preventDefault();
-      isValid = false;
+
+    if (nom.value == "") {
       errorDisplay("nom", "Veuillez remplir ce champs");
     }
 
-    if (email.validity.valueMissing) {
-      e.preventDefault();
-
-      isValid = false;
+    if (email.value == "") {
+   
       errorDisplay("email", "Veuillez remplir ce champs");
-    }
-
-    if (isValid == true) {
+    } else {
       const userData = {
         prenom: prenom.value,
         nom: nom.value,
