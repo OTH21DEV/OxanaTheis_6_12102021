@@ -17,7 +17,7 @@ fetch(linkToJson)
       filterTags(photographe);
     }
     filterPhotographeTags(photographersData);
-    filterTagsFromPhotographePage(photographersData);
+   filterTagsFromPhotographePage(photographersData);
   })
 
   .catch(function (err) {
@@ -136,5 +136,7 @@ function filterTagsFromPhotographePage(data) {
     } else {
       newprofileEl.style.display = "none";
     }
+    
   });
+  //sessionStorage.clear();
 }

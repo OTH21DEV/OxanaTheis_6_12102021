@@ -9,6 +9,11 @@
   display: flex;
   //padding: 20px;
   justify-content: space-between;
+
+  @include desktop {
+    padding-left: 20px;
+  }
+  
 }
 
 article {
@@ -60,7 +65,7 @@ video {
   @include desktop {
     position: relative;
 
-    top: -84em;
+    top: -89em;
     left: -5em;
   }
 }
@@ -82,9 +87,10 @@ video {
   }
 }
 /*
-.contact__btn.contact__btn--listbox::after {
-  content: "";
-  border-bottom: black 3px solid;
+#listbox__popular{
+ // content: "";
+  border:none;
+  border-bottom:3px  rgb(45, 77, 61) solid;
 
   display: block;
   width: 40px;
@@ -92,8 +98,8 @@ video {
 
 
 }
-
 */
+
 .form__btn.contact__btn {
   margin: 20px 50px;
   cursor: pointer;
@@ -112,7 +118,7 @@ video {
     visibility: visible;
     display: flex;
     justify-content: flex-start;
-    padding-left: 20px;
+  
     padding-bottom: 20px;
   }
 }

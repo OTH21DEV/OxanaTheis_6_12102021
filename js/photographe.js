@@ -73,7 +73,7 @@ fetch(linkToJson)
     }
     createLightbox(); // array cible img/video de photographe
     navigateKeyboard();
-    filterTagsOnPhotographePage(photographersData);
+    filterTagsOnPhotographePage();
   })
 
   .catch(function (err) {
@@ -657,7 +657,7 @@ function createForm(data) {
     }
 
     if (email.value == "") {
-   
+      //  e.preventDefault();
       errorDisplay("email", "Veuillez remplir ce champs");
     } else {
       const userData = {
