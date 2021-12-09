@@ -16,8 +16,21 @@ fetch(linkToJson)
       createPhtotographer(photographe);
       filterTags(photographe);
     }
-    filterPhotographeTags(photographersData);
-   filterTagsFromPhotographePage(photographersData);
+    //.....................................................................................
+    //On controle les données de sessionStorage pour filtre de Tags (soit depuis la page de photographe soit depuis la page d'accueil)
+    let data = sessionStorage.getItem("tag");
+    console.log(data);
+
+    if (data == null) {
+      filterPhotographeTags(photographersData);
+    } else if (data.length > 0) {
+      filterTagsFromPhotographePage(photographersData);
+      sessionStorage.clear();
+      filterPhotographeTags(photographersData);
+    }
+    //.....................................................................................
+    // filterPhotographeTags(photographersData);
+    //filterTagsFromPhotographePage(photographersData);
   })
 
   .catch(function (err) {
@@ -130,13 +143,12 @@ function filterTagsFromPhotographePage(data) {
     );
     //on verifie si les tags de photographe comprennent les Tags enregistrés dans sessionStorage dans la fonction filterTagsOnPhotographePage sur la page de photographe.js
     if (photographeProfile.tags.includes(sessionStorage.tag)) {
+      console.log(sessionStorage);
       newprofileEl.style.display = "flex";
       document.querySelector("#cont_phtographer").style.justifyContent =
         "center";
     } else {
       newprofileEl.style.display = "none";
     }
-    
   });
-  //sessionStorage.clear();
 }

@@ -289,7 +289,7 @@ function createLightbox() {
   const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
   const close = document.querySelector(".lightbox__close .fa-times");
 
-  let lightboxMedia = modal.querySelector(".lightbox__container img");
+  let lightboxContainer = modal.querySelector(".lightbox__container");
 
   medias.forEach((media, i) => {
     //console.log(i)
@@ -297,7 +297,7 @@ function createLightbox() {
       //sessionStorage.setItem - stock une paire clé/valeur ici "index", i(number)
       sessionStorage.setItem("index", i);
       modal.style.visibility = "visible";
-      lightboxMedia.src = media.src;
+      lightboxContainer.src = media.src;
     });
   });
   next.addEventListener("click", (e) => {
