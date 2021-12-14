@@ -96,6 +96,7 @@ a {
 .photographer-profile__li:hover {
   background-color: #901C1C;
   color: white;
+  cursor: pointer;
 }
 
 @media all and (min-width: 582px) {
