@@ -73,9 +73,10 @@ fetch(linkToJson)
         likesCounter();
 
         createLightbox(photographe, mediaData); // array cible img/video de photographe
+        navigateKeyboard(photographe, mediaData);
       }
     }
-    navigateKeyboard();
+    test();
     filterTagsOnPhotographePage();
   })
 
@@ -207,6 +208,7 @@ function clickLikes() {
     heart.addEventListener("click", (e) => {
       //on associe Id de media à chaque heart via data-id = "${media.id}" dans la function createMedia
       //on recupere cet Id
+
       let heartId = heart.dataset.id;
       //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
       //on recupere la valeur
@@ -217,16 +219,19 @@ function clickLikes() {
       document.getElementById(`${heartId}`).innerHTML = likes;
 
       likesCounter();
-      //   test()
     });
   });
 }
 //....................................................................................
 //
-/*
-function test (){
-  const hearts = document.querySelectorAll(".heart i");
-  hearts.forEach((heart) => {
+
+function test() {
+  window.addEventListener("keydown", function (e) {
+    if (e.key == "Enter") {
+      let heartId = e.target;
+      console.log(e.target);
+    }
+    /*
   let heartId = heart.dataset.id;
   //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
   //on recupere la valeur
@@ -235,9 +240,9 @@ function test (){
   let likes = parseInt(addLike) + 1;
   //on reedite l'element de dom avec l'id et la nouvelle valeur puis on apelle cette function dans la function createMedia
   document.getElementById(`${heartId}`).innerHTML = likes;
-  likesCounter();
-})}
-*/
+  likesCounter();*/
+  });
+}
 //..............................................................................
 
 //................................................................................
@@ -321,7 +326,7 @@ function createLightbox(photographe, mediaData) {
     return photographe.id == media.photographerId;
   });
 
-  console.log(photographe.path);
+  console.log(photographe);
 
   medias.forEach((media, i) => {
     //console.log(i)
@@ -329,43 +334,25 @@ function createLightbox(photographe, mediaData) {
       //sessionStorage.setItem - stock une paire clé/valeur ici "index", i(number)
       sessionStorage.setItem("index", i);
       modal.style.visibility = "visible";
+      modal.focus();
+
       mediaActive = i;
 
-      let clickedPhoto = new Photo(
-        photographe.path,
-        photographeMedias[mediaActive].image
-      );
-      let clickedVideo = new Video(
-        photographe.path,
-        photographeMedias[mediaActive].video
-      );
+      let clickedMedia = new Media(photographeMedias[mediaActive], photographe);
 
-      console.log(photographeMedias);
-      if (media.src.includes("jpg")) {
-        lightboxContainer.innerHTML = clickedPhoto.display();
-      } else {
-        lightboxContainer.innerHTML = clickedVideo.display();
-      }
+      lightboxContainer.innerHTML = clickedMedia.display();
     });
   });
 
-  /*
- sessionStorage.setItem("index", i);
-      modal.style.visibility = "visible";
-
-    
-   lightboxContainer.src = media.src;
-     */
-
   next.addEventListener("click", (e) => {
     //on apelle cette fonction pour executer au click
-    showRightInLightbox(photographe, mediaData);
+    showRightInLightbox(photographe, photographeMedias);
   });
 
   prev.addEventListener("click", (e) => {
     //on apelle cette fonction pour executer au click
 
-    showLeftInLightbox(photographe, mediaData);
+    showLeftInLightbox(photographe, photographeMedias);
   });
 
   close.addEventListener("click", (e) => {
@@ -382,7 +369,7 @@ function cancelInLightBox() {
 //............................................................................
 
 //.......................................................................
-function showRightInLightbox(photographe, mediaData) {
+function showRightInLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
     ".galery-photo__img img, .galery-photo__img video"
   );
@@ -394,46 +381,22 @@ function showRightInLightbox(photographe, mediaData) {
   // on parseInt pour convertir une chaine de caractères en nombre entier
   let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
 
-  //si on essaye afficher le media suivant suite au dernier media , on cree
-  //une condition pour afficher le premier media
+  //si on essaye afficher le media suivant suite au dernier media , on cree une condition pour afficher le premier media
 
-  if (newIndex >= medias.length) {
+  if (newIndex >= photographeMedias.length - 1) {
     newIndex = 0;
   }
 
   //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
   sessionStorage.setItem("index", newIndex);
 
-  //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-  //lightboxContainer.src = medias[newIndex].src;
-
-  let photographeMedias = [];
-  //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-  photographeMedias = mediaData.filter((media) => {
-    return photographe.id == media.photographerId;
-  });
-
-
-  console.log( photographeMedias[newIndex].image)
-  console.log(medias[newIndex])
-  let clickedPhoto = new Photo(
-    photographe.path,
-    photographeMedias[newIndex].image
-  );
-  let clickedVideo = new Video(
-    photographe.path,
-    photographeMedias[newIndex].video
-  );
-  if (medias[newIndex].src.includes("jpg")) {
-    
-    lightboxContainer.innerHTML = clickedPhoto.display();
- } else {
-    lightboxContainer.innerHTML = clickedVideo.display();
-  }
-
+  //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
+  let nextMedia = new Media(photographeMedias[newIndex], photographe);
+  // on affiche cette nouvelle media
+  lightboxContainer.innerHTML = nextMedia.display();
 }
 //.........................................................................................................
-function showLeftInLightbox(photographe, mediaData) {
+function showLeftInLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
     ".galery-photo__img img, .galery-photo__img video"
   );
@@ -441,49 +404,34 @@ function showLeftInLightbox(photographe, mediaData) {
   let lightboxContainer = modal.querySelector(".lightbox__container");
   //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
   let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
+
   //si on n'a pas de media
   if (newIndex < 0) {
-    // on recepure la longeur totale de tableau medias donc dernier media du tableau
-    newIndex = medias.length;
+    // on recepure la longeur totale de tableau medias donc dernier media du tableau -1
+    newIndex = photographeMedias.length - 1;
   }
   //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
   sessionStorage.setItem("index", newIndex);
-  //on attribue la nouvelle src a l'element lightboxMedia = à la nouvelle valeur de newIndex
-//  lightboxMedia.src = medias[newIndex].src;
-  //console.log(lightboxMedia.src)
-  
+
+  //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
+  let prevMedia = new Media(photographeMedias[newIndex], photographe);
+  // on affiche cette nouvelle media
+  lightboxContainer.innerHTML = prevMedia.display();
+}
+//...........................................................................................................
+function navigateKeyboard(photographe, mediaData) {
+  //etant donnéé la varibale photographeMedias n'est pas connue, on recree le tableau medias afin de la mettre dans le parametre de la function  showRightInLightbox(photographe, photographeMedias)
   let photographeMedias = [];
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
   });
-
-
-  console.log(medias[newIndex])
-  let clickedPhoto = new Photo(
-    photographe.path,
-    photographeMedias[newIndex].image
-  );
-  let clickedVideo = new Video(
-    photographe.path,
-    photographeMedias[newIndex].video
-  );
-  if (medias[newIndex].src.includes("jpg")) {
-    lightboxContainer.innerHTML = clickedPhoto.display();
- } else {
-    lightboxContainer.innerHTML = clickedVideo.display();
-  }
-
-
-}
-//...........................................................................................................
-function navigateKeyboard() {
   window.addEventListener("keydown", function (e) {
     if (e.key == "ArrowRight") {
-      showRightInLightbox();
+      showRightInLightbox(photographe, photographeMedias);
     }
     if (e.key == "ArrowLeft") {
-      showLeftInLightbox();
+      showLeftInLightbox(photographe, photographeMedias);
     }
 
     if (e.key == "Escape") {
@@ -498,14 +446,6 @@ function navigateKeyboard() {
   });
 }
 
-//..........................................................................
-function mouveFocus() {
-  const modal = document.querySelector(".modal");
-  const next = document.querySelector(".lightbox__next .fa-chevron-right");
-
-  modal.style.visibility = "visible";
-  next.focus();
-}
 
 //............................................................................
 
