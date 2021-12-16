@@ -76,7 +76,7 @@ fetch(linkToJson)
         navigateKeyboard(photographe, mediaData);
       }
     }
-    test();
+    //  test();
     filterTagsOnPhotographePage();
   })
 
@@ -199,6 +199,7 @@ function createMedia(media, photographe) {
     "</article> ";
 
   clickLikes();
+  test();
 }
 
 function clickLikes() {
@@ -210,6 +211,7 @@ function clickLikes() {
       //on recupere cet Id
 
       let heartId = heart.dataset.id;
+
       //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
       //on recupere la valeur
       let addLike = heart.dataset.like;
@@ -219,6 +221,8 @@ function clickLikes() {
       document.getElementById(`${heartId}`).innerHTML = likes;
 
       likesCounter();
+
+      // test();
     });
   });
 }
@@ -228,21 +232,16 @@ function clickLikes() {
 function test() {
   window.addEventListener("keydown", function (e) {
     if (e.key == "Enter") {
-      let heartId = e.target;
-      console.log(e.target);
+      let heartId = e.target.querySelector("i").dataset.id;
+      let addLike = e.target.querySelector("i").dataset.like;
+      let likes = parseInt(addLike) + 1;
+      document.getElementById(`${heartId}`).innerHTML = likes;
+
+      likesCounter();
     }
-    /*
-  let heartId = heart.dataset.id;
-  //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
-  //on recupere la valeur
-  let addLike = heart.dataset.like;
-  // on cree une variable et on incremente pour obtenir la nouvelle valeur
-  let likes = parseInt(addLike) + 1;
-  //on reedite l'element de dom avec l'id et la nouvelle valeur puis on apelle cette function dans la function createMedia
-  document.getElementById(`${heartId}`).innerHTML = likes;
-  likesCounter();*/
   });
 }
+
 //..............................................................................
 
 //................................................................................
@@ -440,12 +439,11 @@ function navigateKeyboard(photographe, mediaData) {
     /*
     if (e.key == "Enter") {
      
-      test() ;
+      test(e) ;
      }
      */
   });
 }
-
 
 //............................................................................
 
@@ -522,8 +520,8 @@ function filterDropdown(photographe, mediaData) {
         createMedia(media, photographe);
       });
     }
+    createLightbox(photographe, photographeMedias);
     //on recree lightbox pour l'affichage apres le filtre
-    createLightbox();
   });
 }
 //....................................
