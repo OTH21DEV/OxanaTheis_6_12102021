@@ -1,13 +1,9 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
 import { Media } from "/js/Media.js";
-import { Photo } from "/js/Photo.js";
-import { Video } from "/js/Video.js";
 
-//Variables pour la navigation au clavier ......................................................
-//let showLeft;
-let showRight;
-let cancel;
+
+
 //..............................................................................................
 
 // recupere les datas depuis.json
@@ -73,7 +69,8 @@ fetch(linkToJson)
         likesCounter();
 
         createLightbox(photographe, mediaData); // array cible img/video de photographe
-        navigateKeyboard(photographe, mediaData);
+      //  navigateKeyboard(photographe, mediaData);
+        //openLightboxOnKeyboard() ;
       }
     }
     //  test();
@@ -198,11 +195,11 @@ function createMedia(media, photographe) {
     "</div>" +
     "</article> ";
 
-  clickLikes();
-  test();
+  addLikesOnClick();
+  //addLikesKeyboard();
 }
 
-function clickLikes() {
+function addLikesOnClick() {
   const hearts = document.querySelectorAll(".heart i");
 
   hearts.forEach((heart) => {
@@ -229,7 +226,7 @@ function clickLikes() {
 //....................................................................................
 //
 
-function test() {
+function addLikesKeyboard() {
   window.addEventListener("keydown", function (e) {
     if (e.key == "Enter") {
       let heartId = e.target.querySelector("i").dataset.id;
@@ -241,8 +238,6 @@ function test() {
     }
   });
 }
-
-//..............................................................................
 
 //................................................................................
 function createTotalLikesContainer(data) {
@@ -318,7 +313,7 @@ function createLightbox(photographe, mediaData) {
   const close = document.querySelector(".lightbox__close .fa-times");
 
   let lightboxContainer = modal.querySelector(".lightbox__container");
-  let mediaActive;
+ // let mediaActive;
   let photographeMedias = [];
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
@@ -328,19 +323,52 @@ function createLightbox(photographe, mediaData) {
   console.log(photographe);
 
   medias.forEach((media, i) => {
-    //console.log(i)
+   
+
+   window.addEventListener("keydown", function (e) {
+    console.log(e.target)
+      if (e.key == "ArrowRight") {
+        showRightInLightbox(photographe, photographeMedias);
+      }
+      if (e.key == "ArrowLeft") {
+        showLeftInLightbox(photographe, photographeMedias);
+      }
+  
+      if (e.key == "Escape") {
+        cancelInLightBox();
+        cancelModalKeyboard();
+      }
+      
+      if (e.key == "Enter") {
+        openLightbox(photographe, photographeMedias,i) ;
+      
+      }
+    });
+
+
+
+
+
+
+
+
+
     media.addEventListener("click", (e) => {
       //sessionStorage.setItem - stock une paire clé/valeur ici "index", i(number)
+      /*
       sessionStorage.setItem("index", i);
-      modal.style.visibility = "visible";
-      modal.focus();
-
-      mediaActive = i;
-
-      let clickedMedia = new Media(photographeMedias[mediaActive], photographe);
-
-      lightboxContainer.innerHTML = clickedMedia.display();
-    });
+    //  modal.style.visibility = "visible";
+   
+    modal.focus();
+    
+    mediaActive = i;
+    
+    let clickedMedia = new Media(photographeMedias[mediaActive], photographe);
+    
+    lightboxContainer.innerHTML = clickedMedia.display();
+    */
+    openLightbox(photographe,photographeMedias,i) ;
+  });
   });
 
   next.addEventListener("click", (e) => {
@@ -358,8 +386,32 @@ function createLightbox(photographe, mediaData) {
     //on associe à la fonction la fermeture de lightbox pour la recuperer dans la fonction navigateKeyboard()
 
     cancelInLightBox();
+    
   });
 }
+//..............................................................................
+function openLightbox(photographe,photographeMedias,i) {
+ // window.addEventListener("keydown", function (e) {
+ // if (e.key == "Enter") {
+    const modal = document.querySelector(".modal");
+    let lightboxContainer = modal.querySelector(".lightbox__container");
+    let mediaActive;
+ 
+   sessionStorage.setItem("index", i);
+    //  modal.style.visibility = "visible";
+    modal.style.visibility = "visible";
+   
+    modal.focus();
+
+    
+    let clickedMedia = new Media(photographeMedias[i], photographe);
+    
+    lightboxContainer.innerHTML = clickedMedia.display();
+    console.log(photographeMedias[i])
+    console.log(clickedMedia)
+    
+  }
+//})}
 //......................................................................................................
 function cancelInLightBox() {
   const modal = document.querySelector(".modal");
@@ -421,10 +473,13 @@ function showLeftInLightbox(photographe, photographeMedias) {
 function navigateKeyboard(photographe, mediaData) {
   //etant donnéé la varibale photographeMedias n'est pas connue, on recree le tableau medias afin de la mettre dans le parametre de la function  showRightInLightbox(photographe, photographeMedias)
   let photographeMedias = [];
+  let i;
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
+   
     return photographe.id == media.photographerId;
   });
+ 
   window.addEventListener("keydown", function (e) {
     if (e.key == "ArrowRight") {
       showRightInLightbox(photographe, photographeMedias);
@@ -435,13 +490,13 @@ function navigateKeyboard(photographe, mediaData) {
 
     if (e.key == "Escape") {
       cancelInLightBox();
+      cancelModalKeyboard();
     }
-    /*
+    
     if (e.key == "Enter") {
-     
-      test(e) ;
-     }
-     */
+      openLightbox(photographe, photographeMedias,i) ;
+    
+    }
   });
 }
 
@@ -475,17 +530,20 @@ function filterDropdown(photographe, mediaData) {
         if (a.likes > b.likes) return -1;
         if (b.likes > a.likes) return 1;
 
-        return 0;
+       // return 0;
       }
       //on reinitialise à 0 le contenu de l'element qui contient media
       mediaContainer.innerHTML = "";
 
       //on apelle la fonction compare() sur l'array de media
       photographeMedias.sort(compare);
+     
       //on recree chaque media du tableau filtré plus haut
+/*
       photographeMedias.forEach((media) => {
         createMedia(media, photographe);
       });
+*/
     } else if (choice == "date") {
       function compare(a, b) {
         if (a.date > b.date) {
@@ -494,14 +552,15 @@ function filterDropdown(photographe, mediaData) {
         if (b.date > a.date) {
           return -1;
         }
-        return 0;
+       // return 0;
       }
       mediaContainer.innerHTML = "";
       photographeMedias.sort(compare);
-
+ 
+/*
       photographeMedias.forEach((media) => {
         createMedia(media, photographe);
-      });
+      });*/
     } else if (choice == "titre") {
       function compare(a, b) {
         if (a.title > b.title) {
@@ -511,15 +570,19 @@ function filterDropdown(photographe, mediaData) {
           return -1;
         }
 
-        return 0;
+       // return 0;
       }
       mediaContainer.innerHTML = "";
       photographeMedias.sort(compare);
 
+/*
       photographeMedias.forEach((media) => {
         createMedia(media, photographe);
-      });
+      });*/
     }
+    photographeMedias.forEach((media) => {
+      createMedia(media, photographe);
+    })
     createLightbox(photographe, photographeMedias);
     //on recree lightbox pour l'affichage apres le filtre
   });
@@ -617,17 +680,23 @@ function createForm(data) {
 
   const prenom = document.getElementById("prenom");
 
+  const btnModal = document.getElementById("btn-modal");
   const nom = document.getElementById("nom");
   const email = document.getElementById("email");
   const close = document.getElementById("close");
+
   contactBtn.addEventListener("click", (e) => {
     formModal.style.visibility = "visible";
+    prenom.focus();
   });
 
   close.addEventListener("click", (e) => {
-    formModal.style.visibility = "hidden";
+    //formModal.style.visibility = "hidden";
+    cancelModalKeyboard();
   });
-  const btnModal = document.getElementById("btn-modal");
+
+  //.............................................................................
+
   //............................................................................................
   const errorDisplay = (tag, message, valid) => {
     // message de chaque champs (se trouve dans le span )
@@ -727,4 +796,10 @@ function createForm(data) {
       console.log(userData);
     }
   });
+}
+//.............................................................................................
+function cancelModalKeyboard() {
+  const formModal = document.querySelector(".form-modal");
+
+  formModal.style.visibility = "hidden";
 }

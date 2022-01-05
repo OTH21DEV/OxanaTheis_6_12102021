@@ -1,3 +1,13 @@
+//Import de fichier Photo.js, Video.js
+import{Photo} from "/js/Photo.js";
+import{Video} from "/js/Video.js";
+
+//Export vers le fichier photographe.js
+export { Media };
+
+
+
+
 //Factory pattern
 //Factory Media recupere les données qui lui sont passées et delegue la creation et le formatage de ces données au bon Constructor
 //Permet de gerer differentes sources de données
@@ -13,9 +23,3 @@ class Media {
   }
 }
 
-//Import de fichier Photo.js, Video.js
-import{Photo} from "/js/Photo.js";
-import{Video} from "/js/Video.js";
-
-//Export vers le fichier photographe.js
-export { Media };
