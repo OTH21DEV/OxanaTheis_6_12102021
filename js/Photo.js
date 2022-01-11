@@ -2,6 +2,7 @@ class Photo {
   constructor(path, image) {
     this.path = path;
     this.image = image;
+    
   }
   display() {
     return `
