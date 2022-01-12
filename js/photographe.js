@@ -1,6 +1,8 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
-import { Media } from "/js/Media.js";
+import {
+  Media
+} from "./Media.js";
 
 //..............................................................................................
 
@@ -42,6 +44,7 @@ fetch(linkToJson)
 
     //..............................
 
+
     for (let photographe of photographersData) {
       // console.log(photographe.id);
       //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
@@ -50,14 +53,16 @@ fetch(linkToJson)
         createForm(photographe);
         createTotalLikesContainer(photographe);
         //.................................
-
+        console.log(mediaData)
         //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
-        for (let [index, media] of mediaData.entries()) {
+        let index = 0;
+        for (let media of mediaData) {
           if (media.photographerId == idTag) {
             //console.log(media)
             //filterPopular(media);
 
             createMedia(media, photographe, index);
+            index++;
             // console.log(index);
           }
         }
@@ -382,6 +387,7 @@ function openLightbox(photographe, photographeMedias, i) {
   let clickedMedia = new Media(photographeMedias[i], photographe);
 
   lightboxContainer.innerHTML = clickedMedia.display();
+  lightboxContainer.innerHTML += `<p>${photographeMedias[i].title}</p>`
 }
 //})}
 //................................................................ .....................................
@@ -456,7 +462,17 @@ function navigateKeyboard(photographe, mediaData) {
     //let i = parent.dataset.mediaindex;
     //openLightbox(photographe, photographeMedias, i)
     if (e.key == "Enter") {
-      const modal = document.querySelector(".modal");
+
+      let parent = e.target.parentNode;
+      let i = parent.dataset.mediaindex;
+
+      console.log(photographe);
+      console.log(photographeMedias);
+      console.log(i);
+      console.log(photographeMedias[i]);
+      openLightbox(photographe, photographeMedias, i);
+
+      /* const modal = document.querySelector(".modal");
       let lightboxContainer = modal.querySelector(".lightbox__container");
       modal.style.visibility = "visible";
 
@@ -470,7 +486,7 @@ function navigateKeyboard(photographe, mediaData) {
 
   </p>
 </p>
-</a>`;
+</a>`;*/
     }
 
     if (e.key == "ArrowRight") {

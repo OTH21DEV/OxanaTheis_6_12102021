@@ -1,17 +1,17 @@
 class Photo {
-  constructor(path, image) {
+  constructor(path, media) {
     this.path = path;
-    this.image = image;
-    
+    this.image = media.image;
+    this.title = media.title;
+
   }
   display() {
     return `
         <a href="#">
         <p class="galery-photo__img">
           <img src="photo_video/${this.path}/${this.image}" />
-   
+
           </p>
-        </p>
       </a>
         
         `;

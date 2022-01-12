@@ -1,9 +1,16 @@
+
 //Import de fichier Photo.js, Video.js
-import{Photo} from "/js/Photo.js";
-import{Video} from "/js/Video.js";
+import {
+  Photo
+} from "./Photo.js";
+import {
+  Video
+} from "./Video.js";
 
 //Export vers le fichier photographe.js
-export { Media };
+export {
+  Media
+};
 
 
 
@@ -16,10 +23,9 @@ class Media {
   constructor(media, photographe) {
     //on retourne le Constructeur Photo ou Video
     if (media.image) {
-      return new Photo(photographe.path, media.image);
+      return new Photo(photographe.path, media);
     } else if (media.video) {
       return new Video(photographe.path, media.video);
     }
   }
 }
-
