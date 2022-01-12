@@ -162,6 +162,11 @@ video {
   font-size: 0.8em;
 }
 
+.test2 {
+  color: #901C1C;
+  font-size: 0.8em;
+}
+
 .fa-heart {
   font-size: 0.8em;
   padding-left: 3px;
@@ -252,8 +257,7 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 10;
+  background-color: #E5E5E5;
   overflow: auto;
   animation: lightbox 0.5s;
   visibility: hidden;
@@ -267,8 +271,8 @@ label {
   height: 46px;
   top: 50%;
   right: 0;
-  color: white;
-  opacity: 0.5;
+  font-size: 1.5em;
+  color: #901C1C;
   cursor: pointer;
 }
 
@@ -281,11 +285,11 @@ label {
   width: 46px;
   height: 46px;
   z-index: 12;
-  color: white;
+  font-size: 1.5em;
+  color: #901C1C;
   right: 0;
   position: fixed;
-  top: 5%;
-  opacity: 0.5;
+  top: 0;
   cursor: pointer;
 }
 

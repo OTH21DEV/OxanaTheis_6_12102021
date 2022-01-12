@@ -350,27 +350,7 @@ function createLightbox(photographe, mediaData) {
     cancelInLightBox();
   });
   //...........................................................................................................
-  /*
-  window.addEventListener("keydown", function (e) {
-    let parent = e.target.parentNode;
-    let i = parent.dataset.mediaindex;
-
-    if (e.key == "ArrowRight") {
-      showRightInLightbox(photographe, photographeMedias);
-    }
-    if (e.key == "ArrowLeft") {
-      showLeftInLightbox(photographe, photographeMedias);
-    }
-
-    if (e.key == "Escape") {
-      cancelInLightBox();
-      cancelModalKeyboard();
-    }
-
-    if (e.key == "Enter") {
-      openLightbox(photographe, photographeMedias, i);
-    }
-  });*/
+  
 }
 //..............................................................................
 function openLightbox(photographe, photographeMedias, i) {
@@ -386,8 +366,8 @@ function openLightbox(photographe, photographeMedias, i) {
 
   let clickedMedia = new Media(photographeMedias[i], photographe);
 
-  lightboxContainer.innerHTML = clickedMedia.display();
-  lightboxContainer.innerHTML += `<p>${photographeMedias[i].title}</p>`
+  lightboxContainer.innerHTML = clickedMedia.displayLightbox();
+  //lightboxContainer.innerHTML += `<p>${photographeMedias[i].title}</p>`
 }
 //})}
 //................................................................ .....................................
@@ -422,7 +402,7 @@ function showRightInLightbox(photographe, photographeMedias) {
   //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
   let nextMedia = new Media(photographeMedias[newIndex], photographe);
   // on affiche cette nouvelle media
-  lightboxContainer.innerHTML = nextMedia.display();
+  lightboxContainer.innerHTML = nextMedia.displayLightbox();
 }
 //.........................................................................................................
 function showLeftInLightbox(photographe, photographeMedias) {
@@ -445,7 +425,7 @@ function showLeftInLightbox(photographe, photographeMedias) {
   //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
   let prevMedia = new Media(photographeMedias[newIndex], photographe);
   // on affiche cette nouvelle media
-  lightboxContainer.innerHTML = prevMedia.display();
+  lightboxContainer.innerHTML = prevMedia.displayLightbox();
 }
 //...........................................................................................................
 function navigateKeyboard(photographe, mediaData) {
@@ -520,7 +500,7 @@ function filterDropdown(photographe, mediaData) {
       return photographe.id == media.photographerId;
     });
 
-    console.log(photographeMedias);
+  //  console.log(photographeMedias);
     //on cree une variable pour recuperer la valeur de l'option choisie
     let choice = filterSelect.value;
 
@@ -576,17 +556,15 @@ function filterDropdown(photographe, mediaData) {
         // return 0;
       }
       mediaContainer.innerHTML = "";
-      photographeMedias.sort(compare);
+photographeMedias.sort(compare);
 
-      /*
-      photographeMedias.forEach((media) => {
-        createMedia(media, photographe);
-      });*/
-    }
-    photographeMedias.forEach((media) => {
-      createMedia(media, photographe);
-    });
-    createLightbox(photographe, photographeMedias);
+}
+
+photographeMedias.forEach((media) => {
+createMedia(media, photographe);
+
+});
+createLightbox(photographe, photographeMedias);
     //on recree lightbox pour l'affichage apres le filtre
   });
 }
