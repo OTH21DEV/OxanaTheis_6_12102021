@@ -1,8 +1,8 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
-import {
-  Media
-} from "./Media.js";
+import { Media } from "./Media.js";
+import { createForm } from "./modal.js";
+
 
 //..............................................................................................
 
@@ -44,7 +44,6 @@ fetch(linkToJson)
 
     //..............................
 
-
     for (let photographe of photographersData) {
       // console.log(photographe.id);
       //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
@@ -53,7 +52,7 @@ fetch(linkToJson)
         createForm(photographe);
         createTotalLikesContainer(photographe);
         //.................................
-        console.log(mediaData)
+        console.log(mediaData);
         //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
         let index = 0;
         for (let media of mediaData) {
@@ -62,18 +61,28 @@ fetch(linkToJson)
             //filterPopular(media);
 
             createMedia(media, photographe, index);
+
             index++;
             // console.log(index);
           }
         }
         //..................................................
-        filterDropdown(photographe, mediaData);
 
         // navigateKeyboard();
 
         likesCounter();
 
-        createLightbox(photographe, mediaData); // array cible img/video de photographe
+        // let mediaActive;
+        let photographeMedias = [];
+        //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
+        photographeMedias = mediaData.filter((media) => {
+          return photographe.id == media.photographerId;
+        });
+
+        filterDropdown(photographe, photographeMedias);
+
+        createLightbox(photographe, photographeMedias); // array cible img/video de photographe
+
         navigateKeyboard(photographe, mediaData);
         //openLightboxOnKeyboard() ;
       }
@@ -85,26 +94,7 @@ fetch(linkToJson)
   .catch(function (err) {
     console.log(err);
   });
-//........................................................................;
-/*
-let obj = {
-  table : []
-}
-obj.table.push({alt : "test" })
-var json =JSON.stringify(obj);
-var fs = require ('fs');
-fs.writeFile("./FishEyeData.json", json, 'utf8', callback);
 
-fs.readFile("./FishEyeData.json", 'utf8', function readFileCallback(err, data){
-  if (err){
-      console.log(err);
-  } else {
-  obj = JSON.parse(data); //now it an object
-  obj.table.Push({alt: test}); //add some data
-  json = JSON.stringify(obj); //convert it back to json
-  fs.writeFile("./FishEyeData.json", json, 'utf8', callback); // write it back 
-}});
-*/
 //..................................................................................
 
 function createPhtotographer(data) {
@@ -305,7 +295,7 @@ function choiseMedia(media, photographe) {
 */
 //.......................................................................
 
-function createLightbox(photographe, mediaData) {
+function createLightbox(photographe, photographeMedias) {
   const modal = document.querySelector(".modal");
 
   //const pour cibler img et video de photographe
@@ -317,14 +307,13 @@ function createLightbox(photographe, mediaData) {
   const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
   const close = document.querySelector(".lightbox__close .fa-times");
 
-  let lightboxContainer = modal.querySelector(".lightbox__container");
+  /*
   // let mediaActive;
   let photographeMedias = [];
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
-  });
-
+  });*/
   medias.forEach((media, i) => {
     media.addEventListener("click", (e) => {
       openLightbox(photographe, photographeMedias, i);
@@ -350,7 +339,6 @@ function createLightbox(photographe, mediaData) {
     cancelInLightBox();
   });
   //...........................................................................................................
-  
 }
 //..............................................................................
 function openLightbox(photographe, photographeMedias, i) {
@@ -401,6 +389,7 @@ function showRightInLightbox(photographe, photographeMedias) {
 
   //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
   let nextMedia = new Media(photographeMedias[newIndex], photographe);
+  // console.log(photographeMedias[newIndex])
   // on affiche cette nouvelle media
   lightboxContainer.innerHTML = nextMedia.displayLightbox();
 }
@@ -442,31 +431,10 @@ function navigateKeyboard(photographe, mediaData) {
     //let i = parent.dataset.mediaindex;
     //openLightbox(photographe, photographeMedias, i)
     if (e.key == "Enter") {
-
       let parent = e.target.parentNode;
       let i = parent.dataset.mediaindex;
 
-      console.log(photographe);
-      console.log(photographeMedias);
-      console.log(i);
-      console.log(photographeMedias[i]);
       openLightbox(photographe, photographeMedias, i);
-
-      /* const modal = document.querySelector(".modal");
-      let lightboxContainer = modal.querySelector(".lightbox__container");
-      modal.style.visibility = "visible";
-
-      let test2 =
-        e.target.childNodes[1].lastElementChild.attributes.src.nodeValue;
-
-      lightboxContainer.innerHTML = `
- <a href="#">
-<p class="galery-photo__img">
-  <img src="${test2}"/>
-
-  </p>
-</p>
-</a>`;*/
     }
 
     if (e.key == "ArrowRight") {
@@ -485,22 +453,21 @@ function navigateKeyboard(photographe, mediaData) {
 
 //............................................................................
 
-function filterDropdown(photographe, mediaData) {
+function filterDropdown(photographe, photographeMedias) {
   const mediaContainer = document.querySelector(".galery-photo");
 
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
-
+  /*
+  //on cree un array vide de medias de photographe
+  let photographeMedias = [];
+  //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
+  photographeMedias = mediaData.filter((media) => {
+    return photographe.id == media.photographerId;
+  });*/
   //on ecoute le changement des options
   filterSelect.addEventListener("change", (e) => {
-    //on cree un array vide de medias de photographe
-    let photographeMedias = [];
-    //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-    photographeMedias = mediaData.filter((media) => {
-      return photographe.id == media.photographerId;
-    });
-
-  //  console.log(photographeMedias);
+    //  console.log(photographeMedias);
     //on cree une variable pour recuperer la valeur de l'option choisie
     let choice = filterSelect.value;
 
@@ -556,17 +523,20 @@ function filterDropdown(photographe, mediaData) {
         // return 0;
       }
       mediaContainer.innerHTML = "";
-photographeMedias.sort(compare);
+      photographeMedias.sort(compare);
+    }
+    let index = 0;
+    photographeMedias.forEach((media) => {
+      createMedia(media, photographe, index);
+      index++;
+    });
 
-}
-
-photographeMedias.forEach((media) => {
-createMedia(media, photographe);
-
-});
-createLightbox(photographe, photographeMedias);
     //on recree lightbox pour l'affichage apres le filtre
+    createLightbox(photographe, photographeMedias);
   });
+
+  //console.log(photographe)
+  //console.log(photographeMedias)
 }
 //....................................
 
@@ -621,166 +591,4 @@ createLightbox(photographe, photographeMedias);
   });*/
 
 //..........................................................................................................
-function createForm(data) {
-  const formModal = document.querySelector(".form-modal");
-  const contactBtn = document.querySelector("#contact");
-  formModal.innerHTML = ` <p >
-  <form class ='form' method="post" action="traitement.php">
-  <div class="form-modal__title">
-  <h2>Contactez-moi</h2>
-  <span><i class="fas fa-times form-modal__close" id = 'close'></i></span>
-  </div>
-  <h3>${data.name}</h3>
-  <div
-  class="prenom-formData">
-  <label for="prenom">Prénom</label>
-  <input type="text" name= "prenom"  id = "prenom"/>
-  <span class="error"></span>
-  </div>
-  <div class="nom-formData">
-  <label for="nom">Nom</label>
-  <input type="text" name= "nom" id = "nom"/>
-  <span class="error"></span>
-  </div>
-  <div class="email-formData">
-  <label for="email">Email</label>
-  <input type="email" name= "email" id = "email"/>
-  <span class="error"></span>
-  </div>
-  <label for="message">Votre message</label>
-  <textarea name = "message" id = "message"></textarea>
-  </p>
-  <div class="form-modal-btn">
-  <button type="button" class="form__btn contact__btn" id= "btn-modal">Envoyer</button>
-  </div>
-  </form>
-  `;
-  const inputs = document.querySelectorAll(
-    'input[type ="text"], input[type="email"]'
-  );
 
-  const prenom = document.getElementById("prenom");
-
-  const btnModal = document.getElementById("btn-modal");
-  const nom = document.getElementById("nom");
-  const email = document.getElementById("email");
-  const close = document.getElementById("close");
-
-  contactBtn.addEventListener("click", (e) => {
-    formModal.style.visibility = "visible";
-    prenom.focus();
-  });
-
-  close.addEventListener("click", (e) => {
-    //formModal.style.visibility = "hidden";
-    cancelModalKeyboard();
-  });
-
-  //.............................................................................
-
-  //............................................................................................
-  const errorDisplay = (tag, message, valid) => {
-    // message de chaque champs (se trouve dans le span )
-
-    const spanMsg = document.querySelector("." + tag + "-formData > span");
-
-    // pointe le nom de champs
-    const global = document.querySelector("." + tag + "-formData");
-
-    if (!valid) {
-      global.classList.add("error");
-      spanMsg.textContent = message;
-    } else {
-      global.classList.remove("error");
-      spanMsg.textContent = message;
-    }
-  };
-  //.................................................................................................
-  const nameChecker = (type, value, element) => {
-    if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-      errorDisplay(
-        type,
-        "Le " + type + " doit contenir entre 3 et 20 caracteres"
-      );
-
-      element.style.border = "3px solid maroon";
-    } else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
-      errorDisplay(
-        type,
-        "Le " + type + "  ne doit pas contenir de caracteres speciaux"
-      );
-
-      element.style.border = "3px solid maroon";
-    } else {
-      errorDisplay(type, "", true);
-      errorDisplay.textContent = "";
-      element.style.border = "3px solid green";
-    }
-  };
-  //....................................................................................................
-  const emailChecker = (value, element) => {
-    if (
-      !value.match(
-        /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-      )
-    ) {
-      errorDisplay("email", "Adresse mail non valide");
-      element.style.border = "3px solid maroon";
-    } else {
-      errorDisplay("email", "", true);
-      element.style.border = "3px solid green";
-    }
-  };
-
-  inputs.forEach((input) => {
-    input.addEventListener("input", (e) => {
-      switch (
-        e.target.id //test la valeur de champs
-      ) {
-        case "prenom": //si tu es dans le prenom
-          //  console.log(e);
-          nameChecker("prenom", e.target.value, prenom); //on  analise cette fonction : (nameChecker (avec les arguments comme ceux ci pour les parametres :type, value, element))
-          break;
-
-        case "nom":
-          nameChecker("nom", e.target.value, nom); // nom ici -  le nom de la variable
-          break;
-
-        case "email":
-          emailChecker(e.target.value, email);
-          break;
-
-        default:
-          null;
-      }
-    });
-  });
-
-  btnModal.addEventListener("click", (e) => {
-    if (prenom.value == "") {
-      errorDisplay("prenom", "Veuillez remplir ce champs");
-    }
-
-    if (nom.value == "") {
-      errorDisplay("nom", "Veuillez remplir ce champs");
-    }
-
-    if (email.value == "") {
-      //  e.preventDefault();
-      errorDisplay("email", "Veuillez remplir ce champs");
-    } else {
-      const userData = {
-        prenom: prenom.value,
-        nom: nom.value,
-        email: email.value,
-      };
-      console.log(userData);
-    }
-  });
-}
-//.............................................................................................
-function cancelModalKeyboard() {
-  const formModal = document.querySelector(".form-modal");
-
-  formModal.style.visibility = "hidden";
-}
