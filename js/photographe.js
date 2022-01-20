@@ -2,6 +2,9 @@
 
 import { Media } from "./Media.js";
 import { createForm } from "./modal.js";
+import { Lightbox } from "./lightbox.js";
+import{ openLightbox} from "./testLightBox.js"
+import{ currentMedia} from "./testLightBox.js"
 
 
 //..............................................................................................
@@ -42,58 +45,68 @@ fetch(linkToJson)
     //on recupere ici 'id ' donné à <a> dans le script.js (href="./MimiKeel.html?id=${data.id}") (function createPhotographe) pour chaque photographe
     const idTag = urlParams.get("id");
 
+    let photographe = photographersData.filter((photographe) => {
+      return photographe.id == idTag;
+    })[0];
+
+    let photographeMedias = [];
+    //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
+    photographeMedias = mediaData.filter((media) => {
+      return photographe.id == media.photographerId;
+    });
+
     //..............................
 
-    for (let photographe of photographersData) {
-      // console.log(photographe.id);
-      //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
-      if (photographe.id == idTag) {
-        createPhtotographer(photographe, photographersData);
-        createForm(photographe);
-        createTotalLikesContainer(photographe);
-        //.................................
-        console.log(mediaData);
-        //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
-        let index = 0;
-        for (let media of mediaData) {
-          if (media.photographerId == idTag) {
-            //console.log(media)
-            //filterPopular(media);
+    // for (let photographe of photographersData) {
+    // console.log(photographe.id);
+    //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
+    // if (photographe.id == idTag) {
+    createPhtotographer(photographe, photographersData);
+    createForm(photographe);
+    createTotalLikesContainer(photographe);
+    //.................................
+    console.log(mediaData);
+    //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
+    //   let i = 0;
+    for (let media of mediaData) {
+      if (media.photographerId == idTag) {
+        //console.log(media)
+        //filterPopular(media);
 
-            createMedia(media, photographe, index);
+        createMedia(media, photographe);
 
-            index++;
-            // console.log(index);
-          }
-        }
-        //..................................................
-
-        // navigateKeyboard();
-
-        likesCounter();
-
-        // let mediaActive;
-        let photographeMedias = [];
-        //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-        photographeMedias = mediaData.filter((media) => {
-          return photographe.id == media.photographerId;
-        });
-
-        filterDropdown(photographe, photographeMedias);
-
-        createLightbox(photographe, photographeMedias); // array cible img/video de photographe
-
-        navigateKeyboard(photographe, mediaData);
-        //openLightboxOnKeyboard() ;
+        //  i++;
+        // console.log(index);
       }
     }
+    //..................................................
+
+    // navigateKeyboard();
+
+    likesCounter();
+    //createLightbox(photographe, photographeMedias)
+    //  openLightbox(photographe, photographeMedias)
+    filterDropdown(photographe, photographeMedias);
+
+    //  createLightbox(photographe, photographeMedias); // array cible img/video de photographe
+
+    //openLightboxOnKeyboard() ;
+    //}
+    //}
     //  test();
     filterTagsOnPhotographePage();
+
+    openLightbox(photographe, photographeMedias);
+
+    //  openLightbox(photographe, photographeMedias)
+    navigateKeyboard(photographe, photographeMedias);
   })
 
   .catch(function (err) {
     console.log(err);
   });
+
+//..................................
 
 //..................................................................................
 
@@ -158,14 +171,15 @@ function filterTagsOnPhotographePage(data) {
 }
 
 //.....................................................................
-function createMedia(media, photographe, index) {
+function createMedia(media, photographe) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
   //on cree une variable factoryMedia pour recuperer class Media depuis Media.js
   let factoryMedia = new Media(media, photographe);
 
   mediaContainer.innerHTML +=
-    `<article data-mediaIndex="${index}">` +
+    //   `<article data-mediaIndex="${i}">` +
+    `<article>` +
     //choiseMedia(media, photographe)
     // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor
     factoryMedia.display() +
@@ -191,8 +205,15 @@ function createMedia(media, photographe, index) {
     "</article> ";
 
   addLikesOnClick();
+
+  // openLightbox(photographe, media,i)
   //addLikesKeyboard();
 }
+
+//......................................
+//TEST
+
+
 
 function addLikesOnClick() {
   const hearts = document.querySelectorAll(".heart i");
@@ -294,7 +315,7 @@ function choiseMedia(media, photographe) {
 }
 */
 //.......................................................................
-
+/*
 function createLightbox(photographe, photographeMedias) {
   const modal = document.querySelector(".modal");
 
@@ -306,22 +327,24 @@ function createLightbox(photographe, photographeMedias) {
   const next = document.querySelector(".lightbox__next .fa-chevron-right");
   const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
   const close = document.querySelector(".lightbox__close .fa-times");
-
-  /*
+/*
+  
   // let mediaActive;
   let photographeMedias = [];
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
   photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
   });*/
+/*
   medias.forEach((media, i) => {
     media.addEventListener("click", (e) => {
       openLightbox(photographe, photographeMedias, i);
     });
   });
-  //............................................................................................................
+//............................................................................................................
 
-  //.......................................................................................................
+//.......................................................................................................
+
   next.addEventListener("click", (e) => {
     //on apelle cette fonction pour executer au click
     showRightInLightbox(photographe, photographeMedias);
@@ -340,7 +363,10 @@ function createLightbox(photographe, photographeMedias) {
   });
   //...........................................................................................................
 }
+
 //..............................................................................
+
+
 function openLightbox(photographe, photographeMedias, i) {
   const modal = document.querySelector(".modal");
   let lightboxContainer = modal.querySelector(".lightbox__container");
@@ -350,14 +376,17 @@ function openLightbox(photographe, photographeMedias, i) {
 
   modal.style.visibility = "visible";
 
-  modal.focus();
+ 
+  console.log(i)
 
   let clickedMedia = new Media(photographeMedias[i], photographe);
 
   lightboxContainer.innerHTML = clickedMedia.displayLightbox();
   //lightboxContainer.innerHTML += `<p>${photographeMedias[i].title}</p>`
 }
-//})}
+//..........................................................................
+*/
+
 //................................................................ .....................................
 function cancelInLightBox() {
   const modal = document.querySelector(".modal");
@@ -376,21 +405,32 @@ function showRightInLightbox(photographe, photographeMedias) {
 
   // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
   // on parseInt pour convertir une chaine de caractères en nombre entier
-  let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
+  // let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
 
+  //console.log(sessionStorage)
+  //console.log(sessionStorage.index)
+  //currentMedia+=1;
+  currentMedia++;
+  console.log(currentMedia);
+  //console.log(photographeMedias.length)
   //si on essaye afficher le media suivant suite au dernier media , on cree une condition pour afficher le premier media
 
-  if (newIndex >= photographeMedias.length - 1) {
-    newIndex = 0;
+  // affichageLightbox(tableau_medias[mediaActive]);
+
+  if (currentMedia >= photographeMedias.length - 1) {
+    currentMedia = 0;
   }
 
   //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-  sessionStorage.setItem("index", newIndex);
+  // sessionStorage.setItem("index", newIndex);
 
   //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
-  let nextMedia = new Media(photographeMedias[newIndex], photographe);
+  // let nextMedia = new Media(photographeMedias[newIndex], photographe);
+  let nextMedia = new Media(photographeMedias[currentMedia], photographe);
+  //console.log(photographeMedias[currentMedia])
   // console.log(photographeMedias[newIndex])
   // on affiche cette nouvelle media
+  //  lightboxContainer.innerHTML = nextMedia.displayLightbox();
   lightboxContainer.innerHTML = nextMedia.displayLightbox();
 }
 //.........................................................................................................
@@ -417,24 +457,25 @@ function showLeftInLightbox(photographe, photographeMedias) {
   lightboxContainer.innerHTML = prevMedia.displayLightbox();
 }
 //...........................................................................................................
-function navigateKeyboard(photographe, mediaData) {
+function navigateKeyboard(photographe, photographeMedias) {
   //etant donnéé la varibale photographeMedias n'est pas connue, on recree le tableau medias afin de la mettre dans le parametre de la function  showRightInLightbox(photographe, photographeMedias)
-  let photographeMedias = [];
+  // let photographeMedias = [];
 
   //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-  photographeMedias = mediaData.filter((media) => {
+  /* photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
-  });
+  });*/
 
   window.addEventListener("keydown", function (e) {
     //let parent = e.target.parentNode;
     //let i = parent.dataset.mediaindex;
     //openLightbox(photographe, photographeMedias, i)
     if (e.key == "Enter") {
-      let parent = e.target.parentNode;
-      let i = parent.dataset.mediaindex;
-
-      openLightbox(photographe, photographeMedias, i);
+   //   let parent = e.target.parentNode;
+    //  let i = parent.dataset.mediaindex;
+      console.log(photographeMedias[currentMedia]);
+      console.log(currentMedia);
+     // openLightbox(photographe, photographeMedias[0]);
     }
 
     if (e.key == "ArrowRight") {
@@ -525,14 +566,17 @@ function filterDropdown(photographe, photographeMedias) {
       mediaContainer.innerHTML = "";
       photographeMedias.sort(compare);
     }
-    let index = 0;
-    photographeMedias.forEach((media) => {
-      createMedia(media, photographe, index);
-      index++;
+
+    photographeMedias.forEach((media, i) => {
+      createMedia(media, photographe);
+
+      openLightbox(photographe, photographeMedias);
     });
 
+    // openLightbox(photographe, photographeMedias)
+
     //on recree lightbox pour l'affichage apres le filtre
-    createLightbox(photographe, photographeMedias);
+    //createLightbox(photographe, photographeMedias);
   });
 
   //console.log(photographe)
@@ -591,4 +635,3 @@ function filterDropdown(photographe, photographeMedias) {
   });*/
 
 //..........................................................................................................
-

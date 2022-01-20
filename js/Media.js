@@ -25,7 +25,7 @@ class Media {
     if (media.image) {
       return new Photo(photographe.path, media);
     } else if (media.video) {
-      return new Video(photographe.path, media.video);
+      return new Video(photographe.path, media);
     }
   }
 }

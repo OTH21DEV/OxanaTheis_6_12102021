@@ -31,6 +31,7 @@ article {
     flex-direction: row;
   }
 }
+
 .galery-photo__img > img,
 video {
   width: 100%;
@@ -39,6 +40,8 @@ video {
   border-radius: 5px;
   object-fit: cover;
 }
+
+
 .galery-photo-title {
   display: flex;
   justify-content: space-between;
