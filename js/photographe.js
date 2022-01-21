@@ -4,6 +4,7 @@ import { Media } from "./Media.js";
 import { createForm } from "./modal.js";
 import { Lightbox } from "./lightbox.js";
 import{ openLightbox} from "./testLightBox.js"
+import {navigateKeyboard} from "./testLightBox.js"
 import{ currentMedia} from "./testLightBox.js"
 
 
@@ -99,7 +100,7 @@ fetch(linkToJson)
     openLightbox(photographe, photographeMedias);
 
     //  openLightbox(photographe, photographeMedias)
-    navigateKeyboard(photographe, photographeMedias);
+   navigateKeyboard(photographe, photographeMedias);
   })
 
   .catch(function (err) {
@@ -180,6 +181,7 @@ function createMedia(media, photographe) {
   mediaContainer.innerHTML +=
     //   `<article data-mediaIndex="${i}">` +
     `<article>` +
+    
     //choiseMedia(media, photographe)
     // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor
     factoryMedia.display() +
@@ -205,7 +207,7 @@ function createMedia(media, photographe) {
     "</article> ";
 
   addLikesOnClick();
-
+ 
   // openLightbox(photographe, media,i)
   //addLikesKeyboard();
 }
@@ -402,10 +404,10 @@ function showRightInLightbox(photographe, photographeMedias) {
   const modal = document.querySelector(".modal");
   let lightboxContainer = modal.querySelector(".lightbox__container");
   //on associe la variable showRight à la fonction pour la logique de l'affichage next media afin de la recuperer dans la fonction navigateKeyboard()
-
+let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
   // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
   // on parseInt pour convertir une chaine de caractères en nombre entier
-  // let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
+  // 
 
   //console.log(sessionStorage)
   //console.log(sessionStorage.index)
@@ -457,6 +459,7 @@ function showLeftInLightbox(photographe, photographeMedias) {
   lightboxContainer.innerHTML = prevMedia.displayLightbox();
 }
 //...........................................................................................................
+/*
 function navigateKeyboard(photographe, photographeMedias) {
   //etant donnéé la varibale photographeMedias n'est pas connue, on recree le tableau medias afin de la mettre dans le parametre de la function  showRightInLightbox(photographe, photographeMedias)
   // let photographeMedias = [];
@@ -465,17 +468,18 @@ function navigateKeyboard(photographe, photographeMedias) {
   /* photographeMedias = mediaData.filter((media) => {
     return photographe.id == media.photographerId;
   });*/
-
+/*
   window.addEventListener("keydown", function (e) {
     //let parent = e.target.parentNode;
     //let i = parent.dataset.mediaindex;
     //openLightbox(photographe, photographeMedias, i)
     if (e.key == "Enter") {
-   //   let parent = e.target.parentNode;
-    //  let i = parent.dataset.mediaindex;
+     
+  
+   
       console.log(photographeMedias[currentMedia]);
       console.log(currentMedia);
-     // openLightbox(photographe, photographeMedias[0]);
+   //  openLightbox(photographe, photographeMedias);
     }
 
     if (e.key == "ArrowRight") {
@@ -491,7 +495,7 @@ function navigateKeyboard(photographe, photographeMedias) {
     }
   });
 }
-
+*/
 //............................................................................
 
 function filterDropdown(photographe, photographeMedias) {
