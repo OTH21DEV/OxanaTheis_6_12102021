@@ -2,13 +2,17 @@
 
 import { Media } from "./Media.js";
 import { createForm } from "./modal.js";
-import { Lightbox } from "./lightbox.js";
+
+//sans i dans media 
 import{ openLightbox} from "./testLightBox.js"
+
 import {navigateKeyboard} from "./testLightBox.js"
 import{ currentMedia} from "./testLightBox.js"
 
 
 //..............................................................................................
+
+
 
 // recupere les datas depuis.json
 const linkToJson = "./FishEyeData.json";
@@ -68,7 +72,7 @@ fetch(linkToJson)
     //.................................
     console.log(mediaData);
     //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
-    //   let i = 0;
+       let i = 0;
     for (let media of mediaData) {
       if (media.photographerId == idTag) {
         //console.log(media)
@@ -77,12 +81,13 @@ fetch(linkToJson)
         createMedia(media, photographe);
 
         //  i++;
+          
         // console.log(index);
       }
     }
     //..................................................
 
-    // navigateKeyboard();
+    
 
     likesCounter();
     //createLightbox(photographe, photographeMedias)
@@ -97,10 +102,10 @@ fetch(linkToJson)
     //  test();
     filterTagsOnPhotographePage();
 
-    openLightbox(photographe, photographeMedias);
+  //  openLightbox(photographe, photographeMedias,i);
 
-    //  openLightbox(photographe, photographeMedias)
-   navigateKeyboard(photographe, photographeMedias);
+    openLightbox(photographe, photographeMedias)
+ // navigateKeyboard(photographe, photographeMedias);
   })
 
   .catch(function (err) {
@@ -172,15 +177,16 @@ function filterTagsOnPhotographePage(data) {
 }
 
 //.....................................................................
-function createMedia(media, photographe) {
+function createMedia(media, photographe,i) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
   //on cree une variable factoryMedia pour recuperer class Media depuis Media.js
   let factoryMedia = new Media(media, photographe);
 
   mediaContainer.innerHTML +=
-    //   `<article data-mediaIndex="${i}">` +
-    `<article>` +
+  //`<article data-mediaIndex="${i}">` +
+  `<article>` +
+    
     
     //choiseMedia(media, photographe)
     // on utilise methode display pour afficher la bonne source si image ou video depuis le constructor
@@ -207,7 +213,7 @@ function createMedia(media, photographe) {
     "</article> ";
 
   addLikesOnClick();
- 
+
   // openLightbox(photographe, media,i)
   //addLikesKeyboard();
 }
@@ -390,13 +396,16 @@ function openLightbox(photographe, photographeMedias, i) {
 */
 
 //................................................................ .....................................
-function cancelInLightBox() {
+
+
+/*function cancelInLightBox() {
   const modal = document.querySelector(".modal");
   modal.style.visibility = "hidden";
-}
+}*/
 //............................................................................
 
 //.......................................................................
+/*
 function showRightInLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
     ".galery-photo__img img, .galery-photo__img video"
@@ -434,9 +443,9 @@ let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
   // on affiche cette nouvelle media
   //  lightboxContainer.innerHTML = nextMedia.displayLightbox();
   lightboxContainer.innerHTML = nextMedia.displayLightbox();
-}
+}*/
 //.........................................................................................................
-function showLeftInLightbox(photographe, photographeMedias) {
+/*function showLeftInLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
     ".galery-photo__img img, .galery-photo__img video"
   );
@@ -457,7 +466,7 @@ function showLeftInLightbox(photographe, photographeMedias) {
   let prevMedia = new Media(photographeMedias[newIndex], photographe);
   // on affiche cette nouvelle media
   lightboxContainer.innerHTML = prevMedia.displayLightbox();
-}
+}*/
 //...........................................................................................................
 /*
 function navigateKeyboard(photographe, photographeMedias) {

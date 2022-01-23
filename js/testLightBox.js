@@ -12,8 +12,8 @@ const medias = document.querySelectorAll(
   const next = document.querySelector(".lightbox__next .fa-chevron-right");
   const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
   const close = document.querySelector(".lightbox__close .fa-times");
-  const modal = document.querySelector(".modal");*/
-// let lightboxContainer = modal.querySelector(".lightbox__container");
+  const modal = document.querySelector(".modal");
+const lightboxContainer = modal.querySelector(".lightbox__container");*/
 
 function openLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
@@ -63,42 +63,22 @@ function openLightbox(photographe, photographeMedias) {
 
     cancelInLightBox();
   });
+
+  navigateKeyboard(photographe, photographeMedias);
 }
 
 function showRightInLightbox(photographe, photographeMedias) {
   const modal = document.querySelector(".modal");
   let lightboxContainer = modal.querySelector(".lightbox__container");
 
-  //on associe la variable showRight à la fonction pour la logique de l'affichage next media afin de la recuperer dans la fonction navigateKeyboard()
-
-  // sessionStorage.getItem - retourne la valeur associée à une clé ici - "index"
-  // on parseInt pour convertir une chaine de caractères en nombre entier
-  // let newIndex = parseInt(sessionStorage.getItem("index")) + 1;
-
-  //console.log(sessionStorage)
-  //console.log(sessionStorage.index)
-  //currentMedia+=1;
   currentMedia++;
-  // console.log(currentMedia);
-  //console.log(photographeMedias.length)
-  //si on essaye afficher le media suivant suite au dernier media , on cree une condition pour afficher le premier media
-
-  // affichageLightbox(tableau_medias[mediaActive]);
 
   if (currentMedia === photographeMedias.length) {
     currentMedia = 0;
   }
 
-  //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-  // sessionStorage.setItem("index", newIndex);
-
-  //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
-  // let nextMedia = new Media(photographeMedias[newIndex], photographe);
   let nextMedia = new Media(photographeMedias[currentMedia], photographe);
-  //console.log(photographeMedias[currentMedia])
-  // console.log(photographeMedias[newIndex])
-  // on affiche cette nouvelle media
-  //  lightboxContainer.innerHTML = nextMedia.displayLightbox();
+
   lightboxContainer.innerHTML = nextMedia.displayLightbox();
 }
 function showLeftInLightbox(photographe, photographeMedias) {
@@ -107,18 +87,13 @@ function showLeftInLightbox(photographe, photographeMedias) {
   );
   const modal = document.querySelector(".modal");
   let lightboxContainer = modal.querySelector(".lightbox__container");
-  //on associe la variable showLight à la fonction pour la logique de l'affichage prev media afin de la recuperer dans la fonction navigateKeyboard()
-  //  let newIndex = parseInt(sessionStorage.getItem("index")) - 1;
+
   currentMedia -= 1;
-  //si on n'a pas de media
+
   if (currentMedia < 0) {
-    // on recepure la longeur totale de tableau medias donc dernier media du tableau -1
     currentMedia = photographeMedias.length - 1;
   }
-  //on attribue une nouvelle valeur à la clé "index" , ici  newIndex
-  // sessionStorage.setItem("index", newIndex);
 
-  //on cree une variable pour nouvelle Media avec la bonne index recupéree en session storage en parametre
   let prevMedia = new Media(photographeMedias[currentMedia], photographe);
   // on affiche cette nouvelle media
   lightboxContainer.innerHTML = prevMedia.displayLightbox();
@@ -129,39 +104,11 @@ function cancelInLightBox() {
 }
 
 function navigateKeyboard(photographe, photographeMedias) {
-  //etant donnéé la varibale photographeMedias n'est pas connue, on recree le tableau medias afin de la mettre dans le parametre de la function  showRightInLightbox(photographe, photographeMedias)
-  // let photographeMedias = [];
-
-  //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
-  /* photographeMedias = mediaData.filter((media) => {
-      return photographe.id == media.photographerId;
-    });*/
-
   window.addEventListener("keydown", function (e) {
-    //TEST2 attribue index dans l'ordre mais pas de next et suivant ....
-    /*
-    if (e.key == "Enter") {
-      const medias = document.querySelectorAll(
-        ".galery-photo__img img, .galery-photo__img video"
-      );
-
-      const modal = document.querySelector(".modal");
-
-      let lightboxContainer = modal.querySelector(".lightbox__container");
-      // console.log(photographeMedias);
-      currentMedia = 0;
-      medias.forEach((media) => {
-        currentMedia++;
-        modal.style.visibility = "visible";
-
-        console.log(currentMedia);
-      });
-    }
-    */
-    //..........................................................
+   
 
     //  TEST1 ouvre lightbox mais tjs le dernier media mais next marche !
-    
+
     const medias = document.querySelectorAll(
       ".galery-photo__img img, .galery-photo__img video"
     );
@@ -172,21 +119,24 @@ function navigateKeyboard(photographe, photographeMedias) {
       //currentMedia = 0;
 
       medias.forEach((media, i) => {
+        console.log(media)
         currentMedia = i;
-        console.log(currentMedia);
-        console.log(photographeMedias);
+
+        console.log(photographeMedias[currentMedia]);
 
         modal.style.visibility = "visible";
 
-        let clickedMedia = new Media(photographeMedias[i], photographe);
+        let clickedMedia = new Media(
+          photographeMedias[currentMedia],
+          photographe
+        );
 
         lightboxContainer.innerHTML = clickedMedia.displayLightbox();
       });
     }
     //.....................................................
-   
+
     //...................................................
-    
 
     if (e.key == "ArrowRight") {
       showRightInLightbox(photographe, photographeMedias);
