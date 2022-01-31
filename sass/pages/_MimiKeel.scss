@@ -42,10 +42,11 @@ video {
 }
 */
 
-.galery-photo__img 
+.galery-photo__img > img, 
+.galery-photo__img > video
  {
-  width: 33%;
-  height: 10vh;
+  width: 100%;
+  height: 30vh;
   object-fit: cover;
   border-radius: 5px;
   object-fit: cover;
@@ -111,12 +112,9 @@ video {
  // content: "";
   border:none;
   border-bottom:3px  rgb(45, 77, 61) solid;
-
   display: block;
   width: 40px;
   padding-top: 5px;
-
-
 }
 */
 
@@ -213,9 +211,11 @@ label {
   transition: opacity 0.3s;
 }
 
-.lightbox__container img {
-  max-width: 100%;
+.lightbox__container a {
+ // max-width: 100%;
+max-width:70%;
   height: auto;
+
   //animation: lightbox 0.5s;
 }
 

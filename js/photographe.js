@@ -3,16 +3,14 @@
 import { Media } from "./Media.js";
 import { createForm } from "./modal.js";
 
-//sans i dans media 
-import{ openLightbox} from "./testLightBox.js"
+//sans i dans media
 
-import {navigateKeyboard} from "./testLightBox.js"
-import{ currentMedia} from "./testLightBox.js"
-
+//import{ openLightbox} from "./testLightBox.js"
+import { Lightbox } from "./Lightbox.js";
+import { navigateKeyboard } from "./testLightBox.js";
+import { currentMedia } from "./testLightBox.js";
 
 //..............................................................................................
-
-
 
 // recupere les datas depuis.json
 const linkToJson = "./FishEyeData.json";
@@ -25,16 +23,6 @@ fetch(linkToJson)
   })
 
   .then(function (value) {
-    /*
-  
-    var m = JSON.parse(fs.readFileSync('FishEyeData.json').toString());
-    m.forEach(function(p){
-      p.alt = 'photo' + p.name;
-    
-    })
-    fs.writeFile('FishEyeData.json', JSON.stringify(m));
-
-*/
     // donnes de chaque photographe
     const photographersData = value.photographers;
     // données de media
@@ -60,9 +48,6 @@ fetch(linkToJson)
       return photographe.id == media.photographerId;
     });
 
-    //..............................
-
-    // for (let photographe of photographersData) {
     // console.log(photographe.id);
     //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
     // if (photographe.id == idTag) {
@@ -70,42 +55,28 @@ fetch(linkToJson)
     createForm(photographe);
     createTotalLikesContainer(photographe);
     //.................................
-    console.log(mediaData);
+
     //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
-       let i = 0;
+    let currentMedia = 0;
     for (let media of mediaData) {
       if (media.photographerId == idTag) {
-        //console.log(media)
         //filterPopular(media);
 
-        createMedia(media, photographe);
+        createMedia(media, photographe, currentMedia);
 
-        //  i++;
-          
-        // console.log(index);
+        currentMedia++;
       }
     }
     //..................................................
 
-    
-
     likesCounter();
-    //createLightbox(photographe, photographeMedias)
-    //  openLightbox(photographe, photographeMedias)
+
     filterDropdown(photographe, photographeMedias);
 
-    //  createLightbox(photographe, photographeMedias); // array cible img/video de photographe
-
-    //openLightboxOnKeyboard() ;
-    //}
-    //}
-    //  test();
     filterTagsOnPhotographePage();
 
-  //  openLightbox(photographe, photographeMedias,i);
-
-    openLightbox(photographe, photographeMedias)
- // navigateKeyboard(photographe, photographeMedias);
+    // openLightbox(photographe, photographeMedias)
+    //  navigateKeyboard(photographe, photographeMedias);
   })
 
   .catch(function (err) {
@@ -177,15 +148,50 @@ function filterTagsOnPhotographePage(data) {
 }
 
 //.....................................................................
-function createMedia(media, photographe,i) {
+function createMedia(media, photographe, currentMedia) {
   //parametre photographe recupere path (prenom de phtographe depuis .json pour creer le chemin dynamiqument)
   const mediaContainer = document.querySelector(".galery-photo");
   //on cree une variable factoryMedia pour recuperer class Media depuis Media.js
   let factoryMedia = new Media(media, photographe);
+  let article = document.createElement("article");
 
+  article.innerHTML =
+    factoryMedia.display() +
+    `<div class="galery-photo-title">
+  <a href="#">
+<p> 
+ ${media.title} 
+  </p>
+  </a>
+  <div class="galery-photo-like">
+  <a href="#">
+  <p class = "nb-likes" id = "${media.id}" >
+ ${media.likes}
+  </p>
+  </a>
+  <a href="#">
+  <p class = "heart">` +
+    `<i class="fas fa-heart" data-id = "${media.id}" data-like = "${media.likes}"></i>` +
+    "</p>" +
+    " </a>" +
+    "</div>" +
+    "</div>" +
+    "</article> ";
+  mediaContainer.appendChild(article);
+  //let test = new Lightbox(media, photographe, currentMedia);
+
+  article.addEventListener("click", (e) => {
+    let loadedMedia = new Lightbox(media, photographe);
+    loadedMedia.loadMedia(media, photographe);
+   // loadedMedia.next();
+
+    console.log(currentMedia)
+  });
+}
+/*
   mediaContainer.innerHTML +=
   //`<article data-mediaIndex="${i}">` +
-  `<article>` +
+// `<article>` +
     
     
     //choiseMedia(media, photographe)
@@ -213,15 +219,13 @@ function createMedia(media, photographe,i) {
     "</article> ";
 
   addLikesOnClick();
+*/
 
-  // openLightbox(photographe, media,i)
-  //addLikesKeyboard();
-}
+//addLikesKeyboard();
+//}
 
 //......................................
 //TEST
-
-
 
 function addLikesOnClick() {
   const hearts = document.querySelectorAll(".heart i");
@@ -396,7 +400,6 @@ function openLightbox(photographe, photographeMedias, i) {
 */
 
 //................................................................ .....................................
-
 
 /*function cancelInLightBox() {
   const modal = document.querySelector(".modal");

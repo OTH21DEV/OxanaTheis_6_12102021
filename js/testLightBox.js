@@ -5,15 +5,7 @@ import { Media } from "./Media.js";
 export { currentMedia };
 
 let currentMedia;
-/*
-const medias = document.querySelectorAll(
-  ".galery-photo__img img, .galery-photo__img video"
-);
-  const next = document.querySelector(".lightbox__next .fa-chevron-right");
-  const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
-  const close = document.querySelector(".lightbox__close .fa-times");
-  const modal = document.querySelector(".modal");
-const lightboxContainer = modal.querySelector(".lightbox__container");*/
+
 
 function openLightbox(photographe, photographeMedias) {
   const medias = document.querySelectorAll(
@@ -29,15 +21,7 @@ function openLightbox(photographe, photographeMedias) {
 
   medias.forEach((media, i) => {
     media.addEventListener("click", (e) => {
-      (currentMedia = i),
-        //   console.log(currentMedia);
-
-        //  console.log(photographeMedias[currentMedia]);
-        //sessionStorage.setItem - stock une paire clé/valeur ici "index", i(number)
-
-        // sessionStorage.setItem("index", i);
-
-        (modal.style.visibility = "visible");
+      (currentMedia = i), (modal.style.visibility = "visible");
 
       let clickedMedia = new Media(
         photographeMedias[currentMedia],
@@ -64,7 +48,7 @@ function openLightbox(photographe, photographeMedias) {
     cancelInLightBox();
   });
 
-  navigateKeyboard(photographe, photographeMedias);
+  //navigateKeyboard(photographe, photographeMedias);
 }
 
 function showRightInLightbox(photographe, photographeMedias) {
@@ -105,8 +89,6 @@ function cancelInLightBox() {
 
 function navigateKeyboard(photographe, photographeMedias) {
   window.addEventListener("keydown", function (e) {
-   
-
     //  TEST1 ouvre lightbox mais tjs le dernier media mais next marche !
 
     const medias = document.querySelectorAll(
@@ -119,7 +101,7 @@ function navigateKeyboard(photographe, photographeMedias) {
       //currentMedia = 0;
 
       medias.forEach((media, i) => {
-        console.log(media)
+        console.log(media);
         currentMedia = i;
 
         console.log(photographeMedias[currentMedia]);
@@ -134,6 +116,7 @@ function navigateKeyboard(photographe, photographeMedias) {
         lightboxContainer.innerHTML = clickedMedia.displayLightbox();
       });
     }
+
     //.....................................................
 
     //...................................................
