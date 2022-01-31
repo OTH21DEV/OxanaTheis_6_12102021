@@ -14,6 +14,7 @@ import { currentMedia } from "./testLightBox.js";
 
 // recupere les datas depuis.json
 const linkToJson = "./FishEyeData.json";
+let photographeMedias = [];
 
 fetch(linkToJson)
   .then(function (response) {
@@ -42,7 +43,7 @@ fetch(linkToJson)
       return photographe.id == idTag;
     })[0];
 
-    let photographeMedias = [];
+   // let photographeMedias = [];
     //on remplie le tableau avec de medias de chaque photographe si son id == media.photographerId
     photographeMedias = mediaData.filter((media) => {
       return photographe.id == media.photographerId;
@@ -65,7 +66,9 @@ fetch(linkToJson)
         createMedia(media, photographe, currentMedia);
 
         currentMedia++;
+        
       }
+  
     }
     //..................................................
 
@@ -181,9 +184,12 @@ function createMedia(media, photographe, currentMedia) {
   //let test = new Lightbox(media, photographe, currentMedia);
 
   article.addEventListener("click", (e) => {
-    let loadedMedia = new Lightbox(media, photographe);
-    loadedMedia.loadMedia(media, photographe);
-   // loadedMedia.next();
+   let loadedMedia = new Lightbox(media, photographe);
+    loadedMedia.loadMedia(media, photographe, currentMedia);
+   loadedMedia.next(currentMedia, photographeMedias, photographe);
+   loadedMedia.prev(currentMedia, photographeMedias, photographe);
+   loadedMedia.close(e);
+   loadedMedia.onKeyup(e, media, photographe);
 
     console.log(currentMedia)
   });
@@ -651,3 +657,4 @@ function filterDropdown(photographe, photographeMedias) {
   });*/
 
 //..........................................................................................................
+export{photographeMedias}
