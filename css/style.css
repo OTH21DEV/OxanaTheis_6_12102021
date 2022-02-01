@@ -121,10 +121,25 @@ a {
   }
 }
 
-@media all and (min-width: 880px) {
-  article {
+/*
+article {
+  @include desktop {
     width: 30%;
   }
+}*/
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+@media all and (min-width: 880px) {
+  .wrapper {
+    width: 30%;
+  }
+}
+
+.wrapper > article {
+  width: 100%;
 }
 
 .galery-photo {

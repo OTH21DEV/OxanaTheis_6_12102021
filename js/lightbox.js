@@ -21,27 +21,43 @@ class Lightbox {
     this.currentMedia = currentMedia;
   }
   loadMedia(media, photographe) {
+
     modal.style.visibility = "visible";
     let clickedMedia = new Media(media, photographe);
     lightboxContainer.innerHTML = clickedMedia.displayLightbox();
-  }
 
+    
+      }
+  
+  /*
+test(){
+  modal.style.visibility = "hidden";
+}
+*/
   close(e) {
-    btnClose.addEventListener("click", function (e) {
+   btnClose.addEventListener("click", function (e) {
       modal.style.visibility = "hidden";
+//this.test();
     });
   }
 
-  onKeyup(media, photographe, e) {
+  onKeyup(media, photographe, e,currentMedia,photographeMedias) {
     if (e.key == "Enter") {
       this.loadMedia(media, photographe);
     }
-
-    if (e.key == "Escape") {
-      //    this.close(e)
+    /*
+    if (e.key == "ArrowRight") {
+      this.next(currentMedia, photographeMedias, photographe);
     }
-
+    */
+/*
+    if (e.key == "Escape") {
+        this.close()
+    }
+*/
   }
+ 
+  
   next(currentMedia, photographeMedias, photographe) {
     next.addEventListener("click", (e) => {
       currentMedia++;
@@ -72,5 +88,6 @@ class Lightbox {
   }
   
 }
+
 
 export { Lightbox };

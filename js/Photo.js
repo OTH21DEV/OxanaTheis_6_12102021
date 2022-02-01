@@ -17,8 +17,7 @@ class Photo {
     <img class = "galery-photo__img" src="photo_video/${this.path}/${this.image}" />
     </p>
     </a>
-          
-      
+    </article>
         
         `;
   }
@@ -34,7 +33,7 @@ class Photo {
         <h3 class = "test2">${this.title ? this.title : ""}</h3>
     </p>
         </a>
-        
+       
         `;
   }
 }

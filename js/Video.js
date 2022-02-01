@@ -15,7 +15,8 @@ class Video {
         <p class="galery-photo__img">
           <video controls src="photo_video/${this.path}/${this.video}" />
         </p>
-      </a>`;
+      </a>
+      </article>`;
   }
   displayLightbox() {
     return `

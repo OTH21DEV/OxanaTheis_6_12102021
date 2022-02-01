@@ -15,11 +15,24 @@
   }
   
 }
-
+/*
 article {
   @include desktop {
     width: 30%;
   }
+}*/
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  width:100%;
+
+  @include desktop {
+    width: 30%;
+  }
+}
+
+.wrapper > article{
+  width:100%;
 }
 
 .galery-photo {
