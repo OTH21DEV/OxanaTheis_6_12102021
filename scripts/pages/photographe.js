@@ -170,15 +170,19 @@ function createMedia(media, photographe, currentMedia) {
     "</div>";
 
   article.addEventListener("click", (e) => {
-    let loadedMedia = new Lightbox(media, photographe);
-    loadedMedia.loadMedia(media, photographe, currentMedia);
-    loadedMedia.next(currentMedia, photographeMedias, photographe);
-    loadedMedia.prev(currentMedia, photographeMedias, photographe);
-    loadedMedia.close(e);
+    let loadedMedia = new Lightbox(
+      media,
+      photographe,
+      currentMedia,
+      photographeMedias
+    );
+    loadedMedia.loadMedia();
+    loadedMedia.next();
+    loadedMedia.prev();
 
-    loadedMedia.onKeyup(media, photographe, e, currentMedia, photographeMedias);
+    loadedMedia.close();
 
-    console.log(currentMedia);
+    loadedMedia.onKeyup(e);
   });
 
   addLikesOnClick();
@@ -192,8 +196,6 @@ function addLikesOnClick() {
 
   hearts.forEach((heart) => {
     heart.addEventListener("click", (e) => {
-
-
       //on associe Id de media à chaque heart via data-id = "${media.id}" dans la function createMedia
       //on recupere cet Id
 
@@ -209,9 +211,6 @@ function addLikesOnClick() {
 
       // addLikesKeyboard()
       likesCounter();
-
-
-
     });
   });
 }
@@ -229,7 +228,6 @@ function addLikesKeyboard() {
     }
   });
 }
-
 
 //................................................................................
 function createTotalLikesContainer(data) {
