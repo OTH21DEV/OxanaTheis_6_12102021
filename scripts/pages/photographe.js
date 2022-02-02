@@ -4,12 +4,16 @@ import { Media } from "../factories/Media.js";
 import { createForm } from "../utils/modal.js";
 
 import { Lightbox } from "../factories/Lightbox.js";
+import { Photographer } from "../factories/Photographer.js";
+//import { Counter } from "../factories/Counter.js";
 
 //..............................................................................................
 
 // recupere les datas depuis.json
 const linkToJson = "./data/FishEyeData.json";
 let photographeMedias = [];
+let photographe;
+//let photographersData;
 
 fetch(linkToJson)
   .then(function (response) {
@@ -33,7 +37,8 @@ fetch(linkToJson)
     //on recupere ici 'id ' donné à <a> dans le script.js (href="./MimiKeel.html?id=${data.id}") (function createPhotographe) pour chaque photographe
     const idTag = urlParams.get("id");
     //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
-    let photographe = photographersData.filter((photographe) => {
+
+    photographe = photographersData.filter((photographe) => {
       return photographe.id == idTag;
     })[0];
 
@@ -42,10 +47,10 @@ fetch(linkToJson)
       return photographe.id == media.photographerId;
     });
 
-    createPhtotographer(photographe, photographersData);
+    let photographerPage = new Photographer(photographe);
+    //let counter = new Counter(photographe);
+
     createForm(photographe);
-    createTotalLikesContainer(photographe);
-    //.................................
 
     //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
     let currentMedia = 0;
@@ -60,73 +65,11 @@ fetch(linkToJson)
     likesCounter();
 
     filterDropdown(photographe, photographeMedias);
-
-    filterTagsOnPhotographePage();
   })
 
   .catch(function (err) {
     console.log(err);
   });
-
-function createPhtotographer(data) {
-  const container = document.querySelector(".test");
-
-  let tagHtml = "";
-  for (let tag of data.tags) {
-    tagHtml += `  <li><a class = "photographer-profile__li"  >#${tag}</a></li>`;
-  }
-
-  container.innerHTML += ` <article id = "tt" class="photographer-profile photographer-profile--page">
-    <a href="#">
-      <h2
-        class="
-          photographer-profile__name photographer-profile__name--page
-        "
-      >
-      ${data.name}
-      </h2></a
-    >
-    <a
-      class="
-        photographer-profile__title photographer-profile__title--page
-      "
-      href="#"
-    >
-      <h3>${data.city}, ${data.country}</h3>
-      <p>${data.tagline}</p>
-    </a>
-
-    <nav class="photographer-profile__nav">
-      <ul class="tes">
-      ${tagHtml}
-      </ul>
-    </nav>
-  </article>
-
-  <a class="photographer-profile__img" href="/photographer.html">
-    <img
-      class="
-        photographer-profile__photo photographer-profile__photo--small
-      "
-      src="./assets/images/Photographers ID Photos/${data.portrait}"
-      alt="photo de  ${data.name}"
-    />
-  </a>`;
-}
-//......................................................................
-function filterTagsOnPhotographePage(data) {
-  let photographeLinks = document.querySelectorAll(".photographer-profile__li");
-
-  photographeLinks.forEach((photographeLink) => {
-    photographeLink.addEventListener("click", (e) => {
-      let clickedTag = e.target.text.toLowerCase().replace("#", "");
-      sessionStorage.setItem("tag", clickedTag);
-
-      photographeLink.href = "index.html";
-      // on complete la logique de filtrage par une fonction "filterPhotographeTagsFromPhotographe page" sur script.js
-    });
-  });
-}
 
 //.....................................................................
 function createMedia(media, photographe, currentMedia) {
@@ -176,76 +119,48 @@ function createMedia(media, photographe, currentMedia) {
       currentMedia,
       photographeMedias
     );
-    loadedMedia.loadMedia();
-    loadedMedia.next();
-    loadedMedia.prev();
-//loadedMedia.testprev();
-    loadedMedia.close();
-    loadedMedia.onKeyup(e);
   });
- 
 
   addLikesOnClick();
-  // addLikesKeyboard()
+  addLikesKeyboard();
 }
 
 //Mouse and keyboard events
+
+function addLikes(target) {
+  let heartId = target.dataset.id;
+
+  //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
+  //on recupere la valeur
+  let addLike = target.dataset.like;
+  // on cree une variable et on incremente pour obtenir la nouvelle valeur
+  let likes = parseInt(addLike) + 1;
+  //on reedite l'element de dom avec l'id et la nouvelle valeur puis on apelle cette function dans la function createMedia
+  document.getElementById(`${heartId}`).innerHTML = likes;
+
+  // addLikesKeyboard()
+  likesCounter();
+}
 
 function addLikesOnClick() {
   const hearts = document.querySelectorAll(".heart i");
 
   hearts.forEach((heart) => {
     heart.addEventListener("click", (e) => {
-      //on associe Id de media à chaque heart via data-id = "${media.id}" dans la function createMedia
-      //on recupere cet Id
-
-      let heartId = heart.dataset.id;
-
-      //on associe le nb de Likes de media à chaque heart via data-like = "${media.likes}" dans la function createMedia
-      //on recupere la valeur
-      let addLike = heart.dataset.like;
-      // on cree une variable et on incremente pour obtenir la nouvelle valeur
-      let likes = parseInt(addLike) + 1;
-      //on reedite l'element de dom avec l'id et la nouvelle valeur puis on apelle cette function dans la function createMedia
-      document.getElementById(`${heartId}`).innerHTML = likes;
-
-      // addLikesKeyboard()
-      likesCounter();
+      addLikes(heart);
     });
   });
 }
-//....................................................................................
 
 function addLikesKeyboard() {
   window.addEventListener("keydown", function (e) {
     if (e.key == "Enter") {
-      let heartId = e.target.querySelector("i").dataset.id;
-      let addLike = e.target.querySelector("i").dataset.like;
-      let likes = parseInt(addLike) + 1;
-      document.getElementById(`${heartId}`).innerHTML = likes;
-
-      likesCounter();
+      addLikes(e.target.querySelector("i"));
     }
   });
 }
 
 //................................................................................
-function createTotalLikesContainer(data) {
-  const totalLikesContainer = document.querySelector(".total-wrapper");
-
-  totalLikesContainer.innerHTML +=
-    '<div class = "total">' +
-    '<p class="total__likes">' +
-    '<i class="fas fa-heart">' +
-    "</i>" +
-    "</p>" +
-    '<p class="total__price">' +
-    data.price +
-    "€ / jour" +
-    "</p>" +
-    "</div>" +
-    "</div>";
-}
 
 function likesCounter() {
   //on recupere tous les elements
@@ -321,3 +236,4 @@ function filterDropdown(photographe, photographeMedias) {
 }
 
 export { photographeMedias };
+export { photographe };

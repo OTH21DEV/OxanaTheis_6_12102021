@@ -28,9 +28,7 @@ fetch(linkToJson)
       sessionStorage.clear();
       filterPhotographeTags(photographersData);
     }
-    //.....................................................................................
-    // filterPhotographeTags(photographersData);
-    //filterTagsFromPhotographePage(photographersData);
+    
   })
 
   .catch(function (err) {
