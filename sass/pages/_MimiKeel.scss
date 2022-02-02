@@ -119,6 +119,9 @@ video {
   &.contact__btn--listbox {
     padding: 0 10px;
   }
+  &.contact__btn--listbox > option{
+    padding:  10px 0;
+  }
 }
 /*
 #listbox__popular{

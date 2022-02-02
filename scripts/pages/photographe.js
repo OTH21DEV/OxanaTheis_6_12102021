@@ -179,11 +179,11 @@ function createMedia(media, photographe, currentMedia) {
     loadedMedia.loadMedia();
     loadedMedia.next();
     loadedMedia.prev();
-
+//loadedMedia.testprev();
     loadedMedia.close();
-
     loadedMedia.onKeyup(e);
   });
+ 
 
   addLikesOnClick();
   // addLikesKeyboard()

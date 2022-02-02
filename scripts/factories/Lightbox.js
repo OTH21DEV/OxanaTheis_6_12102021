@@ -61,30 +61,66 @@ class Lightbox {
 
     this.close = () => {
       btnClose.addEventListener("click", function (e) {
-        modal.style.visibility = "hidden";
-        
+       modal.style.visibility = "hidden";
+       
       });
     };
 
+
+
+
+
     this.onKeyup = (e) => {
-       // media.addEventListener("keydown", function (e) {
+      // window.addEventListener("keydown", function (e) {
         if (e.key == "Enter") {
+          
           this.loadMedia();
         }
 
-        if (e.key == "ArrowRight") {
-          this.next();
+       if (e.key == "ArrowRight") {
+          console.log(e.key)
+       //this.test();
         }
         if (e.key == "ArrowLeft") {
-          this.prev();
+       //   this.prev();
         }
 
         if (e.key == "Escape") {
-          this.close();
+        //  this.close();
         }
-      //});
+    //  });
     };
-  }
+/*
+this.testprev =() =>{
+  prev.addEventListener("click", (e) => {
+    prev();
+  })
 }
 
+
+  }
+
+  prev = () => {
+
+    this.currentMedia -= 1;
+
+    if (this.currentMedia < 0) {
+      this.currentMedia = this.photographeMedias.length - 1;
+    }
+
+    let prevMedia = new Media(
+      this.photographeMedias[this.currentMedia],
+      this.photographe
+    );
+    // on affiche cette nouvelle media
+    lightboxContainer.innerHTML = prevMedia.displayLightbox();
+
+    return prev();
+  
+};
+*/
+
+}
+
+}
 export { Lightbox };
