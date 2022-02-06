@@ -1,23 +1,12 @@
-import { photographe } from "../pages/photographe.js";
+import { photographe, photographeMedias } from "../pages/photographe.js";
 
 class Photographer {
   constructor() {
     this.photographe = photographe;
+    this.photographeMedias = photographeMedias;
     this.createPhotographer();
     this.filterTagsOnPhotographePage();
-    this.createTotalLikesContainer();
   }
-  /*
-url = () =>{
-    let queryString = window.location.search;
-    let urlParams = new URLSearchParams(queryString);
-    const idTag = urlParams.get("id");
-    this.photographe = photographersData.filter((photographe) => {
-        return photographe.id == idTag;
-      })[0];
-}
-
-*/
 
   createPhotographer = () => {
     const container = document.querySelector(".test");
@@ -79,24 +68,6 @@ url = () =>{
         // on complete la logique de filtrage par une fonction "filterPhotographeTagsFromPhotographe page" sur script.js
       });
     });
-  };
-
-  //methode pour creer l'element de conteur
-  createTotalLikesContainer = () => {
-    const totalLikesContainer = document.querySelector(".total-wrapper");
-
-    totalLikesContainer.innerHTML +=
-      '<div class = "total">' +
-      '<p class="total__likes">' +
-      '<i class="fas fa-heart">' +
-      "</i>" +
-      "</p>" +
-      '<p class="total__price">' +
-      this.photographe.price +
-      "€ / jour" +
-      "</p>" +
-      "</div>" +
-      "</div>";
   };
 }
 

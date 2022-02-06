@@ -5,7 +5,8 @@ import { createForm } from "../utils/modal.js";
 
 import { Lightbox } from "../factories/Lightbox.js";
 import { Photographer } from "../factories/Photographer.js";
-//import { Counter } from "../factories/Counter.js";
+import { Likes } from "../factories/Likes.js";
+import { Counter } from "../factories/Counter.js";
 
 //..............................................................................................
 
@@ -13,6 +14,7 @@ import { Photographer } from "../factories/Photographer.js";
 const linkToJson = "./data/FishEyeData.json";
 let photographeMedias = [];
 let photographe;
+let currentMedia;
 //let photographersData;
 
 fetch(linkToJson)
@@ -46,25 +48,26 @@ fetch(linkToJson)
     photographeMedias = mediaData.filter((media) => {
       return photographe.id == media.photographerId;
     });
-
-    let photographerPage = new Photographer(photographe);
-    //let counter = new Counter(photographe);
+    //appel class Photographer
+    new Photographer(photographe, photographeMedias);
 
     createForm(photographe);
 
     //on rajoute variable index dans la boucle initiale (media of MediaData) ainsi que.entries pour pouvoir recuperer l'index de media dans l'ouverture de lightbox
-    let currentMedia = 0;
-    for (let media of mediaData) {
-      if (media.photographerId == idTag) {
-        createMedia(media, photographe, currentMedia);
+    currentMedia = 0;
+    //creation de media avec index= currentMedia
+    photographeMedias.forEach((media) => {
+      createMedia(media, photographe, currentMedia);
 
-        currentMedia++;
-      }
-    }
+      currentMedia++;
 
-    likesCounter();
+      //new Likes();
+    });
 
     filterDropdown(photographe, photographeMedias);
+
+    new Counter(photographe);
+  
   })
 
   .catch(function (err) {
@@ -112,21 +115,31 @@ function createMedia(media, photographe, currentMedia) {
     "</div>" +
     "</div>";
 
+
+
   article.addEventListener("click", (e) => {
-    let loadedMedia = new Lightbox(
+   new Lightbox(
       media,
       photographe,
       currentMedia,
       photographeMedias
     );
   });
+  //apelle de class Likes pour chaque media
 
-  addLikesOnClick();
-  addLikesKeyboard();
+  
+  
+  new Likes();
+  let test = document.querySelector('.nb-likes');
+  console.log(test)
+    console.log(test.dataset.newlike)
+ 
+  // addLikesOnClick();
+  //addLikesKeyboard();
 }
 
 //Mouse and keyboard events
-
+/*
 function addLikes(target) {
   let heartId = target.dataset.id;
 
@@ -159,7 +172,7 @@ function addLikesKeyboard() {
     }
   });
 }
-
+*/
 //................................................................................
 
 function likesCounter() {
@@ -230,10 +243,12 @@ function filterDropdown(photographe, photographeMedias) {
     }
 
     photographeMedias.forEach((media, currentMedia) => {
-      createMedia(media, photographe, currentMedia);
+     createMedia(media, photographe, currentMedia);
+      new Likes();
     });
   });
 }
 
 export { photographeMedias };
 export { photographe };
+
