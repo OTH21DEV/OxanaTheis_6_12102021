@@ -1,7 +1,8 @@
 //Import de Factory pattern Media depuis le fichier Media.js
 
 import { Media } from "../factories/Media.js";
-import { createForm } from "../utils/modal.js";
+
+import { createForm } from "../utils/contactForm.js";
 
 import { Lightbox } from "../factories/Lightbox.js";
 import { Photographer } from "../factories/Photographer.js";
@@ -131,8 +132,7 @@ function createMedia(media, photographe, currentMedia) {
   
   new Likes();
   let test = document.querySelector('.nb-likes');
-  console.log(test)
-    console.log(test.dataset.newlike)
+
  
   // addLikesOnClick();
   //addLikesKeyboard();

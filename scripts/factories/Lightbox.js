@@ -27,6 +27,7 @@ class Lightbox {
   }
   loadMedia = () => {
     modal.style.visibility = "visible";
+    
     let clickedMedia = new Media(
       this.photographeMedias[this.currentMedia],
       this.photographe
@@ -102,7 +103,11 @@ class Lightbox {
       if (e.key == "Escape") {
         this.closeMedia();
       }
-    });
-  };
+      if(e.key == "Tab") {
+        console.log(e)
+        
+    };
+  });
+}
 }
 export { Lightbox };
