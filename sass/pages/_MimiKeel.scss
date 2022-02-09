@@ -356,3 +356,12 @@ max-width:70%;
   display: flex;
   flex-direction: column;
 }
+/*
+.modal:focus,.a-chevron-right:focus, .fa-chevron-left:focus, .lightbox_container:focus, .fa-times:focus {
+  outline: 1px solid red;
+
+}*/
+
+.focused{
+  outline: 1px dashed red;
+}

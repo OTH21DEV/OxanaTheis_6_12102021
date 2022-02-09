@@ -1,4 +1,4 @@
-import { Photographer_index } from "../factories/Photographer_index.js";
+import { PhotographerProfile_index } from "../factories/PhotographerProfile_index.js";
 import {filterTags,filterPhotographeTags,filterTagsFromPhotographePage} from "../utils/filtreTags.js"
 
 // recupere les datas depuis.json
@@ -19,7 +19,7 @@ fetch(linkToJson)
     const mediaData = value.media; // données de media
 
     for (photographe of photographersData) {
-      new Photographer_index(photographe);
+      new PhotographerProfile_index(photographe);
     }
     filterTags(photographersData);
    

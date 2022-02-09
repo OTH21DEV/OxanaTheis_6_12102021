@@ -1,6 +1,6 @@
 import { photographe } from "../pages/index.js";
 
-class Photographer_index {
+class PhotographerProfile_index {
   constructor() {
     this.photographe = photographe;
     this.createPhtotographer();
@@ -43,4 +43,4 @@ class Photographer_index {
         </article>`;
   };
 }
-export { Photographer_index };
+export { PhotographerProfile_index };

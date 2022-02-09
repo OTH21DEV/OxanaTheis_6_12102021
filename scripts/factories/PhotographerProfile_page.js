@@ -1,6 +1,6 @@
 import { photographe, photographeMedias } from "../pages/photographe.js";
 
-class Photographer {
+class PhotographerProfile_page {
   constructor() {
     this.photographe = photographe;
     this.photographeMedias = photographeMedias;
@@ -13,7 +13,8 @@ class Photographer {
 
     let tagHtml = "";
     for (let tag of this.photographe.tags) {
-      tagHtml += `  <li><a class = "photographer-profile__li"  >#${tag}</a></li>`;
+     // tagHtml += `  <li><a class = "photographer-profile__li"  >#${tag}</a></li>`;
+      tagHtml += `  <a class = "photographer-profile__li" href = '#'>#${tag}</li></a>`;
     }
 
     container.innerHTML += ` <article id = "tt" class="photographer-profile photographer-profile--page">
@@ -71,4 +72,4 @@ class Photographer {
   };
 }
 
-export { Photographer };
+export { PhotographerProfile_page };

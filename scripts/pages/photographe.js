@@ -5,8 +5,8 @@ import { Media } from "../factories/Media.js";
 import { createForm } from "../utils/contactForm.js";
 
 import { Lightbox } from "../factories/Lightbox.js";
-import { Photographer } from "../factories/Photographer.js";
-import { Likes } from "../factories/Likes.js";
+import { PhotographerProfile_page } from "../factories/PhotographerProfile_page.js";
+import { Likes} from "../factories/Likes.js";
 import { Counter } from "../factories/Counter.js";
 
 //..............................................................................................
@@ -16,6 +16,7 @@ const linkToJson = "./data/FishEyeData.json";
 let photographeMedias = [];
 let photographe;
 let currentMedia;
+const hearts = document.querySelectorAll(".heart i");
 //let photographersData;
 
 fetch(linkToJson)
@@ -50,7 +51,7 @@ fetch(linkToJson)
       return photographe.id == media.photographerId;
     });
     //appel class Photographer
-    new Photographer(photographe, photographeMedias);
+    new PhotographerProfile_page(photographe, photographeMedias);
 
     createForm(photographe);
 
@@ -66,8 +67,10 @@ fetch(linkToJson)
     });
 
     filterDropdown(photographe, photographeMedias);
+  //  new Counter(photographe);
 
-    new Counter(photographe);
+ 
+   new Likes();
   
   })
 
@@ -108,7 +111,7 @@ function createMedia(media, photographe, currentMedia) {
  ${media.likes}
   </p>
   </a>
-  <a href="#">
+  <a class = "heart-link" href="#">
   <p class = "heart">` +
     `<i class="fas fa-heart" data-id = "${media.id}" data-like = "${media.likes}"></i>` +
     "</p>" +
@@ -130,8 +133,8 @@ function createMedia(media, photographe, currentMedia) {
 
   
   
-  new Likes();
-  let test = document.querySelector('.nb-likes');
+
+ 
 
  
   // addLikesOnClick();
@@ -195,6 +198,7 @@ function likesCounter() {
 
 function filterDropdown(photographe, photographeMedias) {
   const mediaContainer = document.querySelector(".galery-photo");
+  const totalLikesContainer = document.querySelector(".total-wrapper");
 
   //on defini element select de la form
   const filterSelect = document.querySelector("#listbox");
@@ -244,8 +248,12 @@ function filterDropdown(photographe, photographeMedias) {
 
     photographeMedias.forEach((media, currentMedia) => {
      createMedia(media, photographe, currentMedia);
-      new Likes();
+   
     });
+    //on efface le conteur (etabli avant le filtre)
+    totalLikesContainer.innerHTML = "";
+    //on apelle la class Likes pour reconstruire des likes y compris nouveau conteur
+    new Likes();
   });
 }
 

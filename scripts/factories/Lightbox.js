@@ -27,7 +27,13 @@ class Lightbox {
   }
   loadMedia = () => {
     modal.style.visibility = "visible";
-    
+    modal.focus();
+    /*
+    modal.addEventListener("focus", (e) => {
+      modal.classList.add("focused");
+    });
+*/
+
     let clickedMedia = new Media(
       this.photographeMedias[this.currentMedia],
       this.photographe
@@ -88,6 +94,19 @@ class Lightbox {
       this.closeMedia();
     });
   };
+
+  //test navigation avec Tab
+
+  tabNavigation = () => {
+    if (document.activeElement === document.querySelector(".testt")) {
+      // if (e.key == "Enter") {
+      this.prevMedia();
+    }
+    //}
+  };
+
+  //.............................
+
   /*evenement clavier avec appel des methodes (evenement enter se declanche automatiquement 
   car considére comme click lors de l'appel loadMedia)
   */
@@ -103,11 +122,12 @@ class Lightbox {
       if (e.key == "Escape") {
         this.closeMedia();
       }
-      if(e.key == "Tab") {
-        console.log(e)
+      if (e.key == "Tab") {
+        console.log(document.activeElement);
         
-    };
-  });
-}
+      }
+    });
+  };
 }
 export { Lightbox };
+
