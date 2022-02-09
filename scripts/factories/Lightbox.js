@@ -95,14 +95,24 @@ class Lightbox {
     });
   };
 
-  //test navigation avec Tab
+  /*
+  methode de navigation avec Tab
+  on definie si l'element actif (ciblé avec tab) est la fleche droite/gauche ou close, puis
+  on apelle la methode de l'affichage de next, prev , close
+  */
 
   tabNavigation = () => {
-    if (document.activeElement === document.querySelector(".testt")) {
-      // if (e.key == "Enter") {
+    if (document.activeElement === document.querySelector(".fa-chevron-left")) {
       this.prevMedia();
     }
-    //}
+    if (
+      document.activeElement === document.querySelector(".fa-chevron-right")
+    ) {
+      this.nextMedia();
+    }
+    if (document.activeElement === document.querySelector(".fa-times")) {
+      this.closeMedia();
+    }
   };
 
   //.............................
@@ -122,12 +132,11 @@ class Lightbox {
       if (e.key == "Escape") {
         this.closeMedia();
       }
-      if (e.key == "Tab") {
-        console.log(document.activeElement);
-        
+      //pour la navigation avec tab
+      if (e.key == "Enter") {
+        this.tabNavigation();
       }
     });
   };
 }
 export { Lightbox };
-

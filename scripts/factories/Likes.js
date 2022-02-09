@@ -65,8 +65,8 @@ class Likes {
 
   addLikesKeyboard = () => {
     /*on cible element a en rajoutant la class au prealable 
- car lors de l'venement clavier le focus se trouve pas 
- sur icone de coeur mais sur le a 
+ car lors de l'venement clavier le focus ne se trouve pas 
+ sur icone de coeur mais sur l'element parent -  a 
  */
     let parents = document.querySelectorAll(".heart-link");
 
