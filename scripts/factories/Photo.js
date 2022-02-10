@@ -1,4 +1,4 @@
-export { Photo };
+
 
 class Photo {
   constructor(path, media) {
@@ -37,6 +37,8 @@ class Photo {
         `;
   }
 }
+
+export { Photo };
 //source de base
 //<img src="photo_video/${photographe.path}/${media.image}" />
 

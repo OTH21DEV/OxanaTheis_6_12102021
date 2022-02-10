@@ -1,4 +1,4 @@
-export { Video };
+
 
 
 class Video {
@@ -32,3 +32,4 @@ class Video {
         `;
   }
 }
+export { Video };

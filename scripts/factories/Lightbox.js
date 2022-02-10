@@ -28,11 +28,7 @@ class Lightbox {
   loadMedia = () => {
     modal.style.visibility = "visible";
     modal.focus();
-    /*
-    modal.addEventListener("focus", (e) => {
-      modal.classList.add("focused");
-    });
-*/
+
 
     let clickedMedia = new Media(
       this.photographeMedias[this.currentMedia],
