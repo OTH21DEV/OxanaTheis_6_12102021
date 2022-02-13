@@ -46,7 +46,7 @@ class CreateMedia {
     </a>
     <a class = "heart-link" href="#">
     <p class = "heart">` +
-      `<i class="fas fa-heart" data-id = "${this.media.id}" data-like = "${this.media.likes}"></i>` +
+      `<i class="fas fa-heart" data-id = "${this.media.id}" data-like = "${this.media.likes}" aria-label = "likes"></i>` +
       "</p>" +
       " </a>" +
       "</div>" +

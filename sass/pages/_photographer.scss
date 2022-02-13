@@ -97,10 +97,13 @@ video {
   margin: 10px 0;
 
   @include desktop {
-    position: relative;
+  //  position: relative;
 
-    top: -89em;
-    left: -5em;
+ //  top: -62em;
+ position:absolute;
+ top:10em;
+ left:25em;
+
   }
 }
 .contact__btn {
@@ -113,7 +116,8 @@ video {
   cursor: pointer;
 
   @include desktop {
-    width: 12vh;
+    width: 18vh;
+    height: 8vh;
   }
 
   &.contact__btn--listbox {
@@ -260,7 +264,7 @@ max-width:70%;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  flex-direction: flex-end;
+
 }
 .total-wrapper {
   display: flex;

@@ -204,9 +204,9 @@ video {
 }
 @media all and (min-width: 880px) {
   .contact {
-    position: relative;
-    top: -89em;
-    left: -5em;
+    position: absolute;
+    top: 10em;
+    left: 25em;
   }
 }
 
@@ -221,7 +221,8 @@ video {
 }
 @media all and (min-width: 880px) {
   .contact__btn {
-    width: 12vh;
+    width: 18vh;
+    height: 8vh;
   }
 }
 .contact__btn.contact__btn--listbox {
@@ -365,7 +366,6 @@ label {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  flex-direction: flex-end;
 }
 
 .total-wrapper {
@@ -466,6 +466,15 @@ label {
 .prenom-formData, .nom-formData, .email-formData {
   display: flex;
   flex-direction: column;
+}
+
+/*
+.modal:focus,.a-chevron-right:focus, .fa-chevron-left:focus, .lightbox_container:focus, .fa-times:focus {
+  outline: 1px solid red;
+
+}*/
+.focused {
+  outline: 1px dashed red;
 }
 
 body {

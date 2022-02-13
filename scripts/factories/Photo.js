@@ -1,12 +1,10 @@
-
-
 class Photo {
   constructor(path, media) {
     this.path = path;
-   this.image = media.image;
+    this.image = media.image;
     //this.image = media;
     this.title = media.title;
-
+    this.alt = media.alt;
   }
   //   <p class="galery-photo__img">
 
@@ -14,7 +12,7 @@ class Photo {
     return `
     <a href="#">
     <p class="galery-photo__img">
-    <img class = "galery-photo__img" src="./assets/images/${this.path}/${this.image}" />
+    <img class = "galery-photo__img" src="./assets/images/${this.path}/${this.image}" alt = '${this.alt}'/>
     </p>
     </a>
     </article>
@@ -27,7 +25,9 @@ class Photo {
        
     <a href="#">
     <p class="galery-photo__img">
-          <img class = "galery-photo__img" src="./assets/images/${this.path}/${this.image}" />
+          <img class = "galery-photo__img" src="./assets/images/${this.path}/${
+      this.image
+    } " alt = '${this.alt}'/>
 
         
         <h3 class = "test2">${this.title ? this.title : ""}</h3>
@@ -41,5 +41,3 @@ class Photo {
 export { Photo };
 //source de base
 //<img src="photo_video/${photographe.path}/${media.image}" />
-
-

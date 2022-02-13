@@ -44,6 +44,7 @@ fetch(linkToJson)
     //on cree le photographe si son id (de .json) correspond au idTag (id) recuperé dans le lien url
 
     photographe = photographersData.filter((photographe) => {
+      //cherche le photographe dont l'id est == à idTAg
       return photographe.id == idTag;
     })[0];
 

@@ -26,6 +26,8 @@ class Lightbox {
     this.onKeyup();
   }
   loadMedia = () => {
+    //btn contactez -moi (position absolute ) restait visible dans le lightbox
+    document.querySelector(".contact").style.visibility = "hidden";
     modal.style.visibility = "visible";
     modal.focus();
 
@@ -69,6 +71,7 @@ class Lightbox {
   //methode de fermeture media
   closeMedia = () => {
     modal.style.visibility = "hidden";
+    document.querySelector(".contact").style.visibility = "visible";
   };
   //appel de la methode nextMedia au click
   next = () => {

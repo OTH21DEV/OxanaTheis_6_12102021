@@ -102,7 +102,7 @@ a {
   }
 }
 
-section {
+ section{
   @include tablette {
     display: flex;
     justify-content: space-between;
