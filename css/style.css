@@ -1,7 +1,7 @@
-.header__logo-link {
-  padding-bottom: 40px;
-}
-
+/*
+.header__logo-link{
+  //padding-bottom: 40px;
+}*/
 .photographer-profile {
   display: flex;
   flex-direction: column;
@@ -122,6 +122,11 @@ a {
 }
 
 /*
+.lightbox__close, .lightbox__next, .lightbox__prev{
+
+}
+*/
+/*
 article {
   @include desktop {
     width: 30%;
@@ -222,7 +227,6 @@ video {
 @media all and (min-width: 880px) {
   .contact__btn {
     width: 18vh;
-    height: 8vh;
   }
 }
 .contact__btn.contact__btn--listbox {
@@ -336,6 +340,18 @@ label {
   transition: opacity 0.3s;
 }
 
+/*
+.sr-only{
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+*/
 .lightbox__container a {
   max-width: 70%;
   height: auto;
@@ -510,6 +526,7 @@ p {
   display: flex;
   justify-content: center;
   height: 12%;
+  visibility: hidden;
 }
 
 .header__hidden-link > p {

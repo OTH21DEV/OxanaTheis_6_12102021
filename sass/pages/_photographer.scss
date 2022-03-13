@@ -16,6 +16,11 @@
   
 }
 /*
+.lightbox__close, .lightbox__next, .lightbox__prev{
+
+}
+*/
+/*
 article {
   @include desktop {
     width: 30%;
@@ -117,7 +122,7 @@ video {
 
   @include desktop {
     width: 18vh;
-    height: 8vh;
+   // height: 8vh;
   }
 
   &.contact__btn--listbox {
@@ -201,7 +206,7 @@ label {
   left: 15px;
 }
 
-.fa-times {
+.fa-times{
   width: 46px;
   height: 46px;
   z-index: 12;
@@ -230,7 +235,18 @@ label {
   opacity: 1;
   transition: opacity 0.3s;
 }
-
+/*
+.sr-only{
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+*/
 .lightbox__container a {
  // max-width: 100%;
 max-width:70%;

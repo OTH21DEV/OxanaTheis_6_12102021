@@ -6,79 +6,65 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet" />
 
-    <script
-      src="https://kit.fontawesome.com/4cf7099890.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/4cf7099890.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FishEye</title>
   </head>
 
   <body>
     <header class="header">
-      <a class="header__logo-link" href="/index.html">
-        <img src="./assets/logo/logo.png" alt="Fisheye Home page"
-      /></a>
+      <a class="header__logo-link" href="/index.html"> <img src="./assets/logo/logo.png" alt="Fisheye Home page" /></a>
     </header>
-    <main>
-      <div class="test">
-   
-      </div>
+    <main class="main">
+      <div class="test"></div>
 
-      
       <section class="menu">
-    <!--   <p>-->  
+        <!--   <p>-->
         <form method="post" action="traitement.php">
           <label for="listbox">Trier par</label>
           <select class="contact__btn contact__btn--listbox" name="listbox" id="listbox">
-            <option class= "listbox__popular" value="popularité">Popularité</option>
-            <option class= "listbox__date" value="date">Date</option>
-            <option class= "listbox__title" value="titre">Titre</option>
+            <option class="listbox__popular" value="popularité">Popularité</option>
+            <option class="listbox__date" value="date">Date</option>
+            <option class="listbox__title" value="titre">Titre</option>
           </select>
-          
 
-      <!--     </p>-->  
+          <!--     </p>-->
         </form>
-          
-        
       </section>
 
+      <section class="galery-photo"></section>
+        <!--  
+      <div tabindex="1" class="modal" aria-label="Image agrandie">
+    
+         
+          <span class="lightbox__close"> <i title="Fermer" tabindex="5" class="fas fa-times"></i></span>
 
+        <span class="lightbox__next"><i title="Image suivante"tabindex="4" class="fas fa-chevron-right"></i></span>
+        <span class="lightbox__prev"><i title="Image precedente"tabindex="2" class="fas fa-chevron-left"></i></span>
+        <div tabindex="3" class="lightbox__container"></div>
+      </div>
+      -->
+      <!--     </div>-->
 
-      <section class="galery-photo">
-  
+      <div class="contact">
+        <button class="contact__btn" id="contact">Contactez-moi</button>
+      </div>
+      <div class="total-wrapper"></div>
+      <article class="form-modal"></article>
 
-      </section>
-      <div tabindex="1" class="modal">
-        <span  class="lightbox__close"><i tabindex="5" class="fas fa-times"></i>Fermer</span>
-  <span class="lightbox__next"><i tabindex="4" class="fas fa-chevron-right"></i>Suivant</span>
-  <span class="lightbox__prev"><i tabindex="2" class="fas fa-chevron-left"></i>Précédent</span>
-  <div tabindex="3" class="lightbox__container"></div>
-  
- 
-</div>
- <!--     </div>-->
-
-
-
-<div class="contact">
-      <button class="contact__btn" id = "contact">Contactez-moi</button>
-</div>
-<div class="total-wrapper">
- 
-</div>
-<article class="form-modal">
-
-  
-</article>
-
-
-      <script type = "module" src="./scripts/pages/photographe.js"></script>
+      <script type="module" src="./scripts/pages/photographe.js"></script>
     </main>
+    <div tabindex="1" class="modal" aria-label="Image agrandie">
+    
+         
+     <i title="Fermer" tabindex="5" class="fas fa-times"></i>
+  <!--   <span class="lightbox__close">Fermer</span>-->
+
+    <span class="lightbox__next"><i title="Image suivante"tabindex="4" class="fas fa-chevron-right"></i></span>
+    <span class="lightbox__prev"><i title="Image precedente"tabindex="2" class="fas fa-chevron-left"></i></span>
+    <div tabindex="3" class="lightbox__container"></div>
+  </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 
 import { PhotographerProfile } from "../factories/PhotographerProfile.js";
 import {filterTags,filterPhotographeTags,filterTagsFromPhotographePage} from "../utils/filterTags.js"
-
+import {linkMainContent} from "../utils/linkMainContent.js";
 // recupere les datas depuis.json
 
 const linkToJson = "./data/FishEyeData.json";
@@ -16,6 +16,7 @@ fetch(linkToJson)
   })
 
   .then(function (value) {
+    linkMainContent();
     photographersData = value.photographers; // donnes de photographes array et objets
     const mediaData = value.media; // données de media
 
@@ -44,5 +45,6 @@ fetch(linkToJson)
   });
 
 
-
+/*
 export { photographe };
+*/

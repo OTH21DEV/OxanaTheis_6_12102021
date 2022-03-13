@@ -56,7 +56,8 @@ function createForm(data) {
   });
 
   function cancelModal() {
-    formModal.style.visibility = "hidden";
+    //formModal.style.visibility = "hidden";
+    formModal.style.display = "none";
   }
 
  /*

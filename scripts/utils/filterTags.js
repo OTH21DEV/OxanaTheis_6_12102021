@@ -1,4 +1,4 @@
-import { photographe } from "../pages/index.js";
+//import { photographe } from "../pages/index.js";
 
 // Filtre de tags depuis la page d'accuel -menu de navigation
 
@@ -62,6 +62,7 @@ function filterTagsFromPhotographePage(data) {
 
   checkTag(data, element);
 }
+/*
 export { photographe };
-
+*/
 export { filterTags, filterPhotographeTags, filterTagsFromPhotographePage };

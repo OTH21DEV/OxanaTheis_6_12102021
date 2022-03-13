@@ -29,6 +29,10 @@ class Lightbox {
     //btn contactez -moi (position absolute ) restait visible dans le lightbox
     document.querySelector(".contact").style.visibility = "hidden";
     modal.style.visibility = "visible";
+  //  modal.style.display = "flex";
+  //pour lecteur NVDA
+document.querySelector(".main").setAttribute("aria-hidden", "true");
+
     modal.focus();
 
 
@@ -71,6 +75,8 @@ class Lightbox {
   //methode de fermeture media
   closeMedia = () => {
     modal.style.visibility = "hidden";
+      //pour lecteur NVDA
+   document.querySelector(".main").setAttribute  ("aria-hidden", "false");
     document.querySelector(".contact").style.visibility = "visible";
   };
   //appel de la methode nextMedia au click
