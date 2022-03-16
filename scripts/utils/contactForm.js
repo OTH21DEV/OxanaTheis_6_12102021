@@ -2,35 +2,35 @@ function createForm(data) {
   const formModal = document.querySelector(".form-modal");
   //const formModal = document.querySelector(".form-modal");
   const contactBtn = document.querySelector("#contact");
-
+formModal.setAttribute("aria-labelledby",`Contactez ${data.name}`)
   formModal.innerHTML = ` <p >
     <form class ='form' method="post" action="traitement.php">
     <div class="form-modal__title">
     <h2>Contactez-moi</h2>
-    <span><i class="fas fa-times form-modal__close" id = 'close'></i></span>
+    <span tabindex="6" role="button" aria-label="Fermer formulaire de contact" class ="close-contactform"><i title="Fermer formulaire de contact"class="fas fa-times form-modal__close" id = 'close'></i></span>
     </div>
     <h3>${data.name}</h3>
     <div
     class="prenom-formData">
     <label for="prenom">Prénom</label>
-    <input type="text" name= "prenom"  id = "prenom"/>
+    <input tabindex="1" type="text" name= "prenom"  id = "prenom"/>
     <span class="error"></span>
     </div>
     <div class="nom-formData">
     <label for="nom">Nom</label>
-    <input type="text" name= "nom" id = "nom"/>
+    <input tabindex="2" type="text" name= "nom" id = "nom"/>
     <span class="error"></span>
     </div>
     <div class="email-formData">
     <label for="email">Email</label>
-    <input type="email" name= "email" id = "email"/>
+    <input tabindex="3" type="email" name= "email" id = "email"/>
     <span class="error"></span>
     </div>
     <label for="message">Votre message</label>
-    <textarea name = "message" id = "message"></textarea>
+    <textarea tabindex="4" name = "message" id = "message"></textarea>
     </p>
     <div class="form-modal-btn">
-    <button type="button" class="form__btn contact__btn" id= "btn-modal">Envoyer</button>
+    <button tabindex="5" type="button" class="form__btn contact__btn" id= "btn-modal">Envoyer</button>
     </div>
     </form>
     `;

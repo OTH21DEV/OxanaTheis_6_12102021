@@ -26,6 +26,7 @@ class Lightbox {
     this.onKeyup();
   }
   loadMedia = () => {
+
     //btn contactez -moi (position absolute ) restait visible dans le lightbox
     document.querySelector(".contact").style.visibility = "hidden";
     modal.style.visibility = "visible";
@@ -34,7 +35,6 @@ class Lightbox {
 document.querySelector(".main").setAttribute("aria-hidden", "true");
 
     modal.focus();
-
 
     let clickedMedia = new Media(
       this.photographeMedias[this.currentMedia],
@@ -107,8 +107,9 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
   */
 
   tabNavigation = () => {
-    if (document.activeElement === document.querySelector(".fa-chevron-left")) {
+    if (document.activeElement === document.querySelector(".fa-chevron-left") || document.activeElement.parentElement === document.querySelector(".lightbox__prev")) {
       this.prevMedia();
+   
     }
     if (
       document.activeElement === document.querySelector(".fa-chevron-right")
@@ -118,8 +119,13 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
     if (document.activeElement === document.querySelector(".fa-times")) {
       this.closeMedia();
     }
-    console.log(document.activeElement)
+    console.log(document.activeElement.parentElement)
   };
+
+
+
+
+
 
   //.............................
 
@@ -141,6 +147,7 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
       //pour la navigation avec tab
       if (e.key == "Enter") {
         this.tabNavigation();
+        console.log(e.target.parentNode)
       }
     });
   };

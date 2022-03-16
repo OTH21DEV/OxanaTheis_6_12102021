@@ -12,7 +12,7 @@ class Photo {
     return `
     <a href="#">
     <p class="galery-photo__img">
-    <img class = "galery-photo__img" src="./assets/images/${this.path}/${this.image}" alt = '${this.alt}'/>
+    <img role="image" class = "galery-photo__img" src="./assets/images/${this.path}/${this.image}" alt = '${this.alt}'/>
     </p>
     </a>
     </article>
@@ -25,12 +25,12 @@ class Photo {
        
     <a href="#">
     <p class="galery-photo__img">
-          <img class = "galery-photo__img" src="./assets/images/${this.path}/${
+          <img role="image" class = "galery-photo__img" src="./assets/images/${this.path}/${
       this.image
     } " alt = '${this.alt}'/>
 
         
-        <h3 class = "test2">${this.title ? this.title : ""}</h3>
+        <h3 role="text" class = "test2">${this.title ? this.title : ""}</h3>
     </p>
         </a>
        

@@ -35,34 +35,23 @@
       </section>
 
       <section class="galery-photo"></section>
-      <!--  
-      <div tabindex="1" class="modal" aria-label="Image agrandie">
-    
-         
-          <span class="lightbox__close"> <i title="Fermer" tabindex="5" class="fas fa-times"></i></span>
-
-        <span class="lightbox__next"><i title="Image suivante"tabindex="4" class="fas fa-chevron-right"></i></span>
-        <span class="lightbox__prev"><i title="Image precedente"tabindex="2" class="fas fa-chevron-left"></i></span>
-        <div tabindex="3" class="lightbox__container"></div>
-      </div>
-      -->
-      <!--     </div>-->
-
+     
       <div class="contact">
         <button class="contact__btn" id="contact">Contactez-moi</button>
       </div>
       <div class="total-wrapper"></div>
-      <article class="form-modal"></article>
+      <article role="dialog" class="form-modal"></article>
 
-      <script type="module" src="./scripts/pages/photographe.js"></script>
+     
     </main>
-    <div tabindex="1" class="modal" aria-label="Image agrandie">
-      <span class="lightbox__close"><i title="Fermer" tabindex="5" class="fas fa-times"></i></span>
+    <div  class="modal"tabindex="1" >
+      <span class="lightbox__close" role="button" aria-label="Fermer"><i tabindex="5" title="Fermer" class="fas fa-times"></i></span>
       <!--   <span class="lightbox__close">Fermer</span>-->
 
-      <span class="lightbox__next"><i title="Image suivante" tabindex="4" class="fas fa-chevron-right"></i></span>
-      <span class="lightbox__prev"><i title="Image precedente" tabindex="2" class="fas fa-chevron-left"></i></span>
-      <div tabindex="3" class="lightbox__container"></div>
+      <span class="lightbox__next" role="link" aria-label="Image suivante"><i tabindex="4" title="Image suivante" class="fas fa-chevron-right"></i></span>
+      <span class="lightbox__prev"role="link" aria-label="Image precedente"><i  tabindex="2" title="Image precedente"class="fas fa-chevron-left"></i></span>
+      <div tabindex="3" class="lightbox__container" aria-label="Image agrandie" role="dialog"></div>
     </div>
+    <script type="module" src="./scripts/pages/photographe.js"></script>
   </body>
 </html>

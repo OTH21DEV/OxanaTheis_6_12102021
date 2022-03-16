@@ -186,7 +186,9 @@ label {
 }
 
 .fa-chevron-right,
-.fa-chevron-left {
+.fa-chevron-left,
+.lightbox__next,
+.lightbox__prev {
   position: fixed;
   z-index: 11;
   width: 46px;
@@ -201,12 +203,17 @@ label {
   cursor: pointer;
 }
 
-.fa-chevron-left {
+
+
+
+.fa-chevron-left,
+.lightbox__prev {
   right: auto;
   left: 15px;
 }
 
-.fa-times{
+.fa-times,
+.lightbox__close  {
   width: 46px;
   height: 46px;
   z-index: 12;
@@ -218,8 +225,9 @@ label {
 
   cursor: pointer;
 }
-.fa-times.form-modal__close {
-  opacity: 1;
+.fa-times.form-modal__close,
+.close-contactform {
+  
   width: inherit;
   height: inherit;
   z-index: inherit;
@@ -228,13 +236,14 @@ label {
   position: inherit;
   top: inherit;
 }
-
+/*
 .fa-chevron-right:hover,
 .fa-chevron-left:hover,
 .fa-times:hover {
   opacity: 1;
   transition: opacity 0.3s;
 }
+*/
 /*
 .sr-only{
   border: 0;
