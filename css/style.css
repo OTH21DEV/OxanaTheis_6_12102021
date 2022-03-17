@@ -31,10 +31,14 @@
   object-fit: cover;
 }
 .photographer-profile__photo.photographer-profile__photo--small {
-  width: 13vh;
-  height: 13vh;
-  margin-top: -14px;
-  margin-left: -10px;
+  width: 9vh;
+  height: 9vh;
+}
+@media all and (min-width: 582px) {
+  .photographer-profile__photo.photographer-profile__photo--small {
+    width: 13vh;
+    height: 13vh;
+  }
 }
 
 .photographer-profile__name {
@@ -107,17 +111,28 @@ a {
   }
 }
 
-.header__logo-link > img {
-  width: 120px;
-}
-
 .test {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 @media all and (min-width: 880px) {
   .test {
     padding-left: 20px;
+  }
+}
+@media all and (min-width: 582px) {
+  .test {
+    padding-right: 35px;
+    background-color: #fafafa;
+    height: 200px;
+    margin-bottom: 30px;
+  }
+}
+
+@media all and (min-width: 582px) {
+  .photographer-profile__img {
+    padding-right: 35px;
   }
 }
 
@@ -210,8 +225,8 @@ video {
 @media all and (min-width: 880px) {
   .contact {
     position: absolute;
-    top: 10em;
-    left: 25em;
+    top: 9em;
+    left: 20em;
   }
 }
 
@@ -484,7 +499,9 @@ label {
   visibility: visible;
 }
 
-.prenom-formData, .nom-formData, .email-formData {
+.prenom-formData,
+.nom-formData,
+.email-formData {
   display: flex;
   flex-direction: column;
 }
@@ -520,9 +537,15 @@ p {
 
 .header {
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.header__logo-link > img {
+  width: 120px;
 }
 
 .header__hidden-link:nth-child(1) {

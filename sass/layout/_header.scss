@@ -3,13 +3,18 @@
 
 .header {
   display: flex;
-  //flex-direction: column;
+  margin-top:10px;
+  margin-bottom: 20px;
 
   justify-content: space-between;
   align-items: center;
   //padding: 0 20px;
   flex-wrap: wrap;
 }
+.header__logo-link > img {
+  width: 120px;
+}
+
 .header__hidden-link:nth-child(1) {
   order: 1;
   width: 100%;

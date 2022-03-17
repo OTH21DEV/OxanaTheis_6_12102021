@@ -1,19 +1,26 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixin" as *;
 
-.header__logo-link > img {
-  width: 120px;
-}
-
 .test {
   display: flex;
-  //padding: 20px;
+
   justify-content: space-between;
 
+  align-items: center;
   @include desktop {
     padding-left: 20px;
   }
-  
+  @include tablette {
+    padding-right: 35px;
+    background-color: #fafafa;
+    height: 200px;
+    margin-bottom: 30px;
+  }
+}
+.photographer-profile__img {
+  @include tablette {
+    padding-right: 35px;
+  }
 }
 /*
 .lightbox__close, .lightbox__next, .lightbox__prev{
@@ -26,18 +33,18 @@ article {
     width: 30%;
   }
 }*/
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
-  width:100%;
+  width: 100%;
 
   @include desktop {
     width: 30%;
   }
 }
 
-.wrapper > article{
-  width:100%;
+.wrapper > article {
+  width: 100%;
 }
 
 .galery-photo {
@@ -60,16 +67,14 @@ video {
 }
 */
 
-.galery-photo__img > img, 
-.galery-photo__img > video
- {
+.galery-photo__img > img,
+.galery-photo__img > video {
   width: 100%;
   height: 30vh;
   object-fit: cover;
   border-radius: 5px;
   object-fit: cover;
 }
-
 
 .galery-photo-title {
   display: flex;
@@ -86,11 +91,11 @@ video {
   font-size: 0.8em;
 }
 
-.test2{
+.test2 {
   color: $primary-color;
   font-size: 0.8em;
   //font-weight: 400;
- // text-align: center;
+  // text-align: center;
 }
 .fa-heart {
   font-size: 0.8em;
@@ -102,13 +107,12 @@ video {
   margin: 10px 0;
 
   @include desktop {
-  //  position: relative;
+    //  position: relative;
 
- //  top: -62em;
- position:absolute;
- top:10em;
- left:25em;
-
+    //  top: -62em;
+    position: absolute;
+    top: 9em;
+    left: 20em;
   }
 }
 .contact__btn {
@@ -122,14 +126,14 @@ video {
 
   @include desktop {
     width: 18vh;
-   // height: 8vh;
+    // height: 8vh;
   }
 
   &.contact__btn--listbox {
     padding: 0 10px;
   }
-  &.contact__btn--listbox > option{
-    padding:  10px 0;
+  &.contact__btn--listbox > option {
+    padding: 10px 0;
   }
 }
 /*
@@ -146,13 +150,12 @@ video {
 .form__btn.contact__btn {
   margin: 20px 50px;
   cursor: pointer;
-  @include tablette{
+  @include tablette {
     margin: 0;
   }
-  @include desktop{
+  @include desktop {
     margin: 0;
   }
-  
 }
 .menu {
   visibility: hidden;
@@ -161,7 +164,7 @@ video {
     visibility: visible;
     display: flex;
     justify-content: flex-start;
-  
+
     padding-bottom: 20px;
   }
 }
@@ -195,16 +198,13 @@ label {
   height: 46px;
   top: 50%;
   right: 0;
-  font-size:1.5em;
+  font-size: 1.5em;
   //margin-top: -14px;
- // color: white;
- color: $primary-color;
-  
+  // color: white;
+  color: $primary-color;
+
   cursor: pointer;
 }
-
-
-
 
 .fa-chevron-left,
 .lightbox__prev {
@@ -213,12 +213,12 @@ label {
 }
 
 .fa-times,
-.lightbox__close  {
+.lightbox__close {
   width: 46px;
   height: 46px;
   z-index: 12;
-  font-size:1.5em;
- color: $primary-color;
+  font-size: 1.5em;
+  color: $primary-color;
   right: 0;
   position: fixed;
   top: 0;
@@ -227,7 +227,6 @@ label {
 }
 .fa-times.form-modal__close,
 .close-contactform {
-  
   width: inherit;
   height: inherit;
   z-index: inherit;
@@ -257,8 +256,8 @@ label {
 }
 */
 .lightbox__container a {
- // max-width: 100%;
-max-width:70%;
+  // max-width: 100%;
+  max-width: 70%;
   height: auto;
 
   //animation: lightbox 0.5s;
@@ -289,7 +288,6 @@ max-width:70%;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-
 }
 .total-wrapper {
   display: flex;
@@ -305,12 +303,10 @@ max-width:70%;
 .form-modal-btn {
   display: flex;
   justify-content: center;
-  @include tablette{
-   
+  @include tablette {
     justify-content: start;
   }
-  @include desktop{
-    
+  @include desktop {
     justify-content: start;
   }
 }
@@ -345,22 +341,20 @@ max-width:70%;
   width: 80%;
   min-height: 60%;
   border-radius: 5px;
-  & > h3{
+  & > h3 {
     margin-bottom: 10px;
   }
-@include tablette{
-  width: 60%;
-}
-@include desktop{
-  width: 50%;
-}
+  @include tablette {
+    width: 60%;
+  }
+  @include desktop {
+    width: 50%;
+  }
 }
 
 .form-modal__title {
   display: flex;
   justify-content: space-between;
-
- 
 }
 #prenom,
 #nom,
@@ -376,12 +370,14 @@ max-width:70%;
 }
 .error {
   font-size: 0.9rem;
- //c font-weight: bold;
+  //c font-weight: bold;
   padding-top: 5px;
   color: white;
   visibility: visible;
 }
-.prenom-formData, .nom-formData, .email-formData{
+.prenom-formData,
+.nom-formData,
+.email-formData {
   display: flex;
   flex-direction: column;
 }
@@ -391,6 +387,6 @@ max-width:70%;
 
 }*/
 
-.focused{
+.focused {
   outline: 1px dashed red;
 }

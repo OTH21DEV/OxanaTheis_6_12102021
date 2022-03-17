@@ -9,9 +9,7 @@ const btnClose = document.querySelector(".lightbox__close .fa-times");
 const next = document.querySelector(".lightbox__next .fa-chevron-right");
 const prev = document.querySelector(".lightbox__prev .fa-chevron-left");
 
-const medias = document.querySelectorAll(
-  ".galery-photo__img img, .galery-photo__img video"
-);
+const medias = document.querySelectorAll(".galery-photo__img img, .galery-photo__img video");
 
 class Lightbox {
   constructor(media, photographe, currentMedia, photographeMedias) {
@@ -26,20 +24,17 @@ class Lightbox {
     this.onKeyup();
   }
   loadMedia = () => {
-
     //btn contactez -moi (position absolute ) restait visible dans le lightbox
     document.querySelector(".contact").style.visibility = "hidden";
     modal.style.visibility = "visible";
-  
-  //pour lecteur NVDA
-document.querySelector(".main").setAttribute("aria-hidden", "true");
+
+    //pour lecteur NVDA
+    document.querySelector(".main").setAttribute("aria-hidden", "true");
 
     modal.focus();
+    // document.querySelector(".lightbox__prev").focus()
 
-    let clickedMedia = new Media(
-      this.photographeMedias[this.currentMedia],
-      this.photographe
-    );
+    let clickedMedia = new Media(this.photographeMedias[this.currentMedia], this.photographe);
     lightboxContainer.innerHTML = clickedMedia.displayLightbox();
   };
   //methode d'affichage next media
@@ -50,10 +45,7 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
       this.currentMedia = 0;
     }
 
-    let nextMedia = new Media(
-      this.photographeMedias[this.currentMedia],
-      this.photographe
-    );
+    let nextMedia = new Media(this.photographeMedias[this.currentMedia], this.photographe);
 
     lightboxContainer.innerHTML = nextMedia.displayLightbox();
   };
@@ -65,18 +57,15 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
       this.currentMedia = this.photographeMedias.length - 1;
     }
 
-    let prevMedia = new Media(
-      this.photographeMedias[this.currentMedia],
-      this.photographe
-    );
+    let prevMedia = new Media(this.photographeMedias[this.currentMedia], this.photographe);
     // on affiche cette nouvelle media
     lightboxContainer.innerHTML = prevMedia.displayLightbox();
   };
   //methode de fermeture media
   closeMedia = () => {
     modal.style.visibility = "hidden";
-      //pour lecteur NVDA
-   document.querySelector(".main").setAttribute  ("aria-hidden", "false");
+    //pour lecteur NVDA
+    document.querySelector(".main").setAttribute("aria-hidden", "false");
     document.querySelector(".contact").style.visibility = "visible";
   };
   //appel de la methode nextMedia au click
@@ -105,9 +94,9 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
   on definie si l'element actif (ciblé avec tab) est la fleche droite/gauche ou close, puis
   on apelle la methode de l'affichage de next, prev , close
   */
-
+  
   tabNavigation = () => {
-    if (document.activeElement === document.querySelector(".fa-chevron-left") || document.activeElement.parentElement === document.querySelector(".lightbox__prev")) {
+    if (document.activeElement === document.querySelector(".fa-chevron-left") || document.activeElement === document.querySelector(".fa-chevron-left","::before")) {
       this.prevMedia();
    
     }
@@ -120,13 +109,31 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
       this.closeMedia();
     }
     console.log(document.activeElement.parentElement)
+   
   };
 
+/*
+  tabNavigation = (e) => {
+    console.log(document.activeElement.childNodes[7]);
+    console.log(document.activeElement);
+    
+  //  if (document.activeElement.childNodes[7] === document.querySelector(".lightbox__prev")) {
+   //   this.prevMedia();
+   
+    }
+    
+    if (document.activeElement.childNodes[7]) {
+      this.prevMedia();
+    }
 
-
-
-
-
+    if (document.activeElement === document.querySelector(".fa-chevron-right")) {
+      this.nextMedia();
+    }
+    if (document.activeElement === document.querySelector(".fa-times")) {
+      this.closeMedia();
+    }
+  };
+*/
   //.............................
 
   /*evenement clavier avec appel des methodes (evenement enter se declanche automatiquement 
@@ -134,6 +141,7 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
   */
   onKeyup = () => {
     window.addEventListener("keydown", (e) => {
+      console.log(console.log(e));
       if (e.key == "ArrowRight") {
         this.nextMedia();
       }
@@ -145,11 +153,23 @@ document.querySelector(".main").setAttribute("aria-hidden", "true");
         this.closeMedia();
       }
       //pour la navigation avec tab
+
       if (e.key == "Enter") {
         this.tabNavigation();
-        console.log(e.target.parentNode)
       }
+
+      /*
+      if (e.key === "Tab") {
+
+  this.tabNavigation();
+  //  this.prevMedia()
+  
+      }
+
+    */
     });
+
+    //.........................
   };
 }
 export { Lightbox };

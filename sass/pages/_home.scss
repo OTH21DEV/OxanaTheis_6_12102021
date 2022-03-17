@@ -36,10 +36,13 @@
   object-fit: cover;
 
   &.photographer-profile__photo--small {
-    width: 13vh;
-    height: 13vh;
-   margin-top: -14px;
-   margin-left: -10px;
+    width: 9vh;
+    height: 9vh;
+ 
+    @include tablette {
+      width: 13vh;
+      height: 13vh;
+    }
   }
 }
 
