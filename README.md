@@ -1,5 +1,5 @@
 
-[![VALIDATED - HTML5](https://img.shields.io/badge/VALIDATED-HTML5-A8000E?style=for-the-badge)](https://) [![MADE WITH - JAVASCRIPT](https://img.shields.io/badge/MADE_WITH-JAVASCRIPT-1D75C2?style=for-the-badge)](https://) [![STYLED - CSS](https://img.shields.io/badge/STYLED-CSS-E034BE?style=for-the-badge)](https://) 
+[![VALIDATED - HTML5](https://img.shields.io/badge/VALIDATED-HTML5-A8000E?style=for-the-badge)](https://) [![MADE WITH - JAVASCRIPT](https://img.shields.io/badge/MADE_WITH-JAVASCRIPT-1D75C2?style=for-the-badge)](https://) [![STYLED - CSS](https://img.shields.io/badge/STYLED-CSS-E034BE?style=for-the-badge)](https://) [![ACCESSIBLE - SCREEN READER & KEYBOARD](https://img.shields.io/badge/ACCESSIBLE-SCREEN_READER_%26_KEYBOARD-2ea49f?style=for-the-badge)](https://)
 
 # FISH EYE - front-end web development
 
